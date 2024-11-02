@@ -5,3 +5,4 @@ stocks/raw
 .DS_Store
 __pycache__
 downloader.ipynb
+*.mp4
