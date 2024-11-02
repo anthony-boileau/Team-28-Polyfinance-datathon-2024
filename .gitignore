@@ -1,0 +1,7 @@
+.secrets
+./extension.py 
+venv
+stocks/raw
+.DS_Store
+__pycache__
+downloader.ipynb
