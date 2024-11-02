@@ -1,0 +1,32 @@
+@startuml
+
+actor Analyst
+
+node System
+
+agent Parser
+
+agent Transformer
+
+agent "Retriever" as rt
+
+database "Vector DB" as vdb
+
+file "Annual Report" as ar
+
+file "Generated Report" as gr
+
+'Relationships
+ar - System: input
+System -- Parser
+Parser - Parser: vectorize
+Parser -- vdb: store
+rt -- vdb
+rt - rt: undo vectorize
+Analyst - System: make query
+rt -- Transformer
+Transformer - gr: return file
+Transformer -- System: return answer
+
+
+@enduml

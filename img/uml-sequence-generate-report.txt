@@ -1,0 +1,32 @@
+@startuml
+actor User
+participant System
+participant Parser
+database "VectorDB" as DB
+participant Retriever
+participant Transformer
+participant Report
+
+autonumber
+
+title Report Generation Process
+
+User -> System : startUpload()
+
+    loop#lightgreen #lightgreen While User chooses to continue uploading
+        System --> User : prompt to upload file
+        User -> System : upload(file)
+
+        System --> User : requestMetadata (Ticker: string, Year:date)
+        User -> System : input()
+        System -> Parser: parse(file, ticker, year)
+        Parser -> Parser: vectorize()
+        Parser -> DB: store(vectors)
+        DB --> Parser: Confirm
+        Parser --> System: Confirm
+        System --> User: prompt to continue or exit
+end
+
+System --> User: Confirm
+
+@enduml
