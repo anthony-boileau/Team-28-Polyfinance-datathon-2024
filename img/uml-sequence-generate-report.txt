@@ -1,6 +1,7 @@
 @startuml
 actor User
 participant System
+participant "SEC api" as SECAPI
 participant Parser
 database "VectorDB" as DB
 participant Retriever
@@ -11,20 +12,27 @@ autonumber
 
 title Report Generation Process
 
-User -> System : startUpload()
+User -> System : requestData(company)
+System -> SECAPI: find(company)
+SECAPI --> System: return(data)
+System -> Parser: parse(data)
+Parser -> Parser: tokenize(data)
+Parser -> DB: store(vectors)
+DB --> Parser: Confirm
+Parser --> System: Confirm
 
-    loop#lightgreen #lightgreen While User chooses to continue uploading
-        System --> User : prompt to upload file
-        User -> System : upload(file)
+System -> Report **:create
 
-        System --> User : requestMetadata (Ticker: string, Year:date)
-        User -> System : input()
-        System -> Parser: parse(file, ticker, year)
-        Parser -> Parser: vectorize()
-        Parser -> DB: store(vectors)
-        DB --> Parser: Confirm
-        Parser --> System: Confirm
-        System --> User: prompt to continue or exit
+loop#lightyellow #lightyellow While Report is generating
+    System -> Retriever: prompt(prompt)
+    Retriever -> DB: retrieveContext()
+    DB --> Retriever: return(context)
+    Retriever -> Retriever: detokenize(context)
+    Retriever -> Transformer: callGenerate(prompt, context)
+    Transformer -> Transformer: generate(prompt,context)
+    Transformer --> System: return(output)
+    System -> Report: write(output)
+    Report --> System: Confirm
 end
 
 System --> User: Confirm

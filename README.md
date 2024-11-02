@@ -8,3 +8,4 @@ Automatic annual report parser, historical comparer and Q&A enabled. Powered by 
 
 ## UML diagrams
 ![UML deployment diagram](img/uml-deployment.png)
+![generate report](img/uml-sequence-generate-report.png)

@@ -12,21 +12,21 @@ agent "Retriever" as rt
 
 database "Vector DB" as vdb
 
-file "Annual Report" as ar
+cloud "SEC api" as sec
 
 file "Generated Report" as gr
 
 'Relationships
-ar - System: input
-System -- Parser
-Parser - Parser: vectorize
-Parser -- vdb: store
-rt -- vdb
-rt - rt: undo vectorize
-Analyst - System: make query
-rt -- Transformer
-Transformer - gr: return file
-Transformer -- System: return answer
+sec <- System: request data
+System --> Parser
+Parser -> Parser: tokenize
+Parser --> vdb: store
+rt --> vdb: retrieve
+rt -> rt: detokenize
+Analyst --> System: make query
+rt --> Transformer
+System --> gr: make report
+Transformer --> System: return output
 
 
 @enduml
