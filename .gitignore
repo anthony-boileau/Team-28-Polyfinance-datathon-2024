@@ -7,3 +7,4 @@ stocks/raw
 __pycache__
 downloader.ipynb
 *.mp4
+.ipynb_checkpoints
