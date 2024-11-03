@@ -2,7 +2,7 @@ import requests
 from dotenv import load_dotenv
 import os
 
-# Load environment variables from .secrets file
+# Load environment variables from secrets.txt file
 load_dotenv(".secrets")
 
 # Retrieve API key from environment
