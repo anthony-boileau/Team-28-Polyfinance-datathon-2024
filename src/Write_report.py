@@ -1,9 +1,8 @@
-import streamlit as st 
+import streamlit as st
 import pandas as pd
 import yfinance as yf
 import pandas_ta as ta
 import re
-import matplotlib.pyplot as plt
 
 def generate_report(ticker, years):
     # Fetch stock data
@@ -113,43 +112,22 @@ def generate_report(ticker, years):
     except KeyError:
         debt_breakdown['Long Term Debt'] = 0
 
-    # Display debt breakdown
+    # Display debt breakdown as a bar chart
     st.write('### Debt Breakdown')
-    st.write(debt_breakdown)
-
-    # Create a pie chart for debt breakdown
-    labels = debt_breakdown.keys()
-    sizes = list(debt_breakdown.values())
-    colors = ['#ff9999','#66b3ff']  # Color palette for pie chart
-
-    # Check if both sizes are zero, which would cause an issue
-    if all(size == 0 for size in sizes):
-        st.write("Insufficient data to display debt breakdown.")
-    else:
-        fig, ax = plt.subplots()
-        ax.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
-        ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-        
-        st.write('### Debt Breakdown Pie Chart')
-        st.pyplot(fig)  # Display the pie chart in the Streamlit app
+    debt_df = pd.DataFrame.from_dict(debt_breakdown, orient='index', columns=['Amount'])
+    st.bar_chart(debt_df)
 
     # Compare Revenue and Earnings
     st.subheader('Revenue vs Earnings Comparison (Most Recent Annual Figures)')
     
-    # Assuming you have the earnings data in a suitable format
-    # For example, you could use the income statement:
     income_statement = stock_data.financials
     try:
         revenue = income_statement.loc['Total Revenue'].values[0] if 'Total Revenue' in income_statement.index else 0
         earnings = income_statement.loc['Gross Profit'].values[0] if 'Gross Profit' in income_statement.index else 0
         
-        # Create a bar plot to compare Revenue and Earnings
-        fig, ax = plt.subplots()
-        ax.bar(['Revenue', 'Earnings'], [revenue, earnings], color=['#66b3ff', '#ff9999'])
-        ax.set_ylabel('Amount in USD')
-        ax.set_title('Comparison of Revenue and Earnings')
-        
-        st.pyplot(fig)  # Display the bar plot in the Streamlit app
+        # Create a bar chart for Revenue vs Earnings
+        comparison_df = pd.DataFrame({'Amount': [revenue, earnings]}, index=['Revenue', 'Earnings'])
+        st.bar_chart(comparison_df)
     except KeyError as e:
         st.write(f"Error fetching data: {e}")
 
@@ -164,33 +142,18 @@ def generate_report(ticker, years):
         revenue_quarterly = revenue_quarterly.sort_index(ascending=True)
         earnings_quarterly = earnings_quarterly.sort_index(ascending=True)
 
-        # Plotting line chart for revenue vs. earnings over time
-        fig, ax = plt.subplots(figsize=(10, 6))
-        ax.plot(revenue_quarterly.index, revenue_quarterly.values, label='Revenue', color='#66b3ff', marker='o')
-        ax.plot(earnings_quarterly.index, earnings_quarterly.values, label='Earnings', color='#ff9999', marker='o')
-
-        # Customizing the chart
-        ax.set_xlabel('Quarter')
-        ax.set_ylabel('Amount in USD')
-        ax.set_title('Quarterly Revenue vs. Earnings Over Time')
-        ax.legend()
-        plt.xticks(rotation=45)
-        
-        st.pyplot(fig)
-
+        # Combine revenue and earnings into a single DataFrame
+        quarterly_df = pd.DataFrame({'Revenue': revenue_quarterly, 'Earnings': earnings_quarterly})
+        st.line_chart(quarterly_df)
     except KeyError as e:
         st.write(f"Error fetching quarterly data: {e}")
 
 if __name__ == '__main__':
     st.write("# Company Report Generator")
     ticker = st.text_input('Enter Stock Ticker:', 'AAPL').upper()
-    
-    # Change slider to selectbox with fixed year options
-    years = st.selectbox('Select Number of Years:', options=[1, 2, 5], index=0)  # Default is 1 year
+    years = st.selectbox('Select Number of Years:', options=[1, 2, 5], index=0)
 
-    # User input validation
-    if ticker and not re.match(r'^[A-Z0-9]{1,5}$', ticker):  # Only allow 1-5 uppercase letters or numbers
+    if ticker and not re.match(r'^[A-Z0-9]{1,5}$', ticker):
         st.error("Invalid ticker format. Please enter a valid stock ticker (1-5 uppercase letters and numbers).")
     elif st.button('Generate Report'):
         generate_report(ticker, years)
-
