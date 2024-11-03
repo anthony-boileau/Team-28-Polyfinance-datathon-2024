@@ -1,55 +1,117 @@
 import os
 import json
 import logging
+from typing import Optional, ClassVar, Dict, Any, List
 import boto3
+import numpy as np
 from dotenv import load_dotenv
 from botocore.exceptions import ClientError
 
-# Load environment variables from the .secrets file
 load_dotenv('.secrets')
 
 class RetrieveError(Exception):
-    "Custom exception for errors returned during the retrieval process"
+    """Custom exception for errors returned during the retrieval process"""
+    
+    def __init__(self, message: str):
+        self.message = message
 
+class TitanRetriever:
+    """
+    Singleton class for retrieving similar embeddings using AWS Bedrock.
+    Ensures only one instance is created to maintain a single AWS connection.
+    """
+    # Singleton instance and initialization flag
+    _instance: ClassVar[Optional['TitanRetriever']] = None
+    _initialized: ClassVar[bool] = False
+    
+    # Class-level logger
+    logger = logging.getLogger(__name__)
+
+    def __new__(cls, *args, **kwargs) -> 'TitanRetriever':
+        """
+        Create a new instance of TitanRetriever if one doesn't exist.
+        Returns the existing instance otherwise.
+        """
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
+    def __init__(self,
+                 aws_access_key_id: Optional[str] = None,
+                 aws_secret_access_key: Optional[str] = None,
+                 aws_session_token: Optional[str] = None,
+                 aws_region: Optional[str] = None) -> None:
+        """
+        Initialize the TitanRetriever with AWS credentials.
+        Only runs once even if multiple instances are created.
+        
+        Args:
+            aws_access_key_id (str, optional): AWS Access Key ID
+            aws_secret_access_key (str, optional): AWS Secret Access Key
+            aws_session_token (str, optional): AWS Session Token
+            aws_region (str, optional): AWS Default Region
+        """
+        # Skip initialization if already initialized
+        if TitanRetriever._initialized:
+            return
+            
+        # Use provided credentials or fall back to environment variables
+        self.aws_access_key_id = aws_access_key_id or os.getenv("AWS_ACCESS_KEY_ID")
+        self.aws_secret_access_key = aws_secret_access_key or os.getenv("AWS_SECRET_ACCESS_KEY")
+        self.aws_session_token = aws_session_token or os.getenv("AWS_SESSION_TOKEN")
+        self.aws_region = aws_region or os.getenv("AWS_DEFAULT_REGION")
+        
+        # Initialize Bedrock client
+        self.bedrock = self._initialize_client()
+    """Custom exception for errors during the retrieval process."""
     def __init__(self, message):
         self.message = message
 
 class TitanRetriever:
-    # Class-level logger
+    """Retriever class for handling embedding queries."""
     logger = logging.getLogger(__name__)
 
     def __init__(self, aws_access_key_id, aws_secret_access_key, aws_session_token, aws_region):
-        """
-        Initialize the TitanRetriever with AWS credentials.
-        Args:
-            aws_access_key_id (str): AWS Access Key ID.
-            aws_secret_access_key (str): AWS Secret Access Key.
-            aws_session_token (str): AWS Session Token.
-            aws_region (str): AWS Default Region.
-        """
-        self.bedrock = boto3.client(
-            service_name='bedrock-runtime',
+        """Initialize the TitanRetriever with AWS credentials."""
+        self.dynamodb = boto3.client(
+            service_name='dynamodb',
             aws_access_key_id=aws_access_key_id,
             aws_secret_access_key=aws_secret_access_key,
             aws_session_token=aws_session_token,
             region_name=aws_region
         )
         self.logger.info("TitanRetriever initialized.")
+        
+        TitanRetriever._initialized = True
+        
+    def _initialize_client(self) -> boto3.client:
+        """Initialize and return the Bedrock Runtime client."""
+        return boto3.client(
+            service_name='bedrock-runtime',
+            aws_access_key_id=self.aws_access_key_id,
+            aws_secret_access_key=self.aws_secret_access_key,
+            aws_session_token=self.aws_session_token,
+            region_name=self.aws_region
+        )
 
-    def retrieve_embedding(self, query_embedding, top_k=5):
+    def retrieve_embedding(self, query_embedding: List[float], top_k: int = 5) -> List[Dict[str, Any]]:
         """
         Retrieve the top K similar embeddings from the vector database based on the query embedding.
+        
         Args:
-            query_embedding (list): The embedding vector for the query.
-            top_k (int): The number of similar embeddings to retrieve.
+            query_embedding (List[float]): The embedding vector for the query
+            top_k (int): The number of similar embeddings to retrieve
+            
         Returns:
-            list: A list of retrieved embeddings and their corresponding texts.
+            List[Dict[str, Any]]: A list of retrieved embeddings and their corresponding texts
+            
+        Raises:
+            RetrieveError: If retrieval process fails
         """
         self.logger.info("Retrieving top %d embeddings similar to the query.", top_k)
-
-        # Example: Query the vector database for similar embeddings
+        
         try:
-            # Mocking database retrieval logic
+            # Example: Query the vector database for similar embeddings
             # Replace this with actual logic to query your vector database
             # results = db_client.query_similar({"embedding": query_embedding}, top_k=top_k)
             results = [
@@ -57,27 +119,92 @@ class TitanRetriever:
                 {"text": "Sample text 2", "embedding": [0.2, 0.1, 0.4]},
                 # Add more mock results as needed
             ]
+            
             return results[:top_k]
+            
+    def calculate_similarity(self, vec1, vec2):
+        """Calculate cosine similarity between two vectors."""
+        vec1 = np.array(vec1)
+        vec2 = np.array(vec2)
+        return np.dot(vec1, vec2) / (np.linalg.norm(vec1) * np.linalg.norm(vec2))
+
+    def retrieve_embedding(self, query_embedding, top_k=5):
+        """Retrieve the top K similar embeddings from the Titan_EmbedderRetriever_Vector_DB."""
+        self.logger.info("Retrieving top %d embeddings similar to the query.", top_k)
+
+        try:
+            # Instead of 'self.bedrock.query', we use the DynamoDB client to scan or query
+            results = self.dynamodb.scan(
+                TableName='Titan_EmbedderRetriever_Vector_DB',
+                Limit=top_k
+            )
+
+            items = results.get('Items', [])
+            retrieved_items = []
+            for item in items:
+                embedding = item['embedding']['L']  # Assuming embedding is stored as a list
+                retrieved_items.append({
+                    "text": item['text']['S'],  # Assuming text is stored as a string
+                    "embedding": [float(val['N']) for val in embedding]  # Convert from DynamoDB format
+                })
+
+            # Optionally implement your similarity logic here to filter and return the top_k results
+            # For example: Sort retrieved_items based on similarity (not implemented here)
+            return retrieved_items[:top_k]
+
+        except ClientError as e:
+            self.logger.error("Error retrieving embeddings from database: %s", e.response['Error']['Message'])
+            raise RetrieveError("Database error: " + e.response['Error']['Message'])
 
         except Exception as e:
             self.logger.error("Error retrieving embeddings: %s", str(e))
             raise RetrieveError("Error retrieving embeddings: " + str(e))
 
+    @classmethod
+    def get_instance(cls,
+                    aws_access_key_id: Optional[str] = None,
+                    aws_secret_access_key: Optional[str] = None,
+                    aws_session_token: Optional[str] = None,
+                    aws_region: Optional[str] = None) -> 'TitanRetriever':
+        """
+        Get the singleton instance of the TitanRetriever.
+        Creates a new instance if one doesn't exist.
+        
+        Args:
+            aws_access_key_id (str, optional): AWS Access Key ID
+            aws_secret_access_key (str, optional): AWS Secret Access Key
+            aws_session_token (str, optional): AWS Session Token
+            aws_region (str, optional): AWS Default Region
+            
+        Returns:
+            TitanRetriever: The singleton instance
+        """
+        if cls._instance is None:
+            cls._instance = TitanRetriever(
+                aws_access_key_id=aws_access_key_id,
+                aws_secret_access_key=aws_secret_access_key,
+                aws_session_token=aws_session_token,
+                aws_region=aws_region
+            )
+        return cls._instance
 
+    def __getstate__(self) -> dict:
+        """Customize object serialization to maintain singleton pattern."""
+        return self.__dict__
+
+    def __setstate__(self, state: dict) -> None:
+        """Customize object deserialization to maintain singleton pattern."""
+        self.__dict__ = state
+        
 def main():
-    """
-    Entrypoint for the TitanRetriever example.
-    """
-    # Set up logging
+    """Entrypoint for the TitanRetriever example."""
     logging.basicConfig(level=logging.INFO)
 
-    # Initialize AWS credentials and parameters
     aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID")
     aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY")
     aws_session_token = os.getenv("AWS_SESSION_TOKEN")
     aws_region = os.getenv("AWS_DEFAULT_REGION")
 
-    # Create an instance of TitanRetriever
     retriever = TitanRetriever(
         aws_access_key_id=aws_access_key_id,
         aws_secret_access_key=aws_secret_access_key,
@@ -85,8 +212,7 @@ def main():
         aws_region=aws_region
     )
 
-    # Example query embedding (this should come from an actual embedding generation process)
-    query_embedding = [0.1, 0.2, 0.3]  # Replace with actual embedding vector
+    query_embedding = [0.1, 0.2, 0.3]  # Replace with an actual embedding vector
 
     try:
         results = retriever.retrieve_embedding(query_embedding, top_k=3)
