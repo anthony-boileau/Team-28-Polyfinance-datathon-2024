@@ -1,13 +1,14 @@
 import os
 import json
 import logging
-from typing import Optional, ClassVar, Dict, Any
+from typing import Optional, Dict, Any
 import boto3
 from dotenv import load_dotenv
 from botocore.exceptions import ClientError
 import datetime
 import uuid
 from decimal import Decimal
+from singleton_decorator import singleton
 
 load_dotenv('.secrets')
 
@@ -20,36 +21,13 @@ class EmbedError(Exception):
     def __init__(self, message: str):
         self.message = message
 
+@singleton
 class TitanEmbedder:
     """
-    Singleton class for generating embeddings using Amazon Titan Multimodal Embeddings G1.
-    Ensures only one instance is created to maintain a single AWS connection.
+    Class for generating embeddings using Amazon Titan Multimodal Embeddings G1.
+    Decorated with @singleton to ensure only one instance is created.
     """
-    # Singleton instance and initialization flag
-    _instance: ClassVar[Optional['TitanEmbedder']] = None
-    _initialized: ClassVar[bool] = False
-    
-    # Class-level logger
     logger = logging.getLogger(__name__)
-
-    def __new__(cls, *args, **kwargs) -> 'TitanEmbedder':
-        """
-        Create a new instance of TitanEmbedder if one doesn't exist.
-        Returns the existing instance otherwise.
-        
-        Args:
-            model_id (str): The model ID to use
-            aws_access_key_id (str, optional): AWS Access Key ID
-            aws_secret_access_key (str, optional): AWS Secret Access Key
-            aws_session_token (str, optional): AWS Session Token
-            aws_region (str, optional): AWS Default Region
-            
-        Returns:
-            TitanEmbedder: The singleton instance
-        """
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)
-        return cls._instance
 
     def __init__(self, 
                  model_id: str = "amazon.titan-embed-text-v1",
@@ -59,12 +37,7 @@ class TitanEmbedder:
                  aws_region: Optional[str] = None) -> None:
         """
         Initialize the TitanEmbedder with AWS credentials and model ID.
-        Only runs once even if multiple instances are created.
         """
-        # Skip initialization if already initialized
-        if TitanEmbedder._initialized:
-            return
-        
         self.model_id = model_id
         self.aws_access_key_id = aws_access_key_id or os.getenv("AWS_ACCESS_KEY_ID")
         self.aws_secret_access_key = aws_secret_access_key or os.getenv("AWS_SECRET_ACCESS_KEY")
@@ -77,7 +50,6 @@ class TitanEmbedder:
         self.table_name = 'Titan_EmbedderRetriever_Vector_DB'
         
         self.logger.info("TitanEmbedder initialized with model ID: %s", self.model_id)
-        TitanEmbedder._initialized = True
 
     def _initialize_bedrock_client(self) -> boto3.client:
         """Initialize and return the Bedrock Runtime client."""

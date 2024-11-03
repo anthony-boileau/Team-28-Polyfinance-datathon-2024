@@ -5,25 +5,15 @@ from botocore.exceptions import ClientError
 from dotenv import load_dotenv
 from typing import Dict, Any, Optional, ClassVar
 from retriever import Retriever
+from singleton_decorator import singleton
 
+@singleton
 class Transformer:
     """
     A singleton transformer class for interacting with AWS Bedrock Runtime service with context retrieval.
     Ensures only one instance is created to maintain a single AWS connection.
     """
-    
-    # Singleton instance and initialization flag
-    _instance: ClassVar[Optional['Transformer']] = None
-    _initialized: ClassVar[bool] = False
-    
-    def __new__(cls, *args, **kwargs) -> 'Transformer':
-        """
-        Create a new instance of Transformer if one doesn't exist.
-        Returns the existing instance otherwise.
-        """
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)
-        return cls._instance
+
 
     def __init__(self, 
                  env_file: str = '.secrets',

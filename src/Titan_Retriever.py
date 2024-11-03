@@ -1,11 +1,12 @@
 import os
 import json
 import logging
-from typing import Optional, ClassVar, Dict, Any, List
+from typing import Optional, Dict, Any, List
 import boto3
 import numpy as np
 from dotenv import load_dotenv
 from botocore.exceptions import ClientError
+from singleton_decorator import singleton
 
 load_dotenv('.secrets')
 
@@ -18,26 +19,13 @@ class RetrieveError(Exception):
     def __init__(self, message: str):
         self.message = message
 
+@singleton
 class TitanRetriever:
     """
-    Singleton class for retrieving similar embeddings using AWS Bedrock.
-    Ensures only one instance is created to maintain a single AWS connection.
+    Class for retrieving similar embeddings using AWS Bedrock.
+    Decorated with @singleton to ensure only one instance is created.
     """
-    # Singleton instance and initialization flag
-    _instance: ClassVar[Optional['TitanRetriever']] = None
-    _initialized: ClassVar[bool] = False
-    
-    # Class-level logger
     logger = logging.getLogger(__name__)
-
-    def __new__(cls, *args, **kwargs) -> 'TitanRetriever':
-        """
-        Create a new instance of TitanRetriever if one doesn't exist.
-        Returns the existing instance otherwise.
-        """
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)
-        return cls._instance
 
     def __init__(self,
                  aws_access_key_id: Optional[str] = None,
@@ -46,7 +34,6 @@ class TitanRetriever:
                  aws_region: Optional[str] = None) -> None:
         """
         Initialize the TitanRetriever with AWS credentials.
-        Only runs once even if multiple instances are created.
         
         Args:
             aws_access_key_id (str, optional): AWS Access Key ID
@@ -54,10 +41,6 @@ class TitanRetriever:
             aws_session_token (str, optional): AWS Session Token
             aws_region (str, optional): AWS Default Region
         """
-        # Skip initialization if already initialized
-        if TitanRetriever._initialized:
-            return
-            
         # Use provided credentials or fall back to environment variables
         self.aws_access_key_id = aws_access_key_id or os.getenv("AWS_ACCESS_KEY_ID")
         self.aws_secret_access_key = aws_secret_access_key or os.getenv("AWS_SECRET_ACCESS_KEY")
@@ -69,7 +52,6 @@ class TitanRetriever:
         self.dynamodb = self._initialize_dynamodb_client()
         
         self.logger.info("TitanRetriever initialized.")
-        TitanRetriever._initialized = True
 
     def _initialize_bedrock_client(self) -> boto3.client:
         """Initialize and return the Bedrock Runtime client."""

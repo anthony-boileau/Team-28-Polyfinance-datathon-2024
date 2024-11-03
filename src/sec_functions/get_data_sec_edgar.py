@@ -6,6 +6,7 @@ from datetime import datetime
 from typing import Dict, Optional, List, Tuple
 import logging
 from functools import wraps
+from singleton_decorator import singleton
 
 logging.basicConfig(
     level=logging.INFO,
@@ -23,34 +24,14 @@ def rate_limit():
         return wrapper
     return decorator
 
+@singleton
 class SECEdgarCollector:
-    def __new__(cls):
-        # Create singleton instance if it doesn't exist
-        if cls._instance is None:
-            cls._instance = super(SECEdgarCollector, cls).__new__(cls)
-            # Initialize instance attributes here
-            cls._instance.headers = {
-                'User-Agent': 'Hackathon polyfinancedatathon2.jp0rh@passmail.net',
-                'Accept-Encoding': 'gzip, deflate',
-                'Host': 'data.sec.gov'
-            }
-            cls._instance._initialized = False
-        return cls._instance
-    
     def __init__(self):
-        # Skip initialization if already initialized
-        if self._initialized:
-            return
-            
-        # Add any additional initialization here
-        self._initialized = True
-    
-    @classmethod
-    def get_instance(cls):
-        """Get the singleton instance"""
-        if cls._instance is None:
-            cls._instance = cls()
-        return cls._instance
+        self.headers = {
+            'User-Agent': 'Hackathon polyfinancedatathon2.jp0rh@passmail.net',
+            'Accept-Encoding': 'gzip, deflate',
+            'Host': 'data.sec.gov'
+        }
     
     def get_cik(self, ticker: str) -> Optional[str]:
         """Get CIK from local JSON file."""

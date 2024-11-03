@@ -8,6 +8,7 @@ import logging
 from functools import wraps
 from bs4 import BeautifulSoup
 import re
+from singleton_decorator import singleton
 
 logging.basicConfig(
     level=logging.INFO,
@@ -25,25 +26,10 @@ def rate_limit():
         return wrapper
     return decorator
 
+@singleton
 class SEC10KParser:
-    def __new__(cls) -> 'SEC10KParser':
-        """
-        Create a new instance of SEC10KParser if one doesn't exist.
-        Returns the existing instance otherwise.
-        """
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)
-        return cls._instance
-
     def __init__(self) -> None:
-        """
-        Initialize the SEC10KParser instance.
-        Only runs once even if multiple instances are created.
-        """
-        # Skip initialization if already initialized
-        if SEC10KParser._initialized:
-            return
-            
+        """Initialize the SEC10KParser instance."""
         self.headers: Dict[str, str] = {
             'User-Agent': 'Hackathon polyfinancedatathon2.jp0rh@passmail.net',
             'Accept-Encoding': 'gzip, deflate',
@@ -59,31 +45,6 @@ class SEC10KParser:
         except Exception as e:
             logger.error(f"Error loading form-10k-items.json: {str(e)}")
             raise
-            
-        SEC10KParser._initialized = True
-
-    @classmethod
-    def get_instance(cls) -> 'SEC10KParser':
-        """
-        Alternative method to get the singleton instance.
-        Returns:
-            SEC10KParser: The singleton instance
-        """
-        if cls._instance is None:
-            cls._instance = SEC10KParser()
-        return cls._instance
-
-    def __getstate__(self):
-        """
-        Customize object serialization to maintain singleton pattern.
-        """
-        return self.__dict__
-
-    def __setstate__(self, state):
-        """
-        Customize object deserialization to maintain singleton pattern.
-        """
-        self.__dict__ = state
 
     def clean_html_content(self, content: str) -> str:
         """Clean HTML content and normalize whitespace."""
@@ -93,6 +54,43 @@ class SEC10KParser:
         text = soup.get_text()
         text = re.sub(r'\s+', ' ', text).strip()
         return text
+
+    def split_into_chunks(self, text: str, target_words: int = 32) -> List[str]:
+        """
+        Split text into chunks of approximately target_words length, ending at the nearest period.
+        
+        Args:
+            text (str): The input text to split
+            target_words (int): Target number of words per chunk
+            
+        Returns:
+            List[str]: List of text chunks
+        """
+        # Split text into sentences
+        sentences = re.split(r'(?<=[.!?])\s+', text)
+        chunks = []
+        current_chunk = []
+        current_word_count = 0
+        
+        for sentence in sentences:
+            sentence_words = len(sentence.split())
+            
+            if current_word_count + sentence_words <= target_words:
+                current_chunk.append(sentence)
+                current_word_count += sentence_words
+            else:
+                # If we have accumulated sentences, join them and add to chunks
+                if current_chunk:
+                    chunks.append(' '.join(current_chunk).strip())
+                # Start new chunk with current sentence
+                current_chunk = [sentence]
+                current_word_count = sentence_words
+        
+        # Add any remaining sentences
+        if current_chunk:
+            chunks.append(' '.join(current_chunk).strip())
+            
+        return chunks
 
     def find_key_positions(self, text: str, key: str) -> List[int]:
         """Find both occurrences of a key in text (TOC and content)."""
@@ -115,7 +113,7 @@ class SEC10KParser:
         return None
 
     def parse_items(self, ticker: str, year: int, text: str) -> Dict:
-        """Parse items and return structured data."""
+        """Parse items and return structured data with chunked contents array."""
         clean_text = self.clean_html_content(text)
         
         doc_structure = {
@@ -134,10 +132,13 @@ class SEC10KParser:
                 content = (clean_text[content_start:content_end] if content_end 
                           else clean_text[content_start:]).strip()
                 
+                # Split content into chunks
+                content_chunks = self.split_into_chunks(content)
+                
                 doc_structure["items"].append({
                     "item": key,
                     "description": self.items_map[key],
-                    "content": content
+                    "contents": content_chunks  # Now an array of chunks named 'contents'
                 })
                 
                 logger.info(f"Successfully parsed {key} for {ticker} {year}")
