@@ -5,8 +5,19 @@ class Retriever:
         pass
 
     def get_context(self, query):
-        # Replace this with the actual logic to retrieve data from the database
-        data = ''  # Get data from DB based on the query
+        # data will be json in this format
+        data = """{
+                "metadata": {
+                    "year": 2020,
+                    "ticker": "MA",
+                    "item": "Item 1.",
+                    "description": "Business"
+                },
+                "content": "Mastercard is a food business, we sell breakfast cereal in Algeria"
+            }
+        """  
+        #expected answer: according to the 2020 annual report Item 1. 
+        # Business description Mastercad is a food business tht sells breakfast in Algeria
 
         context = (
             "Act as a financial analyst who quickly reviews annual reports, "
