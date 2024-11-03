@@ -9,6 +9,7 @@ load_dotenv(".secrets")
 API_KEY = os.getenv("API_KEY")
 
 def get_cik_from_ticker(ticker):
+    
     """
     Retrieve the CIK for a given ticker symbol from Financial Modeling Prep API.
     """
