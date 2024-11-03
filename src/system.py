@@ -3,6 +3,13 @@ import pandas as pd
 import yfinance as yf
 import pandas_ta as ta
 import re
+from transformer import Transformer
+
+def section(prompt):
+    lc_transformer = Transformer()
+    response = lc_transformer.transform(prompt)
+    return response
+
 
 def generate_report(ticker, years):
     # Fetch stock data
@@ -147,6 +154,15 @@ def generate_report(ticker, years):
         st.line_chart(quarterly_df)
     except KeyError as e:
         st.write(f"Error fetching quarterly data: {e}")
+
+    st.write(f"### Leadership Change over the past {years} year(s)")
+    st.write(section(f"State the leadership change in the last {years} and if there were none, answer in one line."))
+
+    st.write("### Company composition")
+    st.write(section("State each executive's name followed by leadership position in parentheses, and if they are in any other board positions. If not, do not write anything."))
+
+    st.write("### Commitees")
+    st.write(section("State each leadership position in parentheses, followed by salary."))
 
 if __name__ == '__main__':
     st.write("# Company Report Generator")

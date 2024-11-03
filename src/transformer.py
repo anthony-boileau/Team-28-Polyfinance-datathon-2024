@@ -16,7 +16,7 @@ class Transformer:
     def __init__(self, 
                  env_file: str = '.secrets',
                  model_id: str = "anthropic.claude-3-sonnet-20240229-v1:0",
-                 max_tokens: int = 512,
+                 max_tokens: int = 100,
                  temperature: float = 0.5):
         """
         Initialize the BedrockTransformer with AWS credentials and model parameters.
@@ -103,14 +103,4 @@ class Transformer:
         except (ClientError, Exception) as e:
             print(f"ERROR: Can't invoke '{self.model_id}'. Reason: {e}")
             return None
-
-def main():
-    # Example usage
-    transformer = Transformer()
-    response = transformer.transform("What is T.Swifts bday")
-    if response:
-        print(response)
-
-if __name__ == "__main__":
-    main()
 
