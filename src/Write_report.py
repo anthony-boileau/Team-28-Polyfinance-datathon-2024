@@ -134,7 +134,7 @@ def generate_report(ticker, years):
         st.pyplot(fig)  # Display the pie chart in the Streamlit app
 
     # Compare Revenue and Earnings
-    st.subheader('Revenue vs Earnings Comparison')
+    st.subheader('Revenue vs Earnings Comparison (Most Recent Annual Figures)')
     
     # Assuming you have the earnings data in a suitable format
     # For example, you could use the income statement:
@@ -153,13 +153,41 @@ def generate_report(ticker, years):
     except KeyError as e:
         st.write(f"Error fetching data: {e}")
 
+    # Quarterly Revenue vs. Earnings Comparison
+    st.write("### Quarterly Revenue vs. Earnings Over Time")
+    try:
+        quarterly_financials = stock_data.quarterly_financials
+        revenue_quarterly = quarterly_financials.loc['Total Revenue']
+        earnings_quarterly = quarterly_financials.loc['Net Income']
+
+        # Sort by date to ensure chronological ordering
+        revenue_quarterly = revenue_quarterly.sort_index(ascending=True)
+        earnings_quarterly = earnings_quarterly.sort_index(ascending=True)
+
+        # Plotting line chart for revenue vs. earnings over time
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.plot(revenue_quarterly.index, revenue_quarterly.values, label='Revenue', color='#66b3ff', marker='o')
+        ax.plot(earnings_quarterly.index, earnings_quarterly.values, label='Earnings', color='#ff9999', marker='o')
+
+        # Customizing the chart
+        ax.set_xlabel('Quarter')
+        ax.set_ylabel('Amount in USD')
+        ax.set_title('Quarterly Revenue vs. Earnings Over Time')
+        ax.legend()
+        plt.xticks(rotation=45)
+        
+        st.pyplot(fig)
+
+    except KeyError as e:
+        st.write(f"Error fetching quarterly data: {e}")
+
 if __name__ == '__main__':
     st.write("# Company Report Generator")
     ticker = st.text_input('Enter Stock Ticker:', 'AAPL').upper()
     
-    # User input for number of years
-    years = st.slider('Select Number of Years:', 1, 5, 1)  # Default is 1 year
-    
+    # Change slider to selectbox with fixed year options
+    years = st.selectbox('Select Number of Years:', options=[1, 2, 5], index=0)  # Default is 1 year
+
     # User input validation
     if ticker and not re.match(r'^[A-Z0-9]{1,5}$', ticker):  # Only allow 1-5 uppercase letters or numbers
         st.error("Invalid ticker format. Please enter a valid stock ticker (1-5 uppercase letters and numbers).")
