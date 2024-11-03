@@ -1,11 +1,14 @@
 streamlit
 boto3
+botocore
 yfinance
 pandas_ta
 numpy
 requests
 aiohttp
+aioboto3
 asyncio
 python-dotenv
 langchain-aws
 langchain-community
+
