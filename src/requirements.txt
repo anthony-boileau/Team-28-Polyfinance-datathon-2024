@@ -7,3 +7,5 @@ requests
 aiohttp
 asyncio
 python-dotenv
+langchain-aws
+langchain-community
