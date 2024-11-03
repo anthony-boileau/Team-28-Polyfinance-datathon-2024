@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from typing import Dict, Any, Optional
 from retriever import Retriever
 
-class BedrockTransformer:
+class Transformer:
     """
     A transformer class for interacting with AWS Bedrock Runtime service with context retrieval.
     """
@@ -106,7 +106,7 @@ class BedrockTransformer:
 
 def main():
     # Example usage
-    transformer = BedrockTransformer()
+    transformer = Transformer()
     response = transformer.transform("What is T.Swifts bday")
     if response:
         print(response)
