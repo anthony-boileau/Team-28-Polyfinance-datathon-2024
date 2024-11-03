@@ -1,4 +1,4 @@
-secrets.txt
+.secrets
 ./extension.py 
 venv
 stocks/raw

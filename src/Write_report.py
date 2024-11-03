@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import os
 
 # Load environment variables from .secrets file
-load_dotenv("secrets.txt")
+load_dotenv(".secrets")
 FMP_API_KEY = os.getenv("API_KEY")
 
 # API URLs
