@@ -1,0 +1,6 @@
+streamlit
+boto3
+yfinance
+pandas_ta
+numpy
+requests

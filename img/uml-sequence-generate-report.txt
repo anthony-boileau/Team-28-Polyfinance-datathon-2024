@@ -1,7 +1,7 @@
 @startuml
 actor User
 participant System
-participant "SEC api" as SECAPI
+participant API as API
 participant Parser
 database "VectorDB" as DB
 participant Retriever
@@ -13,8 +13,8 @@ autonumber
 title Report Generation Process
 
 User -> System : requestData(company)
-System -> SECAPI: find(company)
-SECAPI --> System: return(data)
+System -> API: find(company)
+API --> System: return(data)
 System -> Parser: parse(data)
 Parser -> Parser: tokenize(data)
 Parser -> DB: store(vectors)
