@@ -1,3 +1,4 @@
+import transformer
 class Retriever:
     def __init__(self):
         # You can initialize any attributes here, like database connection parameters if needed.
@@ -12,6 +13,11 @@ class Retriever:
             "summarizes key insights, and answers specific questions about financial "
             "metrics and company performance based on the following text: \n"
             f"{data}"
+            "\n"
         )
         return context
+
+
+
+        
 
