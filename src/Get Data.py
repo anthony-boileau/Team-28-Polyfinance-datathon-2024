@@ -1,10 +1,18 @@
 import requests
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .secrets file
+load_dotenv(".secrets")
+
+# Retrieve API key from environment
+API_KEY = os.getenv("API_KEY")
 
 def get_cik_from_ticker(ticker):
     """
     Retrieve the CIK for a given ticker symbol from Financial Modeling Prep API.
     """
-    url = f"https://financialmodelingprep.com/api/v3/profile/{ticker}"
+    url = f"https://financialmodelingprep.com/api/v3/profile/{ticker}?apikey={API_KEY}"
     response = requests.get(url)
     
     # Check if the response is successful
