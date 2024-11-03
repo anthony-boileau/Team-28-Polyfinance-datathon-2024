@@ -1,181 +1,168 @@
-import streamlit as st
+import streamlit as st 
 import pandas as pd
-import aiohttp
-import asyncio
+import yfinance as yf
 import pandas_ta as ta
-from dotenv import load_dotenv
-import os
+import re
+import matplotlib.pyplot as plt
 
-# Load environment variables from secrets.txt file
-load_dotenv(".secrets")
-
-# Retrieve API key from environment
-FMP_API_KEY = os.getenv("API_KEY")
-
-# API URLs
-YAHOO_FINANCE_API_URL = "https://query1.finance.yahoo.com/v8/finance/chart/"
-FMP_COMPANY_INFO_URL = "https://financialmodelingprep.com/api/v3/profile/"
-FMP_KEY_METRICS_URL = "https://financialmodelingprep.com/api/v3/key-metrics/"
-FMP_KEY_GROWTH_METRICS_URL = "https://financialmodelingprep.com/api/v3/financial-growth/"
-
-async def fetch_stock_data(ticker, session):
-    url = f"{YAHOO_FINANCE_API_URL}{ticker}"
-    params = {'interval': '1d', 'range': '1y'}
-    async with session.get(url, params=params) as response:
-        return await response.json()
-
-async def fetch_company_info(ticker, session):
-    url = f"{FMP_COMPANY_INFO_URL}{ticker}?apikey={FMP_API_KEY}"
-    async with session.get(url) as response:
-        return await response.json()
-
-async def fetch_key_metrics(ticker, session):
-    url = f"{FMP_KEY_METRICS_URL}{ticker}?period=annual&apikey={FMP_API_KEY}"
-    async with session.get(url) as response:
-        return await response.json()
+def generate_report(ticker, years):
+    # Fetch stock data
+    stock_data = yf.Ticker(ticker)
     
-async def fetch_financial_growth(ticker, session):
-    url = f"{FMP_KEY_GROWTH_METRICS_URL}{ticker}?period=annual&apikey={FMP_API_KEY}"
-    async with session.get(url) as response:
-        return await response.json()
+    # Historical market data based on user-selected years
+    period = f"{years}y"
+    df = stock_data.history(period=period)
+    df.reset_index(inplace=True)
 
-async def generate_report(ticker):
-    async with aiohttp.ClientSession() as session:
-        stock_data_task = fetch_stock_data(ticker, session)
-        company_info_task = fetch_company_info(ticker, session)
-        key_metrics_task = fetch_key_metrics(ticker, session)
-        financial_growth_task = fetch_financial_growth(ticker, session)
+    # Calculate technical indicators
+    df['SMA_20'] = ta.sma(df['Close'], length=20)
+    df['RSI'] = ta.rsi(df['Close'], length=14)
+    macd = ta.macd(df['Close'])
+    df['MACD'] = macd['MACD_12_26_9']
+    df['Signal_Line'] = macd['MACDs_12_26_9']
 
-        # Fetch stock data, company info, and key metrics concurrently
-        # Fetch data concurrently
-        stock_data, company_info, key_metrics, financial_growth = await asyncio.gather(
-            stock_data_task, company_info_task, key_metrics_task, financial_growth_task
-            )
-
-        # Parse stock data
-        if stock_data.get('chart', {}).get('result'):
-            result = stock_data['chart']['result'][0]
-            timestamps = result['timestamp']
-            closes = result['indicators']['quote'][0]['close']
-            highs = result['indicators']['quote'][0]['high']
-            lows = result['indicators']['quote'][0]['low']
-            volumes = result['indicators']['quote'][0]['volume']
-            
-            # Create DataFrame
-            df = pd.DataFrame({
-                'Date': pd.to_datetime(timestamps, unit='s'),
-                'Close': closes,
-                'High': highs,
-                'Low': lows,
-                'Volume': volumes
-            }).set_index('Date')
-            
-            # Calculate technical indicators
-            df['SMA_20'] = ta.sma(df['Close'], length=20)
-            df['RSI'] = ta.rsi(df['Close'], length=14)
-
-            # Calculate MACD and Signal Line
-            macd = ta.macd(df['Close'])
-            df['MACD'] = macd['MACD_12_26_9']
-            df['Signal_Line'] = macd['MACDs_12_26_9']
-
-            # Calculate OBV
-            obv = [0]
-            for i in range(1, len(df)):
-                if df['Close'][i] > df['Close'][i-1]:
-                    obv.append(obv[-1] + df['Volume'][i])
-                elif df['Close'][i] < df['Close'][i-1]:
-                    obv.append(obv[-1] - df['Volume'][i])
-                else:
-                    obv.append(obv[-1])
-            df['OBV'] = obv
-            obv_trend = "Increasing" if df['OBV'].iloc[-1] > df['OBV'].iloc[-2] else "Decreasing"
-
+    # Calculate OBV
+    obv = [0]
+    for i in range(1, len(df)):
+        if df['Close'][i] > df['Close'][i-1]:
+            obv.append(obv[-1] + df['Volume'][i])
+        elif df['Close'][i] < df['Close'][i-1]:
+            obv.append(obv[-1] - df['Volume'][i])
         else:
-            st.error(f"Error fetching stock data for {ticker}.")
-            return
+            obv.append(obv[-1])
+    df['OBV'] = obv
 
-        # Parse company info
-        if company_info and isinstance(company_info, list) and len(company_info) > 0:
-            info = company_info[0]
-            company_name = info.get('companyName', 'Information not available')
-            sector = info.get('sector', 'Information not available')
-            industry = info.get('industry', 'Information not available')
-        else:
-            st.warning(f"Company information for {ticker} could not be retrieved.")
-            company_name, sector, industry = "N/A", "N/A", "N/A"
+    # Fetch company info
+    info = stock_data.info
+    company_name = info.get('longName', 'Information not available')
+    sector = info.get('sector', 'Information not available')
+    industry = info.get('industry', 'Information not available')
 
-        # Display company and stock information
-        st.subheader(f'{ticker} Company Report')
-        st.write('### Company Information')
-        st.write(f"Company Name: {company_name}")
-        st.write(f"Sector: {sector}")
-        st.write(f"Industry: {industry}")
+    # Display company and stock information
+    st.subheader(f'{ticker} Company Report')
+    st.write('### Company Information')
+    st.write(f"Company Name: {company_name}")
+    st.write(f"Sector: {sector}")
+    st.write(f"Industry: {industry}")
 
-        st.write('### Stock Price History')
-        st.line_chart(df['Close'])
+    st.write('### Stock Price History')
+    st.line_chart(df.set_index('Date')['Close'])
 
-        st.write('### Key Statistics')
-        col1, col2 = st.columns(2)
-        with col1:
-            st.metric("Current Price", f"${df['Close'][-1]:.2f}")
-            st.metric("52-Week High", f"${df['High'].max():.2f}")
-        with col2:
-            st.metric("Volume", f"{df['Volume'][-1]:,}")
-            st.metric("52-Week Low", f"${df['Low'].min():.2f}")
+    st.write('### Key Statistics')
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric("Current Price", f"${df['Close'].iloc[-1]:.2f}")
+        st.metric("52-Week High", f"${df['High'].max():.2f}")
+    with col2:
+        st.metric("Volume", f"{df['Volume'].iloc[-1]:,}")
+        st.metric("52-Week Low", f"${df['Low'].min():.2f}")
 
-        st.write('### Technical Indicators')
-        st.write(f"20-day SMA: ${df['SMA_20'][-1]:.2f}")
-        st.write(f"RSI (14): {df['RSI'][-1]:.2f}")
-        st.write(f"Latest MACD: {df['MACD'][-1]:.2f}")
-        st.write(f"Latest OBV: {df['OBV'].iloc[-1]:.2f} ({obv_trend})")
+    st.write('### Technical Indicators')
+    st.write(f"20-day SMA: ${df['SMA_20'].iloc[-1]:.2f}")
+    st.write(f"RSI (14): {df['RSI'].iloc[-1]:.2f}")
+    st.write(f"Latest MACD: {df['MACD'].iloc[-1]:.2f}")
+    st.write(f"Latest OBV: {df['OBV'].iloc[-1]:.2f}")
 
-        st.write('### MACD Indicator')
-        st.line_chart(df[['MACD', 'Signal_Line']])
+    st.write('### MACD Indicator')
+    st.line_chart(df.set_index('Date')[['MACD', 'Signal_Line']])
 
-        st.write('### OBV Indicator')
-        st.line_chart(df['OBV'])
+    st.write('### OBV Indicator')
+    st.line_chart(df.set_index('Date')['OBV'])
 
-        # Display Financial Performance
-        if key_metrics and isinstance(key_metrics, list) and len(key_metrics) > 0:
-            latest_metrics = key_metrics[0]
-            st.subheader('Financial Performance')
-            st.write('### Key Financial Metrics')
-            st.write(f"Revenue Per Share: ${latest_metrics.get('revenuePerShare', 'N/A')}")
-            st.write(f"Net Income Per Share: ${latest_metrics.get('netIncomePerShare', 'N/A')}")
-            st.write(f"PE Ratio: {latest_metrics.get('peRatio', 'N/A')}")
-            st.write(f"Market Cap: ${latest_metrics.get('marketCap', 'N/A')}")
-            st.write(f"Enterprise Value: ${latest_metrics.get('enterpriseValue', 'N/A')}")
-            st.write(f"Free Cash Flow Yield: {latest_metrics.get('freeCashFlowYield', 'N/A')}")
-            st.write(f"Debt to Equity: {latest_metrics.get('debtToEquity', 'N/A')}")
-            st.write(f"Current Ratio: {latest_metrics.get('currentRatio', 'N/A')}")
-            st.write(f"ROE: {latest_metrics.get('roe', 'N/A')}")
-        else:
-            st.warning("Key financial metrics could not be retrieved.")
+    # Financial metrics from yfinance
+    st.subheader('Financial Performance')
+    st.write('### Key Financial Metrics')
+    revenue_per_share = info.get('revenuePerShare', 'N/A')
+    net_income_per_share = info.get('netIncomePerShare', 'N/A')
+    pe_ratio = info.get('forwardPE', 'N/A')
+    market_cap = info.get('marketCap', 'N/A')
+    enterprise_value = info.get('enterpriseValue', 'N/A')
+    free_cash_flow_yield = info.get('freeCashFlowYield', 'N/A')
+    debt_to_equity = info.get('debtToEquity', 'N/A')
+    current_ratio = info.get('currentRatio', 'N/A')
+    roe = info.get('returnOnEquity', 'N/A')
 
-        # Parse financial growth data
-        if financial_growth and isinstance(financial_growth, list) and len(financial_growth) > 0:
-            growth_data = financial_growth[0]
-            st.subheader('Financial Growth Overview')
+    st.write(f"Revenue Per Share: ${revenue_per_share}")
+    st.write(f"Net Income Per Share: ${net_income_per_share}")
+    st.write(f"PE Ratio: {pe_ratio}")
+    st.write(f"Market Cap: {market_cap}")
+    st.write(f"Enterprise Value: {enterprise_value}")
+    st.write(f"Free Cash Flow Yield: {free_cash_flow_yield}")
+    st.write(f"Debt to Equity: {debt_to_equity}")
+    st.write(f"Current Ratio: {current_ratio}")
+    st.write(f"ROE: {roe}")
 
-            # Display key growth metrics with explanation
-            col1, col2 = st.columns(2)
-            with col1:
-                st.metric("Revenue Growth", f"{growth_data['revenueGrowth'] * 100:.2f}%", "YoY")
-                st.metric("Net Income Growth", f"{growth_data['netIncomeGrowth'] * 100:.2f}%", "YoY")
-                st.metric("Operating Cash Flow Growth", f"{growth_data['operatingCashFlowGrowth'] * 100:.2f}%", "YoY")
-            with col2:
-                st.metric("Free Cash Flow Growth", f"{growth_data['freeCashFlowGrowth'] * 100:.2f}%", "YoY")
-                st.metric("Dividends per Share Growth", f"{growth_data['dividendsperShareGrowth'] * 100:.2f}%", "YoY")
-                st.metric("Equity Growth", f"{growth_data['tenYShareholdersEquityGrowthPerShare'] * 100:.2f}%", "10Y Avg")
+    # Fetch balance sheet
+    balance_sheet = stock_data.balance_sheet
 
-        else:
-            st.warning("Financial growth data for this company is not available.")
+    # Print balance sheet for inspection
+    st.write('### Balance Sheet')
+    st.write(balance_sheet)
 
+    # Prepare debt breakdown
+    debt_breakdown = {}
+    try:
+        short_term_debt = balance_sheet.loc['Short Term Debt'].values[0] if 'Short Term Debt' in balance_sheet.index else 0
+        debt_breakdown['Short Term Debt'] = short_term_debt if pd.notna(short_term_debt) else 0
+    except KeyError:
+        debt_breakdown['Short Term Debt'] = 0
+
+    try:
+        long_term_debt = balance_sheet.loc['Long Term Debt'].values[0] if 'Long Term Debt' in balance_sheet.index else 0
+        debt_breakdown['Long Term Debt'] = long_term_debt if pd.notna(long_term_debt) else 0
+    except KeyError:
+        debt_breakdown['Long Term Debt'] = 0
+
+    # Display debt breakdown
+    st.write('### Debt Breakdown')
+    st.write(debt_breakdown)
+
+    # Create a pie chart for debt breakdown
+    labels = debt_breakdown.keys()
+    sizes = list(debt_breakdown.values())
+    colors = ['#ff9999','#66b3ff']  # Color palette for pie chart
+
+    # Check if both sizes are zero, which would cause an issue
+    if all(size == 0 for size in sizes):
+        st.write("Insufficient data to display debt breakdown.")
+    else:
+        fig, ax = plt.subplots()
+        ax.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
+        ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+        
+        st.write('### Debt Breakdown Pie Chart')
+        st.pyplot(fig)  # Display the pie chart in the Streamlit app
+
+    # Compare Revenue and Earnings
+    st.subheader('Revenue vs Earnings Comparison')
+    
+    # Assuming you have the earnings data in a suitable format
+    # For example, you could use the income statement:
+    income_statement = stock_data.financials
+    try:
+        revenue = income_statement.loc['Total Revenue'].values[0] if 'Total Revenue' in income_statement.index else 0
+        earnings = income_statement.loc['Gross Profit'].values[0] if 'Gross Profit' in income_statement.index else 0
+        
+        # Create a bar plot to compare Revenue and Earnings
+        fig, ax = plt.subplots()
+        ax.bar(['Revenue', 'Earnings'], [revenue, earnings], color=['#66b3ff', '#ff9999'])
+        ax.set_ylabel('Amount in USD')
+        ax.set_title('Comparison of Revenue and Earnings')
+        
+        st.pyplot(fig)  # Display the bar plot in the Streamlit app
+    except KeyError as e:
+        st.write(f"Error fetching data: {e}")
 
 if __name__ == '__main__':
     st.write("# Company Report Generator")
     ticker = st.text_input('Enter Stock Ticker:', 'AAPL').upper()
-    if st.button('Generate Report'):
-        asyncio.run(generate_report(ticker))
-        
+    
+    # User input for number of years
+    years = st.slider('Select Number of Years:', 1, 5, 1)  # Default is 1 year
+    
+    # User input validation
+    if ticker and not re.match(r'^[A-Z0-9]{1,5}$', ticker):  # Only allow 1-5 uppercase letters or numbers
+        st.error("Invalid ticker format. Please enter a valid stock ticker (1-5 uppercase letters and numbers).")
+    elif st.button('Generate Report'):
+        generate_report(ticker, years)
+
