@@ -1,25 +1,38 @@
-
-
 import os
 import boto3
 import json
 from botocore.exceptions import ClientError
 from dotenv import load_dotenv
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, ClassVar
 from retriever import Retriever
 
 class Transformer:
     """
-    A transformer class for interacting with AWS Bedrock Runtime service with context retrieval.
+    A singleton transformer class for interacting with AWS Bedrock Runtime service with context retrieval.
+    Ensures only one instance is created to maintain a single AWS connection.
     """
     
+    # Singleton instance and initialization flag
+    _instance: ClassVar[Optional['Transformer']] = None
+    _initialized: ClassVar[bool] = False
+    
+    def __new__(cls, *args, **kwargs) -> 'Transformer':
+        """
+        Create a new instance of Transformer if one doesn't exist.
+        Returns the existing instance otherwise.
+        """
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
     def __init__(self, 
                  env_file: str = '.secrets',
                  model_id: str = "anthropic.claude-3-sonnet-20240229-v1:0",
                  max_tokens: int = 512,
-                 temperature: float = 0.5):
+                 temperature: float = 0.5) -> None:
         """
         Initialize the BedrockTransformer with AWS credentials and model parameters.
+        Only runs once even if multiple instances are created.
         
         Args:
             env_file (str): Path to the environment file containing AWS credentials
@@ -27,12 +40,18 @@ class Transformer:
             max_tokens (int): Maximum number of tokens in the response
             temperature (float): Temperature parameter for response generation
         """
+        # Skip initialization if already initialized
+        if Transformer._initialized:
+            return
+            
         self.load_credentials(env_file)
         self.model_id = model_id
         self.max_tokens = max_tokens
         self.temperature = temperature
         self.client = self._initialize_client()
         self.retriever = Retriever()  # Initialize the Retriever
+        
+        Transformer._initialized = True
         
     def load_credentials(self, env_file: str) -> None:
         """Load AWS credentials from environment file."""
@@ -103,14 +122,65 @@ class Transformer:
         except (ClientError, Exception) as e:
             print(f"ERROR: Can't invoke '{self.model_id}'. Reason: {e}")
             return None
+            
+    @classmethod
+    def get_instance(cls, 
+                    env_file: str = '.secrets',
+                    model_id: str = "anthropic.claude-3-sonnet-20240229-v1:0",
+                    max_tokens: int = 512,
+                    temperature: float = 0.5) -> 'Transformer':
+        """
+        Get the singleton instance of the Transformer.
+        Creates a new instance if one doesn't exist.
+        
+        Args:
+            env_file (str): Path to the environment file containing AWS credentials
+            model_id (str): The Bedrock model ID to use
+            max_tokens (int): Maximum number of tokens in the response
+            temperature (float): Temperature parameter for response generation
+            
+        Returns:
+            Transformer: The singleton instance
+        """
+        if cls._instance is None:
+            cls._instance = Transformer(
+                env_file=env_file,
+                model_id=model_id,
+                max_tokens=max_tokens,
+                temperature=temperature
+            )
+        return cls._instance
+
+    def __getstate__(self):
+        """
+        Customize object serialization to maintain singleton pattern.
+        """
+        return self.__dict__
+
+    def __setstate__(self, state):
+        """
+        Customize object deserialization to maintain singleton pattern.
+        """
+        self.__dict__ = state
 
 def main():
-    # Example usage
-    transformer = Transformer()
-    response = transformer.transform("What is T.Swifts bday")
+    # Example usage showing singleton behavior
+    # Create first instance
+    transformer1 = Transformer()
+    
+    # Create second instance with different parameters (will reuse first instance)
+    transformer2 = Transformer(max_tokens=1024, temperature=0.7)
+    
+    # Get instance using class method
+    transformer3 = Transformer.get_instance()
+    
+    # Verify all instances are the same
+    print(f"All instances are the same: {transformer1 is transformer2 is transformer3}")
+    
+    # Use the transformer
+    response = transformer1.transform("What is T.Swifts bday")
     if response:
         print(response)
 
 if __name__ == "__main__":
     main()
-
