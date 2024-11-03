@@ -4,3 +4,4 @@ yfinance
 pandas_ta
 numpy
 requests
+awscli
