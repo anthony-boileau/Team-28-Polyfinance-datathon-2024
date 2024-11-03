@@ -12,12 +12,12 @@ agent "Retriever" as rt
 
 database "Vector DB" as vdb
 
-cloud "SEC api" as sec
+cloud "api" as api
 
 file "Generated Report" as gr
 
 'Relationships
-sec <- System: request data
+api <- System: request data
 System --> Parser
 Parser -> Parser: tokenize
 Parser --> vdb: store
