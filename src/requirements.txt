@@ -4,3 +4,6 @@ yfinance
 pandas_ta
 numpy
 requests
+aiohttp
+asyncio
+python-dotenv
