@@ -9,6 +9,9 @@ from botocore.exceptions import ClientError
 
 load_dotenv('.secrets')
 
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
+
 class RetrieveError(Exception):
     """Custom exception for errors returned during the retrieval process"""
     
@@ -61,30 +64,14 @@ class TitanRetriever:
         self.aws_session_token = aws_session_token or os.getenv("AWS_SESSION_TOKEN")
         self.aws_region = aws_region or os.getenv("AWS_DEFAULT_REGION")
         
-        # Initialize Bedrock client
-        self.bedrock = self._initialize_client()
-    """Custom exception for errors during the retrieval process."""
-    def __init__(self, message):
-        self.message = message
-
-class TitanRetriever:
-    """Retriever class for handling embedding queries."""
-    logger = logging.getLogger(__name__)
-
-    def __init__(self, aws_access_key_id, aws_secret_access_key, aws_session_token, aws_region):
-        """Initialize the TitanRetriever with AWS credentials."""
-        self.dynamodb = boto3.client(
-            service_name='dynamodb',
-            aws_access_key_id=aws_access_key_id,
-            aws_secret_access_key=aws_secret_access_key,
-            aws_session_token=aws_session_token,
-            region_name=aws_region
-        )
+        # Initialize AWS clients
+        self.bedrock = self._initialize_bedrock_client()
+        self.dynamodb = self._initialize_dynamodb_client()
+        
         self.logger.info("TitanRetriever initialized.")
-        
         TitanRetriever._initialized = True
-        
-    def _initialize_client(self) -> boto3.client:
+
+    def _initialize_bedrock_client(self) -> boto3.client:
         """Initialize and return the Bedrock Runtime client."""
         return boto3.client(
             service_name='bedrock-runtime',
@@ -94,71 +81,87 @@ class TitanRetriever:
             region_name=self.aws_region
         )
 
-    def retrieve_embedding(self, query_embedding: List[float], top_k: int = 5) -> List[Dict[str, Any]]:
+    def _initialize_dynamodb_client(self) -> boto3.client:
+        """Initialize and return the DynamoDB client."""
+        return boto3.client(
+            service_name='dynamodb',
+            aws_access_key_id=self.aws_access_key_id,
+            aws_secret_access_key=self.aws_secret_access_key,
+            aws_session_token=self.aws_session_token,
+            region_name=self.aws_region
+        )
+
+    def __getstate__(self) -> dict:
+        """Customize object serialization to maintain singleton pattern."""
+        return self.__dict__
+
+    def __setstate__(self, state: dict) -> None:
+        """Customize object deserialization to maintain singleton pattern."""
+        self.__dict__ = state
+
+    def calculate_similarity(self, vec1: List[float], vec2: List[float]) -> float:
         """
-        Retrieve the top K similar embeddings from the vector database based on the query embedding.
+        Calculate cosine similarity between two vectors.
         
         Args:
-            query_embedding (List[float]): The embedding vector for the query
-            top_k (int): The number of similar embeddings to retrieve
+            vec1 (List[float]): First vector
+            vec2 (List[float]): Second vector
             
         Returns:
-            List[Dict[str, Any]]: A list of retrieved embeddings and their corresponding texts
+            float: Cosine similarity score
+        """
+        vec1 = np.array(vec1)
+        vec2 = np.array(vec2)
+        return np.dot(vec1, vec2) / (np.linalg.norm(vec1) * np.linalg.norm(vec2))
+
+    def retrieve_embedding(self, query_embedding: List[float], top_k: int = 5) -> List[Dict[str, Any]]:
+        """
+        Retrieve the top K similar embeddings from the Titan_EmbedderRetriever_Vector_DB.
+        
+        Args:
+            query_embedding (List[float]): The embedding vector to query with
+            top_k (int): Number of similar embeddings to retrieve
+            
+        Returns:
+            List[Dict[str, Any]]: List of similar embeddings with their texts
             
         Raises:
             RetrieveError: If retrieval process fails
         """
         self.logger.info("Retrieving top %d embeddings similar to the query.", top_k)
-        
-        try:
-            # Example: Query the vector database for similar embeddings
-            # Replace this with actual logic to query your vector database
-            # results = db_client.query_similar({"embedding": query_embedding}, top_k=top_k)
-            results = [
-                {"text": "Sample text 1", "embedding": [0.1, 0.2, 0.3]},
-                {"text": "Sample text 2", "embedding": [0.2, 0.1, 0.4]},
-                # Add more mock results as needed
-            ]
-            
-            return results[:top_k]
-            
-    def calculate_similarity(self, vec1, vec2):
-        """Calculate cosine similarity between two vectors."""
-        vec1 = np.array(vec1)
-        vec2 = np.array(vec2)
-        return np.dot(vec1, vec2) / (np.linalg.norm(vec1) * np.linalg.norm(vec2))
-
-    def retrieve_embedding(self, query_embedding, top_k=5):
-        """Retrieve the top K similar embeddings from the Titan_EmbedderRetriever_Vector_DB."""
-        self.logger.info("Retrieving top %d embeddings similar to the query.", top_k)
 
         try:
-            # Instead of 'self.bedrock.query', we use the DynamoDB client to scan or query
+            # Scan the DynamoDB table for embeddings
             results = self.dynamodb.scan(
-                TableName='Titan_EmbedderRetriever_Vector_DB',
-                Limit=top_k
+                TableName='Titan_EmbedderRetriever_Vector_DB'
             )
 
             items = results.get('Items', [])
             retrieved_items = []
+            
+            # Process each item and calculate similarity
             for item in items:
-                embedding = item['embedding']['L']  # Assuming embedding is stored as a list
+                embedding = [float(val['N']) for val in item['embedding']['L']]
+                similarity = self.calculate_similarity(query_embedding, embedding)
+                
                 retrieved_items.append({
-                    "text": item['text']['S'],  # Assuming text is stored as a string
-                    "embedding": [float(val['N']) for val in embedding]  # Convert from DynamoDB format
+                    "text": item['text']['S'],
+                    "embedding": embedding,
+                    "similarity": similarity
                 })
 
-            # Optionally implement your similarity logic here to filter and return the top_k results
-            # For example: Sort retrieved_items based on similarity (not implemented here)
+            # Sort by similarity and return top_k results
+            retrieved_items.sort(key=lambda x: x['similarity'], reverse=True)
             return retrieved_items[:top_k]
 
         except ClientError as e:
-            self.logger.error("Error retrieving embeddings from database: %s", e.response['Error']['Message'])
-            raise RetrieveError("Database error: " + e.response['Error']['Message'])
+            error_message = e.response['Error']['Message']
+            self.logger.error("Error retrieving embeddings from database: %s", error_message)
+            raise RetrieveError(f"Database error: {error_message}")
 
         except Exception as e:
             self.logger.error("Error retrieving embeddings: %s", str(e))
-            raise RetrieveError("Error retrieving embeddings: " + str(e))
+            raise RetrieveError(f"Error retrieving embeddings: {str(e)}")
 
     @classmethod
     def get_instance(cls,
@@ -180,7 +183,7 @@ class TitanRetriever:
             TitanRetriever: The singleton instance
         """
         if cls._instance is None:
-            cls._instance = TitanRetriever(
+            cls._instance = cls(
                 aws_access_key_id=aws_access_key_id,
                 aws_secret_access_key=aws_secret_access_key,
                 aws_session_token=aws_session_token,
@@ -188,44 +191,29 @@ class TitanRetriever:
             )
         return cls._instance
 
-    def __getstate__(self) -> dict:
-        """Customize object serialization to maintain singleton pattern."""
-        return self.__dict__
-
-    def __setstate__(self, state: dict) -> None:
-        """Customize object deserialization to maintain singleton pattern."""
-        self.__dict__ = state
-        
 def main():
     """Entrypoint for the TitanRetriever example."""
-    logging.basicConfig(level=logging.INFO)
-
-    aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID")
-    aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY")
-    aws_session_token = os.getenv("AWS_SESSION_TOKEN")
-    aws_region = os.getenv("AWS_DEFAULT_REGION")
-
-    retriever = TitanRetriever(
-        aws_access_key_id=aws_access_key_id,
-        aws_secret_access_key=aws_secret_access_key,
-        aws_session_token=aws_session_token,
-        aws_region=aws_region
-    )
-
-    query_embedding = [0.1, 0.2, 0.3]  # Replace with an actual embedding vector
-
     try:
+        # Create retriever instance
+        retriever = TitanRetriever()
+
+        # Example query embedding (replace with actual embedding)
+        query_embedding = [0.1, 0.2, 0.3] * 100  # Example 300-dimensional embedding
+
+        # Retrieve similar embeddings
         results = retriever.retrieve_embedding(query_embedding, top_k=3)
-        print("Retrieved similar embeddings:")
-        for result in results:
-            print(f"Text: {result['text']}, Embedding: {result['embedding']}")
+        
+        print("\nRetrieved similar embeddings:")
+        for idx, result in enumerate(results, 1):
+            print(f"\n{idx}. Text: {result['text']}")
+            print(f"   Similarity score: {result['similarity']:.4f}")
 
     except RetrieveError as err:
-        TitanRetriever.logger.error(err.message)
-        print(err.message)
+        logger.error(err.message)
+        print(f"\nError: {err.message}")
 
     else:
-        print("Finished retrieving similar embeddings.")
+        print("\nFinished retrieving similar embeddings.")
 
 if __name__ == "__main__":
     main()

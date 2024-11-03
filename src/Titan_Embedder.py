@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.INFO)
 
 class EmbedError(Exception):
     """Custom exception for errors returned by Amazon Titan Multimodal Embeddings G1"""
-
+    
     def __init__(self, message: str):
         self.message = message
 
@@ -36,6 +36,16 @@ class TitanEmbedder:
         """
         Create a new instance of TitanEmbedder if one doesn't exist.
         Returns the existing instance otherwise.
+        
+        Args:
+            model_id (str): The model ID to use
+            aws_access_key_id (str, optional): AWS Access Key ID
+            aws_secret_access_key (str, optional): AWS Secret Access Key
+            aws_session_token (str, optional): AWS Session Token
+            aws_region (str, optional): AWS Default Region
+            
+        Returns:
+            TitanEmbedder: The singleton instance
         """
         if cls._instance is None:
             cls._instance = super().__new__(cls)
@@ -50,38 +60,26 @@ class TitanEmbedder:
         """
         Initialize the TitanEmbedder with AWS credentials and model ID.
         Only runs once even if multiple instances are created.
-        
-        Args:
-            model_id (str): The model ID to use
-            aws_access_key_id (str, optional): AWS Access Key ID
-            aws_secret_access_key (str, optional): AWS Secret Access Key
-            aws_session_token (str, optional): AWS Session Token
-            aws_region (str, optional): AWS Default Region
         """
         # Skip initialization if already initialized
         if TitanEmbedder._initialized:
             return
-            
-        # Use provided credentials or fall back to environment variables
-    "Custom exception for errors returned by Amazon Titan Multimodal Embeddings G1"
-    def __init__(self, message):
-        self.message = message
-
-class TitanEmbedder:
-    def __init__(self, model_id, aws_access_key_id, aws_secret_access_key, aws_session_token, aws_region):
+        
         self.model_id = model_id
         self.aws_access_key_id = aws_access_key_id or os.getenv("AWS_ACCESS_KEY_ID")
         self.aws_secret_access_key = aws_secret_access_key or os.getenv("AWS_SECRET_ACCESS_KEY")
         self.aws_session_token = aws_session_token or os.getenv("AWS_SESSION_TOKEN")
         self.aws_region = aws_region or os.getenv("AWS_DEFAULT_REGION")
         
-        # Initialize Bedrock client
-        self.bedrock = self._initialize_client()
+        # Initialize Bedrock and DynamoDB clients
+        self.bedrock = self._initialize_bedrock_client()
+        self.dynamodb = self._initialize_dynamodb_client()
+        self.table_name = 'Titan_EmbedderRetriever_Vector_DB'
+        
         self.logger.info("TitanEmbedder initialized with model ID: %s", self.model_id)
-        
         TitanEmbedder._initialized = True
-        
-    def _initialize_client(self) -> boto3.client:
+
+    def _initialize_bedrock_client(self) -> boto3.client:
         """Initialize and return the Bedrock Runtime client."""
         return boto3.client(
             service_name='bedrock-runtime',
@@ -90,18 +88,39 @@ class TitanEmbedder:
             aws_session_token=self.aws_session_token,
             region_name=self.aws_region
         )
-        self.dynamodb = boto3.resource(
-            'dynamodb',
-            aws_access_key_id=aws_access_key_id,
-            aws_secret_access_key=aws_secret_access_key,
-            aws_session_token=aws_session_token,
-            region_name=aws_region
-        )
-        self.table_name = 'Titan_EmbedderRetriever_Vector_DB'
-        logger.info("TitanEmbedder initialized with model ID: %s", model_id)
 
-    def generate_embeddings(self, input_text):
-        logger.info("Generating embeddings for input text: %s", input_text)
+    def _initialize_dynamodb_client(self) -> boto3.resource:
+        """Initialize and return the DynamoDB resource."""
+        return boto3.resource(
+            'dynamodb',
+            aws_access_key_id=self.aws_access_key_id,
+            aws_secret_access_key=self.aws_secret_access_key,
+            aws_session_token=self.aws_session_token,
+            region_name=self.aws_region
+        )
+
+    def __getstate__(self) -> dict:
+        """Customize object serialization to maintain singleton pattern."""
+        return self.__dict__
+
+    def __setstate__(self, state: dict) -> None:
+        """Customize object deserialization to maintain singleton pattern."""
+        self.__dict__ = state
+
+    def generate_embeddings(self, input_text: str) -> Dict[str, Any]:
+        """
+        Generate embeddings for the given input text.
+        
+        Args:
+            input_text (str): The text to generate embeddings for
+            
+        Returns:
+            Dict[str, Any]: The response containing the embeddings
+            
+        Raises:
+            EmbedError: If embeddings generation fails
+        """
+        self.logger.info("Generating embeddings for input text: %s", input_text)
 
         body = json.dumps({"inputText": input_text})
         accept = "application/json"
@@ -122,11 +141,21 @@ class TitanEmbedder:
 
         except ClientError as err:
             message = err.response["Error"]["Message"]
-            logger.error("A client error occurred: %s", message)
+            self.logger.error("A client error occurred: %s", message)
             raise EmbedError(message)
 
-    def insert_embedding_to_db(self, embedding, input_text):
-        logger.info("Inserting embedding into the database for the input text.")
+    def insert_embedding_to_db(self, embedding: list, input_text: str) -> None:
+        """
+        Insert embedding and its metadata into DynamoDB.
+        
+        Args:
+            embedding (list): The embedding vector to store
+            input_text (str): The original input text
+            
+        Raises:
+            EmbedError: If insertion fails
+        """
+        self.logger.info("Inserting embedding into the database for the input text.")
         
         table = self.dynamodb.Table(self.table_name)
         
@@ -144,69 +173,27 @@ class TitanEmbedder:
             print(f"Inserted embedding for text: {input_text} into the database.")
         
         except ClientError as e:
-            logger.error(f"Failed to insert item into DynamoDB: {e.response['Error']['Message']}")
-            raise EmbedError(f"Failed to insert item: {e.response['Error']['Message']}")
+            error_message = e.response['Error']['Message']
+            self.logger.error(f"Failed to insert item into DynamoDB: {error_message}")
+            raise EmbedError(f"Failed to insert item: {error_message}")
 
 def main():
+    """Main function to demonstrate usage of TitanEmbedder."""
     model_id = "amazon.titan-embed-text-v1"
-    aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID")
-    aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY")
-    aws_session_token = os.getenv("AWS_SESSION_TOKEN")
-    aws_region = os.getenv("AWS_DEFAULT_REGION")
 
-    embedder = TitanEmbedder(
-        model_id=model_id,
-        aws_access_key_id=aws_access_key_id,
-        aws_secret_access_key=aws_secret_access_key,
-        aws_session_token=aws_session_token,
-        aws_region=aws_region
-    )
-
+    embedder = TitanEmbedder(model_id=model_id)
     input_text = "What are the different services that you offer?"
 
     try:
         response = embedder.generate_embeddings(input_text)
         embedding = response['embedding']
-        
-        Args:
-            model_id (str): The model ID to use
-            aws_access_key_id (str, optional): AWS Access Key ID
-            aws_secret_access_key (str, optional): AWS Secret Access Key
-            aws_session_token (str, optional): AWS Session Token
-            aws_region (str, optional): AWS Default Region
-            
-        Returns:
-            TitanEmbedder: The singleton instance
-        """
-        if cls._instance is None:
-            cls._instance = TitanEmbedder(
-                model_id=model_id,
-                aws_access_key_id=aws_access_key_id,
-                aws_secret_access_key=aws_secret_access_key,
-                aws_session_token=aws_session_token,
-                aws_region=aws_region
-            )
-        return cls._instance
-
-<<<<<<< HEAD
-    def __getstate__(self) -> dict:
-        """Customize object serialization to maintain singleton pattern."""
-        return self.__dict__
-
-    def __setstate__(self, state: dict) -> None:
-        """Customize object deserialization to maintain singleton pattern."""
-        self.__dict__ = state
-
-=======
         embedder.insert_embedding_to_db(embedding, input_text)
 
     except EmbedError as err:
         logger.error(err.message)
         print(err.message)
-
     else:
         print(f"Finished generating text embeddings with Amazon Titan Multimodal Embeddings G1 model {model_id}.")
 
->>>>>>> 1020dd629563d41fe1b74ed252be3ed891129364
 if __name__ == "__main__":
     main()
