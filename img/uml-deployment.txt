@@ -1,29 +1,30 @@
 @startuml
 actor Analyst
-node System
-agent DBagent
+node App
+node api
+agent DBagent as dba
 agent Transformer
+cloud "yfinance" as yf
+cloud AWS as aws
+cloud SEC as sec
 database "Vector DB" as vdb
-cloud "api" as api
-file "Generated Report" as gr
+
+title Deployment Diagram
 
 ' Relationships
-Analyst --> System: interact
-System --> DBagent: process request
+Analyst --> App
+App --> dba: req annual report
+App <--> Transformer: req,res llm response
+api --> App: res yfinance
+api --> dba: res annual report
+api --> sec: req
+api --> yf: req
+api -> api: parse
+aws -> aws: generate response
+dba <--> vdb: req,res embeddings
+dba --> Transformer: req,res context
+dba --> dba: tokenize/detokenize
+Transformer <--> aws: req,res llm response
 
-System <- api: fetch 
-DBagent --> vdb: store vectors
-DBagent <-- vdb: retrieve vectors
 
-DBagent --> Transformer: provide context
-Transformer --> System: return output
-System --> gr: generate report
-
-note top of DBagent
-  Single DBagent instance handles:
-  * Embedding
-  * Storage
-  * Retrieval
-  * Context formatting
-end note
 @enduml

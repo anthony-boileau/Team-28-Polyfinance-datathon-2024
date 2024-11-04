@@ -1,4 +1,6 @@
-# 10K Intelligence: AI-Powered Annual Report Analysis Platform
+# TENKAWS (10K-AWS): AI-Powered Annual Report Analysis Platform
+
+[![FR](https://img.shields.io/badge/🇫🇷-Français-blue.svg)](README.fr.md)
 
 <div align="center">
 
@@ -12,15 +14,15 @@
 
 ## 🏆 Team 28
 
-| Team Member      | Contact                                            |
-| ---------------- | -------------------------------------------------- |
+| Team Member      | GitHub Profile                                        |
+| ---------------- | ----------------------------------------------------- |
 | Anthony Boileau  | [anthony-boileau](https://github.com/anthony-boileau) |
 | Guillaume Collin | [Guillaume1208](https://github.com/Guillaume1208)     |
 | Minh Huynh       | [vibqetowi](https://github.com/vibqetowi)             |
 
 ## 🎯 Project Overview
 
-10K Intelligence revolutionizes financial analysis by transforming complex US annual reports (SEC Form 10-K) into actionable insights through the power of generative AI. Our platform streamlines the analysis of SEC 10-K filings by providing:
+TENKAWS revolutionizes financial analysis by transforming complex US annual reports (SEC Form 10-K) into actionable insights through the power of generative AI. Our platform streamlines the analysis of SEC 10-K filings by providing:
 
 - Automated document parsing and structuring
 - Comprehensive historical comparisons
@@ -31,7 +33,11 @@ Through these features, we make financial analysis more accessible and efficient
 
 ### Platform Showcase
 
-![gif showcase](./img/showcase.gif)
+<div align="center">
+
+![Platform Demonstration](./img/showcase.gif)
+
+</div>
 
 #### AI-Powered Insights with Source Citations
 
@@ -59,7 +65,9 @@ Our solution offers free access to parsed textual components of 10-K forms, extr
     {
       "item": "Item 3.",
       "description": "Legal Proceedings",
-      "content": ["ITEM 3. LEGAL PROCEEDINGS Refer to Notes 10 (Accrued Expenses and Accrued Litigation) and 18 (Legal and Regulatory Proceedings) to the consolidated financial statements included in Part II, Item 8."]
+      "content": [
+        "ITEM 3. LEGAL PROCEEDINGS Refer to Notes 10 (Accrued Expenses and Accrued Litigation) and 18 (Legal and Regulatory Proceedings) to the consolidated financial statements included in Part II, Item 8."
+      ]
     },
     {
       "item": "Item 4.",
@@ -87,8 +95,9 @@ Per challenge requirements, every component either runs on or is designed to run
 
 - **AI Model**: Claude 3 by Anthropic, deployed on AWS
 
-  - Leverages robust capabilities and free tier access (3.5 Sonnet)
-  - Enables sophisticated self-prompting engineering
+  - Leverages robust capabilities
+  - Enables sophisticated self-prompting engineering the
+
 - **Database**: ChromaDB
 
   - Open-source vector database with AWS deployment support
@@ -96,15 +105,19 @@ Per challenge requirements, every component either runs on or is designed to run
   - AWS stack successfully created (see [our template](./json/reference/chroma-template.json))
   - Code ready for cloud adaptation
     ![AWS Stack Configuration](img/aws-stack.png)
+
 - **Frontend/API**: Streamlit
 
   - Optimized for Python integration
   - Rapid development capabilities
+
 - **Data Sources**: SEC EDGAR and yfinance
 
   - Reliable, free access to financial data
 
 ### System Architecture
+
+The following diagrams were generated with PlantUML and loosely follow the UML syntax:
 
 ![UML Deployment Diagram](img/uml-deployment.png)
 ![Report Generation Flow](img/uml-sequence-generate-report.png)
@@ -133,7 +146,6 @@ Per challenge requirements, every component either runs on or is designed to run
 - Evolution of risk patterns
 - Mitigation strategy evaluation
 - Impact analysis
-- Peer risk comparisons
 
 ## 🚀 Getting Started
 
@@ -150,7 +162,7 @@ streamlit run 👋_Landing_Page.py
 
 ## AI Explainability
 
-Our system ensures accuracy through meticulous source tracking. Each text snippet in the vector database includes source metadata, and we prompt the LLM to provide precise citations, enhancing Claude 3's natural safeguards against hallucinations.
+We aim to provide assurance of accuracy through meticulous source tracking. Each text snippet in the vector database includes source metadata. The LLM is prompted to return precise citations, enhancing Claude 3's natural safeguards against hallucinations.
 
 While token usage optimization remains an area for improvement, our precise citation system outperforms many commercial solutions that struggle with source hallucination.
 
@@ -158,26 +170,26 @@ Example database structure:
 
 ```json
 [
-    {
-        "metadata": {
-            "year": 2020,
-            "ticker": "JAMEIL",
-            "item": "Item 1."
-        },
-        "content": "Jameil is a food business, we sell breakfast cereal in Algeria"
+  {
+    "metadata": {
+      "year": 2020,
+      "ticker": "JAMEIL",
+      "item": "Item 1."
     },
-    {
-        "metadata": {
-            "year": 2021,
-            "ticker": "JAMEIL",
-            "item": "Item 1A."
-        },
-        "content": "The company expanded operations to Morocco and Tunisia. Revenue grew 25% year over year."
-    }
+    "content": "Jameil is a food business, we sell breakfast cereal in Algeria"
+  },
+  {
+    "metadata": {
+      "year": 2021,
+      "ticker": "JAMEIL",
+      "item": "Item 1A."
+    },
+    "content": "The company expanded operations to Morocco and Tunisia. Revenue grew 25% year over year."
+  }
 ]
 ```
 
-Example Q&A:
+Sample Q&A:
 
 ```
 Q: What does Jameil sell?
@@ -187,24 +199,26 @@ Q: Who is Jameil's CEO?
 A: The provided source does not mention the CEO of Jameil. It only states that Jameil is a food business that sells breakfast cereal in Algeria, focusing on providing affordable breakfast options to North African markets. There is no information given about the company's leadership or CEO.
 ```
 
-Our vector database is optimized with approximately 32 words per vector for optimal sentence completion.
+Our vector database stores approximately 32 words per vector depending on the length of the last sentence it stores. The current separation criteria is simple word count.
 
 ## 📈 Performance Metrics
 
 Tested on a MacBook Air, using Python's time module to measure query times on a random sample of 10 items:
 
-| Metric                                     | Performance                                    |
-| ------------------------------------------ | ---------------------------------------------- |
+| Metric                                     | Performance                                  |
+| ------------------------------------------ | -------------------------------------------- |
 | Annual Report to JSON parsing time         | $\hat{\mu} = 3.635s, \hat{\sigma} = 1.418s$  |
 | Embedding annual report to local ChromaDB  | $\hat{\mu} = 131.03s, \hat{\sigma} = 65.62s$ |
 | Retrieving context and answering LLM query | $\hat{\mu} = 4.69s, \hat{\sigma} = 1.28s$    |
 
 ## 🛣️ Roadmap
 
-- Implement news sentiment analysis insights
+- Implement news/social media sentiment analysis insights
 - Convert remaining blocking calls to async operations
 - Deploy hosted database instances and optimize embedding performance
-- Enhance 10-K form parsing accuracy
+- Parse 10-k forms by meaning to store complete ideas in vectors
+- Implement persistence within app sessions (currently navigating away resets AI-generated sections)
+- Add capability to compare companies
 
 ## 📜 License
 
@@ -214,6 +228,6 @@ This project is licensed under the GPL License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-*Built with ❤️ during the Polyfinance 2024 Datathon*
+_Built with ❤️ during the Polyfinance 2024 Datathon_
 
 </div>

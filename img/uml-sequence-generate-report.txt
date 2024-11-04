@@ -1,6 +1,6 @@
 @startuml
 actor User
-participant System
+participant App
 participant API
 participant "DBagent"
 database "VectorDB" as DB
@@ -10,30 +10,34 @@ participant Report
 autonumber
 title Report Generation Process
 
-User -> System: select(ticker, daterange)
-System -> Report **: create
-System -> API: batch_get_collections()
-API --> System: return(collections)
-System -> DBagent: batch_embed(collections)
-loop#lightblue #lightblue For each collection
-    DBagent -> DBagent: tokenize(collection)
-    DBagent -> DB: upsert(documents, metadatas, ids)
+User -> App: select(ticker, daterange)
+App -> Report **: create
+App -> API: find(ticker,daterange)
+API -> API: parse(annual report)
+API --> App: return parsed
+App -> DBagent: call_embed(parsed)
+
+loop#lightblue #lightblue Foreach Annual Report
+    DBagent -> DBagent: tokenize(parsed)
+    DBagent -> DB: upsert(tokenized)
     DB --> DBagent: Confirm
 end
 
-DBagent --> System: Confirm
-loop#lightyellow #lightyellow While Report is generating
-    System -> DBagent: get_context(prompt, fromYear, ticker)
-    DBagent -> DB: query(prompt, years)
-    DB --> DBagent: return(data)
-    DBagent -> DBagent: format_metadata_citation()
-    DBagent -> Transformer: transform(context, prompt)
-    Transformer -> Transformer: generate(context, prompt)
-    Transformer --> System: return(output)
-    System -> Report: write(output)
-    Report --> System: Confirm
+DBagent --> App: Confirm
+loop#lightyellow #lightyellow Foreach section in report
+    App -> Transformer: call_transform(prompt)
+    Transformer -> DBagent: get_context()
+    DBagent -> DB: query()
+    DB --> DBagent: return data
+    DBagent -> DBagent: detokenize(data)
+    DBagent -> DBagent: create_context(data, stored_preprompt)
+    DBagent --> Transformer: return(context, prompt)
+    Transformer -> Transformer: transform(context, prompt)
+    Transformer --> App: return(output)
+    App -> Report: write(output)
+    Report --> App: Confirm
 end
 
-System --> User: Confirm
+App --> User: Confirm
 
 @enduml
