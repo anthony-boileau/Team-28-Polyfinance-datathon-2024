@@ -6,6 +6,7 @@
 [![AWS](https://img.shields.io/badge/Powered%20by-AWS-orange?style=for-the-badge&logo=amazon-aws)](https://aws.amazon.com/)
 [![Claude](https://img.shields.io/badge/AI-Claude%203-pink?style=for-the-badge)](https://www.anthropic.com/)
 [![SEC](https://img.shields.io/badge/Data-SEC%20EDGAR-green?style=for-the-badge)](https://www.sec.gov/edgar)
+[![ChromaDB](https://img.shields.io/badge/Database-ChromaDB-red?style=for-the-badge)](https://www.trychroma.com/)
 
 </div>
 
@@ -80,7 +81,8 @@ Our platform leverages cutting-edge technologies:
   - Enables sophisticated self-prompting engineering
 - **Database**: ChromaDB
   - Open-source vector database with AWS deployment support
-  - Currently running locally due to AWS connectivity constraints
+  - Currently running locally due to AWS permission issues, however a stack was still successfully created (see [our template](./json/reference/chroma-template.json) ) through AWS and the code can be easily adapted.
+  ![aws stack](img/aws-stack.png)
 - **Frontend/API**: Streamlit
   - Chosen for its Python integration and development efficiency
 - **Data Sources**: SEC EDGAR and yfinance
@@ -178,9 +180,7 @@ Our vector database is optimized with approximately 32 words per vector for opti
 
 ## 📈 Performance Metrics
 
-Measured on a MacBook Air using Python's time module and querying a random sample of 10
-
-:
+Tested on a MacBook Air, using Python’s time module to measure query times on a random sample of 10 items:
 
 | Metric                                     | Performance                                    |
 | ------------------------------------------ | ---------------------------------------------- |
