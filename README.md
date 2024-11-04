@@ -1,7 +1,5 @@
-# TENKAWS (10K-AWS): AI-Powered Annual Report Analysis Platform
-
 [![FR](https://img.shields.io/badge/🇫🇷-Français-blue.svg)](README.fr.md)
-
+# TENKAWS (10K-AWS): AI-Powered Annual Report Analysis Platform
 <div align="center">
 
 [![Python](https://img.shields.io/badge/Python-3.9%20or%20higher-blue?style=for-the-badge&logo=python)](https://www.python.org/)
