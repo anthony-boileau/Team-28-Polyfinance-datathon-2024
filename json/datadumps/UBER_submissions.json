@@ -1,0 +1,162 @@
+{
+    "cik": "1543151",
+    "entityType": "operating",
+    "sic": "7389",
+    "sicDescription": "Services-Business Services, NEC",
+    "ownerOrg": "07 Trade & Services",
+    "insiderTransactionForOwnerExists": 1,
+    "insiderTransactionForIssuerExists": 1,
+    "name": "Uber Technologies, Inc",
+    "tickers": [
+        "UBER"
+    ],
+    "exchanges": [
+        "NYSE"
+    ],
+    "ein": "452647441",
+    "description": "",
+    "website": "",
+    "investorWebsite": "",
+    "category": "Large accelerated filer",
+    "fiscalYearEnd": "1231",
+    "stateOfIncorporation": "DE",
+    "stateOfIncorporationDescription": "DE",
+    "addresses": {
+        "mailing": {
+            "street1": "1725 3RD STREET",
+            "street2": null,
+            "city": "SAN FRANCISCO",
+            "stateOrCountry": "CA",
+            "zipCode": "94158",
+            "stateOrCountryDescription": "CA"
+        },
+        "business": {
+            "street1": "1725 3RD STREET",
+            "street2": null,
+            "city": "SAN FRANCISCO",
+            "stateOrCountry": "CA",
+            "zipCode": "94158",
+            "stateOrCountryDescription": "CA"
+        }
+    },
+    "phone": "415-612-8582",
+    "flags": "",
+    "formerNames": [],
+    "filings": {
+        "recent": {
+            "accessionNumber": [
+                "0001543151-24-000012",
+                "0001543151-23-000010",
+                "0001543151-22-000008",
+                "0001543151-21-000014",
+                "0001543151-20-000010"
+            ],
+            "filingDate": [
+                "2024-02-15",
+                "2023-02-21",
+                "2022-02-24",
+                "2021-03-01",
+                "2020-03-02"
+            ],
+            "reportDate": [
+                "2023-12-31",
+                "2022-12-31",
+                "2021-12-31",
+                "2020-12-31",
+                "2019-12-31"
+            ],
+            "acceptanceDateTime": [
+                "2024-02-15T16:30:29.000Z",
+                "2023-02-21T16:10:08.000Z",
+                "2022-02-24T16:33:34.000Z",
+                "2021-03-01T08:06:48.000Z",
+                "2020-03-02T16:12:35.000Z"
+            ],
+            "act": [
+                "34",
+                "34",
+                "34",
+                "34",
+                "34"
+            ],
+            "form": [
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K"
+            ],
+            "fileNumber": [
+                "001-38902",
+                "001-38902",
+                "001-38902",
+                "001-38902",
+                "001-38902"
+            ],
+            "filmNumber": [
+                "24644264",
+                "23648198",
+                "22671636",
+                "21693896",
+                "20676930"
+            ],
+            "items": [
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "core_type": [
+                "XBRL",
+                "XBRL",
+                "XBRL",
+                "XBRL",
+                "XBRL"
+            ],
+            "size": [
+                19213431,
+                22920472,
+                26628846,
+                24730674,
+                24684267
+            ],
+            "isXBRL": [
+                1,
+                1,
+                1,
+                1,
+                1
+            ],
+            "isInlineXBRL": [
+                1,
+                1,
+                1,
+                1,
+                1
+            ],
+            "primaryDocument": [
+                "uber-20231231.htm",
+                "uber-20221231.htm",
+                "uber-20211231.htm",
+                "uber-20201231.htm",
+                "fy2019q410kfinancialst.htm"
+            ],
+            "primaryDocDescription": [
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K"
+            ],
+            "primaryDocumentLinks": [
+                "https://www.sec.gov/Archives/edgar/data/0001543151/000154315124000012/uber-20231231.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001543151/000154315123000010/uber-20221231.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001543151/000154315122000008/uber-20211231.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001543151/000154315121000014/uber-20201231.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001543151/000154315120000010/fy2019q410kfinancialst.htm"
+            ]
+        },
+        "files": []
+    }
+}

@@ -4,172 +4,251 @@ import yfinance as yf
 import pandas_ta as ta
 import re
 from transformer import Transformer
+from api import API
+from dbagent import DBagent
+import aiohttp
+import asyncio
+from datetime import datetime
 
-def section(prompt):
-    lc_transformer = Transformer()
-    response = lc_transformer.transform(prompt)
+def call_transform(prompt, fromYear, ticker):
+    t = Transformer()
+    r = DBagent()
+    context = r.get_context(prompt=prompt, fromYear=fromYear, ticker=ticker)
+    response = t.transform(context=context, prompt=prompt)
     return response
 
+async def fetch_report_data(ticker, fromYear):
+    dba = DBagent()
+    dba.embed_company_over_daterange(ticker, fromYear)
+    return True
 
-def generate_report(ticker, years):
-    # Fetch stock data
-    stock_data = yf.Ticker(ticker)
+def initialize_chat_history():
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+    if "ticker" not in st.session_state:
+        st.session_state.ticker = None
+    if "from_year" not in st.session_state:
+        st.session_state.from_year = None
+
+def display_chat_history():
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
+
+def display_technical_analysis(df):
+    st.write('### Technical Analysis')
     
-    # Historical market data based on user-selected years
-    period = f"{years}y"
-    df = stock_data.history(period=period)
-    df.reset_index(inplace=True)
-
-    # Calculate technical indicators
-    df['SMA_20'] = ta.sma(df['Close'], length=20)
-    df['RSI'] = ta.rsi(df['Close'], length=14)
-    macd = ta.macd(df['Close'])
-    df['MACD'] = macd['MACD_12_26_9']
-    df['Signal_Line'] = macd['MACDs_12_26_9']
-
-    # Calculate OBV
-    obv = [0]
-    for i in range(1, len(df)):
-        if df['Close'][i] > df['Close'][i-1]:
-            obv.append(obv[-1] + df['Volume'][i])
-        elif df['Close'][i] < df['Close'][i-1]:
-            obv.append(obv[-1] - df['Volume'][i])
-        else:
-            obv.append(obv[-1])
-    df['OBV'] = obv
-
-    # Fetch company info
-    info = stock_data.info
-    company_name = info.get('longName', 'Information not available')
-    sector = info.get('sector', 'Information not available')
-    industry = info.get('industry', 'Information not available')
-
-    # Display company and stock information
-    st.subheader(f'{ticker} Company Report')
-    st.write('### Company Information')
-    st.write(f"Company Name: {company_name}")
-    st.write(f"Sector: {sector}")
-    st.write(f"Industry: {industry}")
-
-    st.write('### Stock Price History')
-    st.line_chart(df.set_index('Date')['Close'])
-
-    st.write('### Key Statistics')
+    # Technical indicators
     col1, col2 = st.columns(2)
     with col1:
-        st.metric("Current Price", f"${df['Close'].iloc[-1]:.2f}")
-        st.metric("52-Week High", f"${df['High'].max():.2f}")
+        st.metric("20-day SMA", f"${df['SMA_20'].iloc[-1]:.2f}")
+        st.metric("RSI (14)", f"{df['RSI'].iloc[-1]:.2f}")
     with col2:
-        st.metric("Volume", f"{df['Volume'].iloc[-1]:,}")
-        st.metric("52-Week Low", f"${df['Low'].min():.2f}")
+        st.metric("MACD", f"{df['MACD'].iloc[-1]:.2f}")
+        st.metric("Latest OBV", f"{df['OBV'].iloc[-1]:,.0f}")
 
-    st.write('### Technical Indicators')
-    st.write(f"20-day SMA: ${df['SMA_20'].iloc[-1]:.2f}")
-    st.write(f"RSI (14): {df['RSI'].iloc[-1]:.2f}")
-    st.write(f"Latest MACD: {df['MACD'].iloc[-1]:.2f}")
-    st.write(f"Latest OBV: {df['OBV'].iloc[-1]:.2f}")
-
+    # MACD Chart
     st.write('### MACD Indicator')
     st.line_chart(df.set_index('Date')[['MACD', 'Signal_Line']])
 
-    st.write('### OBV Indicator')
+    # OBV Chart
+    st.write('### On-Balance Volume (OBV)')
     st.line_chart(df.set_index('Date')['OBV'])
 
-    # Financial metrics from yfinance
-    st.subheader('Financial Performance')
+def display_financial_metrics(info):
     st.write('### Key Financial Metrics')
-    revenue_per_share = info.get('revenuePerShare', 'N/A')
-    net_income_per_share = info.get('netIncomePerShare', 'N/A')
-    pe_ratio = info.get('forwardPE', 'N/A')
-    market_cap = info.get('marketCap', 'N/A')
-    enterprise_value = info.get('enterpriseValue', 'N/A')
-    free_cash_flow_yield = info.get('freeCashFlowYield', 'N/A')
-    debt_to_equity = info.get('debtToEquity', 'N/A')
-    current_ratio = info.get('currentRatio', 'N/A')
-    roe = info.get('returnOnEquity', 'N/A')
-
-    st.write(f"Revenue Per Share: ${revenue_per_share}")
-    st.write(f"Net Income Per Share: ${net_income_per_share}")
-    st.write(f"PE Ratio: {pe_ratio}")
-    st.write(f"Market Cap: {market_cap}")
-    st.write(f"Enterprise Value: {enterprise_value}")
-    st.write(f"Free Cash Flow Yield: {free_cash_flow_yield}")
-    st.write(f"Debt to Equity: {debt_to_equity}")
-    st.write(f"Current Ratio: {current_ratio}")
-    st.write(f"ROE: {roe}")
-
-    # Fetch balance sheet
-    balance_sheet = stock_data.balance_sheet
-
-    # Print balance sheet for inspection
-    st.write('### Balance Sheet')
-    st.write(balance_sheet)
-
-    # Prepare debt breakdown
-    debt_breakdown = {}
-    try:
-        short_term_debt = balance_sheet.loc['Short Term Debt'].values[0] if 'Short Term Debt' in balance_sheet.index else 0
-        debt_breakdown['Short Term Debt'] = short_term_debt if pd.notna(short_term_debt) else 0
-    except KeyError:
-        debt_breakdown['Short Term Debt'] = 0
-
-    try:
-        long_term_debt = balance_sheet.loc['Long Term Debt'].values[0] if 'Long Term Debt' in balance_sheet.index else 0
-        debt_breakdown['Long Term Debt'] = long_term_debt if pd.notna(long_term_debt) else 0
-    except KeyError:
-        debt_breakdown['Long Term Debt'] = 0
-
-    # Display debt breakdown as a bar chart
-    st.write('### Debt Breakdown')
-    debt_df = pd.DataFrame.from_dict(debt_breakdown, orient='index', columns=['Amount'])
-    st.bar_chart(debt_df)
-
-    # Compare Revenue and Earnings
-    st.subheader('Revenue vs Earnings Comparison (Most Recent Annual Figures)')
+    col1, col2 = st.columns(2)
     
-    income_statement = stock_data.financials
-    try:
-        revenue = income_statement.loc['Total Revenue'].values[0] if 'Total Revenue' in income_statement.index else 0
-        earnings = income_statement.loc['Gross Profit'].values[0] if 'Gross Profit' in income_statement.index else 0
-        
-        # Create a bar chart for Revenue vs Earnings
-        comparison_df = pd.DataFrame({'Amount': [revenue, earnings]}, index=['Revenue', 'Earnings'])
-        st.bar_chart(comparison_df)
-    except KeyError as e:
-        st.write(f"Error fetching data: {e}")
+    with col1:
+        st.metric("Revenue Per Share", f"${info.get('revenuePerShare', 'N/A')}")
+        st.metric("Net Income Per Share", f"${info.get('netIncomePerShare', 'N/A')}")
+        st.metric("PE Ratio", info.get('forwardPE', 'N/A'))
+        st.metric("Market Cap", f"${info.get('marketCap', 'N/A'):,.0f}")
+    
+    with col2:
+        st.metric("Debt to Equity", info.get('debtToEquity', 'N/A'))
+        st.metric("Current Ratio", info.get('currentRatio', 'N/A'))
+        st.metric("ROE", f"{info.get('returnOnEquity', 'N/A')*100:.1f}%" if info.get('returnOnEquity') else 'N/A')
+        st.metric("Free Cash Flow Yield", f"{info.get('freeCashFlowYield', 'N/A')}%")
 
-    # Quarterly Revenue vs. Earnings Comparison
-    st.write("### Quarterly Revenue vs. Earnings Over Time")
+def display_quarterly_analysis(stock_data):
+    st.write("### Quarterly Performance")
     try:
         quarterly_financials = stock_data.quarterly_financials
-        revenue_quarterly = quarterly_financials.loc['Total Revenue']
-        earnings_quarterly = quarterly_financials.loc['Net Income']
+        
+        # Revenue analysis
+        if 'Total Revenue' in quarterly_financials.index:
+            revenue_quarterly = quarterly_financials.loc['Total Revenue'].sort_index()
+            st.write("#### Quarterly Revenue Trend")
+            st.line_chart(revenue_quarterly)
+            
+            # Calculate QoQ growth
+            revenue_growth = revenue_quarterly.pct_change() * 100
+            st.write("Quarter-over-Quarter Revenue Growth:")
+            st.line_chart(revenue_growth)
 
-        # Sort by date to ensure chronological ordering
-        revenue_quarterly = revenue_quarterly.sort_index(ascending=True)
-        earnings_quarterly = earnings_quarterly.sort_index(ascending=True)
+        # Earnings analysis
+        if 'Net Income' in quarterly_financials.index:
+            earnings_quarterly = quarterly_financials.loc['Net Income'].sort_index()
+            st.write("#### Quarterly Earnings Trend")
+            st.line_chart(earnings_quarterly)
+            
+            # Revenue vs Earnings comparison
+            if 'Total Revenue' in quarterly_financials.index:
+                comparison_df = pd.DataFrame({
+                    'Revenue': quarterly_financials.loc['Total Revenue'],
+                    'Net Income': quarterly_financials.loc['Net Income']
+                }).sort_index()
+                st.write("#### Revenue vs Earnings Comparison")
+                st.line_chart(comparison_df)
+    
+    except Exception as e:
+        st.error(f"Error in quarterly analysis: {str(e)}")
 
-        # Combine revenue and earnings into a single DataFrame
-        quarterly_df = pd.DataFrame({'Revenue': revenue_quarterly, 'Earnings': earnings_quarterly})
-        st.line_chart(quarterly_df)
-    except KeyError as e:
-        st.write(f"Error fetching quarterly data: {e}")
+def generate_report(ticker, years):
+    fromYear = datetime.now().year-years+1
+    
+    # Create a placeholder for the status message
+    status_placeholder = st.empty()
+    status_placeholder.markdown('<span style="color: red;">Loading data, please wait...</span>', unsafe_allow_html=True)
 
-    st.write(f"### Leadership Change over the past {years} year(s)")
-    st.write(section(f"State the leadership change in the last {years} and if there were none, answer in one line."))
+    # Store ticker and fromYear in session state for chat
+    st.session_state.ticker = ticker
+    st.session_state.from_year = fromYear
 
-    st.write("### Company composition")
-    st.write(section("State each executive's name followed by leadership position in parentheses, and if they are in any other board positions. If not, do not write anything."))
+    ready = asyncio.run(fetch_report_data(ticker, fromYear))
 
-    st.write("### Commitees")
-    st.write(section("State each leadership position in parentheses, followed by salary."))
+    if ready:
+        status_placeholder.markdown('<span style="color: green;">Data loaded! You can now ask questions below.</span>', unsafe_allow_html=True)
+
+        # Fetch stock data
+        stock_data = yf.Ticker(ticker)
+        
+        # Get historical data
+        df = stock_data.history(period=f"{years}y")
+        df.reset_index(inplace=True)
+
+        # Calculate technical indicators
+        df['SMA_20'] = ta.sma(df['Close'], length=20)
+        df['RSI'] = ta.rsi(df['Close'], length=14)
+        macd = ta.macd(df['Close'])
+        df['MACD'] = macd['MACD_12_26_9']
+        df['Signal_Line'] = macd['MACDs_12_26_9']
+
+        # Calculate OBV
+        obv = [0]
+        for i in range(1, len(df)):
+            if df['Close'][i] > df['Close'][i-1]:
+                obv.append(obv[-1] + df['Volume'][i])
+            elif df['Close'][i] < df['Close'][i-1]:
+                obv.append(obv[-1] - df['Volume'][i])
+            else:
+                obv.append(obv[-1])
+        df['OBV'] = obv
+
+        # Get company info
+        info = stock_data.info
+        company_name = info.get('longName', 'Information not available')
+        
+        # Display company overview
+        st.write(f"## {company_name} ({ticker}) Analysis")
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            st.metric("Current Price", f"${df['Close'].iloc[-1]:.2f}")
+            st.metric("52-Week High", f"${df['High'].max():.2f}")
+        with col2:
+            st.metric("Trading Volume", f"{df['Volume'].iloc[-1]:,}")
+            st.metric("52-Week Low", f"${df['Low'].min():.2f}")
+
+        # Stock price chart
+        st.write('### Stock Price History')
+        st.line_chart(df.set_index('Date')['Close'])
+
+        # Display technical analysis
+        display_technical_analysis(df)
+        
+        # Display financial metrics
+        display_financial_metrics(info)
+        
+        # Display quarterly analysis
+        display_quarterly_analysis(stock_data)
+
+        # Generated sections using call_transform
+        st.write("## AI-Generated Analysis")
+        
+        with st.expander("Leadership Changes"):
+            response = call_transform(f"Summarize leadership changes in the last {years} years.", fromYear, ticker)
+            st.write(response)
+            
+        with st.expander("Executive Composition"):
+            response = call_transform("List the current executive team and their positions.", fromYear, ticker)
+            st.write(response)
+            
+        with st.expander("Board Committees"):
+            response = call_transform("Describe the current board committee structure.", fromYear, ticker)
+            st.write(response)
+
+        # Chat interface
+        st.write("## Ask Questions About the Company")
+        st.write("Use the chat below to ask specific questions about the company's performance, leadership, strategy, or any other aspect.")
+        
+        display_chat_history()
+
+        if prompt := st.chat_input("What would you like to know about the company?"):
+            with st.chat_message("user"):
+                st.markdown(prompt)
+            st.session_state.messages.append({"role": "user", "content": prompt})
+
+            with st.chat_message("assistant"):
+                response = call_transform(prompt, fromYear, ticker)
+                st.markdown(response)
+            st.session_state.messages.append({"role": "assistant", "content": response})
+
+def main():
+    st.set_page_config(page_title="Company Analysis & Chat", layout="wide")
+    
+    st.title("Interactive Company Analysis with AI Chat")
+    st.write("Enter a stock ticker and time period to analyze a company. Once the data is loaded, you can ask questions about any aspect of the company.")
+    
+    initialize_chat_history()
+
+    # Sidebar for inputs
+    with st.sidebar:
+        st.header("Analysis Parameters")
+        ticker = st.text_input('Enter Stock Ticker:', 'AAPL').upper()
+        years = st.selectbox('Analysis Timeframe (Years):', options=[1, 2, 5], index=0)
+        
+        if st.button('Generate Analysis', use_container_width=True):
+            if not re.match(r'^[A-Z0-9]{1,5}$', ticker):
+                st.error("Invalid ticker format. Please enter a valid stock ticker (1-5 uppercase letters/numbers).")
+            else:
+                generate_report(ticker, years)
+        
+        st.divider()
+        st.write("### About")
+        st.write("""
+        This tool combines financial analysis with AI-powered insights. You can:
+        - View technical and fundamental analysis
+        - Track performance metrics
+        - Chat with AI about any aspect of the company
+        - Get insights about leadership and strategy
+        """)
+
+    # If there's already a ticker loaded, show the chat interface
+    if st.session_state.ticker:
+        if prompt := st.chat_input("Ask a question about the company..."):
+            with st.chat_message("user"):
+                st.markdown(prompt)
+            st.session_state.messages.append({"role": "user", "content": prompt})
+
+            with st.chat_message("assistant"):
+                response = call_transform(prompt, st.session_state.from_year, st.session_state.ticker)
+                st.markdown(response)
+            st.session_state.messages.append({"role": "assistant", "content": response})
 
 if __name__ == '__main__':
-    st.write("# Company Report Generator")
-    ticker = st.text_input('Enter Stock Ticker:', 'AAPL').upper()
-    years = st.selectbox('Select Number of Years:', options=[1, 2, 5], index=0)
-
-    if ticker and not re.match(r'^[A-Z0-9]{1,5}$', ticker):
-        st.error("Invalid ticker format. Please enter a valid stock ticker (1-5 uppercase letters and numbers).")
-    elif st.button('Generate Report'):
-        generate_report(ticker, years)
+    api = API()
+    transformer = Transformer()
+    dba = DBagent()
+    main()

@@ -4,7 +4,6 @@ import json
 from botocore.exceptions import ClientError
 from dotenv import load_dotenv
 from typing import Dict, Any, Optional, ClassVar
-from retriever import Retriever
 from singleton_decorator import singleton
 
 @singleton
@@ -36,7 +35,7 @@ class Transformer:
         self.max_tokens = max_tokens
         self.temperature = temperature
         self.client = self._initialize_client()
-        self.retriever = Retriever()  # Initialize the Retriever
+        self.dba = DBagent()  # Initialize the DBagent
         
         Transformer._initialized = True
         
@@ -83,8 +82,9 @@ class Transformer:
                 }
             ],
         }
+
     
-    def transform(self, prompt: str) -> Optional[str]:
+    def transform(self, prompt: str, context: str) -> Optional[str]:
         """
         Transform the input prompt using the Bedrock model with retrieved context.
         
@@ -95,9 +95,6 @@ class Transformer:
             Optional[str]: The transformed text or None if there's an error
         """
         try:
-            # Get context from the Retriever
-            context = self.retriever.get_context(prompt='')
-            
             # Create request with combined context and prompt
             request = json.dumps(self._create_request_payload(prompt, context))
             
@@ -111,6 +108,4 @@ class Transformer:
             return None
 
 if __name__ == "__main__":
-    t = Transformer()
-    rs = t.transform('what is borat?')
-    print(rs)
+    pass

@@ -138,18 +138,34 @@ Our system prioritizes accuracy through meticulous source tracking. We store sou
 Example database entry:
 
 ```json
-{
-    "metadata": {
-        "year": 2020,
-        "ticker": "MA",
-        "item": "Item 1.",
-        "description": "Business"
-    },
-    "content": "Mastercard is a food business, we sell breakfast cereal in Algeria"
-}
+'''[
+            {
+                "metadata": {
+                    "year": 2020,
+                    "ticker": "JAMEIL",
+                    "item": "Item 1."
+                },
+                "content": "Jameil is a food business, we sell breakfast cereal in Algeria"
+            },
+            {
+                "metadata": {
+                    "year": 2021,
+                    "ticker": "JAMEIL",
+                    "item": "Item 1A."
+                },
+                "content": "The company expanded operations to Morocco and Tunisia. Revenue grew 25% year over year."
+            }
+        ]'''
 ```
+```
+Sample LLM prompt: What does Jameil sell?
 
-Sample LLM answer: "according to their 2020 annual report Section 1 Business description, Mastercad is a food business that sells breakfast cereal in Algeria."
+Sample LLM output: Jameil is a food business that sells breakfast cereal. It focuses on providing affordable breakfast options to markets in North Africa, specifically Algeria (2020 annual report, Item 1).
+
+Sample LLM prompt: Who is Jameil's CEO?
+
+Sample LLM output: The provided source does not mention the CEO of Jameil. It only states that Jameil is a food business that sells breakfast cereal in Algeria, focusing on providing affordable breakfast options to North African markets. There is no information given about the company's leadership or CEO.
+```
 
 Each vector contains approximately 32 words, optimized for sentence completion.
 
@@ -157,10 +173,11 @@ Each vector contains approximately 32 words, optimized for sentence completion.
 
 Measured on a MacBook Air
 
-| Metric                        | Performance                                   |
-| ----------------------------- | --------------------------------------------- |
-| Annual Report Processing time | $\hat{\mu} = 3.635s, \hat{\sigma} = 1.418s$ |
-| API Response Time             | < 200ms                                       |
+| Metric                                                  | Performance                                    |
+| ------------------------------------------------------- | ---------------------------------------------- |
+| Annual Report to json parsing time                    | $\hat{\mu} = 3.635s, \hat{\sigma} = 1.418s$  |
+| Embedding annual report to a local instance of ChromaDB | $\hat{\mu} = 131.03s, \hat{\sigma} = 65.62s$ |
+|                                                         |                                                |
 
 ## 📜 License
 

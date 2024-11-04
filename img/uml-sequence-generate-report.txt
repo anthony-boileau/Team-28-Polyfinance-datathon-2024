@@ -1,35 +1,34 @@
 @startuml
 actor User
 participant System
-participant API as API
-participant Embedder
+participant API
+participant "DBagent"
 database "VectorDB" as DB
-participant Retriever
 participant Transformer
 participant Report
 
 autonumber
-
 title Report Generation Process
 
-User -> System : requestData(company)
-System -> API: find(company)
-API --> System: return(data)
-System -> Embedder: parse(data)
-Embedder -> Embedder: tokenize(data)
-Embedder -> DB: store(vectors)
-DB --> Embedder: Confirm
-Embedder --> System: Confirm
+User -> System: select(ticker, daterange)
+System -> Report **: create
+System -> API: batch_get_collections()
+API --> System: return(collections)
+System -> DBagent: batch_embed(collections)
+loop#lightblue #lightblue For each collection
+    DBagent -> DBagent: tokenize(collection)
+    DBagent -> DB: upsert(documents, metadatas, ids)
+    DB --> DBagent: Confirm
+end
 
-System -> Report **:create
-
+DBagent --> System: Confirm
 loop#lightyellow #lightyellow While Report is generating
-    System -> Retriever: prompt(prompt)
-    Retriever -> DB: retrieveContext()
-    DB --> Retriever: return(context)
-    Retriever -> Retriever: detokenize(context)
-    Retriever -> Transformer: callGenerate(prompt, context)
-    Transformer -> Transformer: generate(prompt,context)
+    System -> DBagent: get_context(prompt, fromYear, ticker)
+    DBagent -> DB: query(prompt, years)
+    DB --> DBagent: return(data)
+    DBagent -> DBagent: format_metadata_citation()
+    DBagent -> Transformer: transform(context, prompt)
+    Transformer -> Transformer: generate(context, prompt)
     Transformer --> System: return(output)
     System -> Report: write(output)
     Report --> System: Confirm

@@ -1,32 +1,29 @@
 @startuml
-
 actor Analyst
-
 node System
-
-agent Embedder
-
+agent DBagent
 agent Transformer
-
-agent "Retriever" as rt
-
 database "Vector DB" as vdb
-
 cloud "api" as api
-
 file "Generated Report" as gr
 
-'Relationships
-api <- System: request data
-System --> Embedder
-Embedder -> Embedder: tokenize
-Embedder --> vdb: store
-rt --> vdb: retrieve
-rt -> rt: detokenize
-Analyst --> System: make query
-rt --> Transformer
-System --> gr: make report
+' Relationships
+Analyst --> System: interact
+System --> DBagent: process request
+
+System <- api: fetch 
+DBagent --> vdb: store vectors
+DBagent <-- vdb: retrieve vectors
+
+DBagent --> Transformer: provide context
 Transformer --> System: return output
+System --> gr: generate report
 
-
+note top of DBagent
+  Single DBagent instance handles:
+  * Embedding
+  * Storage
+  * Retrieval
+  * Context formatting
+end note
 @enduml

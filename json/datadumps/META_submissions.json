@@ -1,0 +1,120 @@
+{
+    "cik": "1326801",
+    "entityType": "operating",
+    "sic": "7370",
+    "sicDescription": "Services-Computer Programming, Data Processing, Etc.",
+    "ownerOrg": "06 Technology",
+    "insiderTransactionForOwnerExists": 0,
+    "insiderTransactionForIssuerExists": 1,
+    "name": "Meta Platforms, Inc.",
+    "tickers": [
+        "META"
+    ],
+    "exchanges": [
+        "Nasdaq"
+    ],
+    "ein": "201665019",
+    "description": "",
+    "website": "",
+    "investorWebsite": "",
+    "category": "Large accelerated filer",
+    "fiscalYearEnd": "1231",
+    "stateOfIncorporation": "DE",
+    "stateOfIncorporationDescription": "DE",
+    "addresses": {
+        "mailing": {
+            "street1": "1 META WAY",
+            "street2": null,
+            "city": "MENLO PARK",
+            "stateOrCountry": "CA",
+            "zipCode": "94025",
+            "stateOrCountryDescription": "CA"
+        },
+        "business": {
+            "street1": "1 META WAY",
+            "street2": null,
+            "city": "MENLO PARK",
+            "stateOrCountry": "CA",
+            "zipCode": "94025",
+            "stateOrCountryDescription": "CA"
+        }
+    },
+    "phone": "650-543-4800",
+    "flags": "",
+    "formerNames": [
+        {
+            "name": "Facebook Inc",
+            "from": "2005-05-06T00:00:00.000Z",
+            "to": "2021-10-27T00:00:00.000Z"
+        }
+    ],
+    "filings": {
+        "recent": {
+            "accessionNumber": [
+                "0001326801-24-000012",
+                "0001326801-23-000013"
+            ],
+            "filingDate": [
+                "2024-02-02",
+                "2023-02-02"
+            ],
+            "reportDate": [
+                "2023-12-31",
+                "2022-12-31"
+            ],
+            "acceptanceDateTime": [
+                "2024-02-01T19:39:02.000Z",
+                "2023-02-01T20:26:31.000Z"
+            ],
+            "act": [
+                "34",
+                "34"
+            ],
+            "form": [
+                "10-K",
+                "10-K"
+            ],
+            "fileNumber": [
+                "001-35551",
+                "001-35551"
+            ],
+            "filmNumber": [
+                "24588444",
+                "23578439"
+            ],
+            "items": [
+                "",
+                ""
+            ],
+            "core_type": [
+                "XBRL",
+                "XBRL"
+            ],
+            "size": [
+                14717765,
+                15340871
+            ],
+            "isXBRL": [
+                1,
+                1
+            ],
+            "isInlineXBRL": [
+                1,
+                1
+            ],
+            "primaryDocument": [
+                "meta-20231231.htm",
+                "meta-20221231.htm"
+            ],
+            "primaryDocDescription": [
+                "10-K",
+                "10-K"
+            ],
+            "primaryDocumentLinks": [
+                "https://www.sec.gov/Archives/edgar/data/0001326801/000132680124000012/meta-20231231.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001326801/000132680123000013/meta-20221231.htm"
+            ]
+        },
+        "files": []
+    }
+}
