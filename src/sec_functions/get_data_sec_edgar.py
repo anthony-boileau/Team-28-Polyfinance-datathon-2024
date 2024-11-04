@@ -37,7 +37,7 @@ class SECEdgarCollector:
         """Get CIK from local JSON file."""
         try:
             ticker = ticker.upper().replace(".", "-")
-            with open('./datadumps/cik_from_sec.json', 'r') as f:
+            with open('./reference-json/cik_from_sec.json', 'r') as f:
                 cik_data = json.load(f)
             return cik_data.get(ticker)
         except Exception as e:

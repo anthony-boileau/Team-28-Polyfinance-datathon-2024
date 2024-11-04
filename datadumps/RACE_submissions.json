@@ -1,0 +1,72 @@
+{
+    "cik": "1648416",
+    "entityType": "other",
+    "sic": "3711",
+    "sicDescription": "Motor Vehicles & Passenger Car Bodies",
+    "ownerOrg": "04 Manufacturing",
+    "insiderTransactionForOwnerExists": 0,
+    "insiderTransactionForIssuerExists": 0,
+    "name": "Ferrari N.V.",
+    "tickers": [
+        "RACE"
+    ],
+    "exchanges": [
+        "NYSE"
+    ],
+    "ein": "000000000",
+    "description": "",
+    "website": "",
+    "investorWebsite": "",
+    "category": "Large accelerated filer",
+    "fiscalYearEnd": "1231",
+    "stateOfIncorporation": "P7",
+    "stateOfIncorporationDescription": "Netherlands",
+    "addresses": {
+        "mailing": {
+            "street1": "VIA ABETONE INFERIORE N. 4",
+            "street2": null,
+            "city": "MARANELLO",
+            "stateOrCountry": "L6",
+            "zipCode": "I-41053",
+            "stateOrCountryDescription": "Italy"
+        },
+        "business": {
+            "street1": "VIA ABETONE INFERIORE N. 4",
+            "street2": null,
+            "city": "MARANELLO",
+            "stateOrCountry": "L6",
+            "zipCode": "I-41053",
+            "stateOrCountryDescription": "Italy"
+        }
+    },
+    "phone": "00390536949111",
+    "flags": "",
+    "formerNames": [
+        {
+            "name": "NEW BUSINESS NETHERLANDS N.V.",
+            "from": "2015-07-23T00:00:00.000Z",
+            "to": "2015-10-19T00:00:00.000Z"
+        }
+    ],
+    "filings": {
+        "recent": {
+            "accessionNumber": [],
+            "filingDate": [],
+            "reportDate": [],
+            "acceptanceDateTime": [],
+            "act": [],
+            "form": [],
+            "fileNumber": [],
+            "filmNumber": [],
+            "items": [],
+            "core_type": [],
+            "size": [],
+            "isXBRL": [],
+            "isInlineXBRL": [],
+            "primaryDocument": [],
+            "primaryDocDescription": [],
+            "primaryDocumentLinks": []
+        },
+        "files": []
+    }
+}

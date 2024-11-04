@@ -6,7 +6,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def fetch_all_ciks(output_file: str = './datadumps/cik_from_sec.json') -> Dict[str, str]:
+def fetch_all_ciks(output_file: str = './reference-json/cik_from_sec.json') -> Dict[str, str]:
     """
     Fetch all ticker-CIK mappings and save to JSON file.
     

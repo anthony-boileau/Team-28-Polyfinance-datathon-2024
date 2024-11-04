@@ -40,7 +40,7 @@ class SEC10KParser:
         
         # Load form 10-K items from JSON file
         try:
-            with open('./datadumps/form-10k-items.json', 'r') as f:
+            with open('./reference-json/form-10k-items.json', 'r') as f:
                 self.items_map = json.load(f)
         except Exception as e:
             logger.error(f"Error loading form-10k-items.json: {str(e)}")

@@ -11,7 +11,7 @@ class API:
         self.collector = edgar()
         self.parser = sec10k()
     
-    async def get_annual_report(self, ticker, fromYear, toYear=None):
+    async def generate_annual_reports(self, ticker, fromYear, toYear=None):
         # Trim and convert ticker to uppercase
         ticker = ticker.strip().upper()
         
@@ -38,7 +38,7 @@ class API:
 async def main():
     try:
         api = API()  # Will always return the same instance
-        result = await api.get_annual_report('RACE', 2022)
+        result = await api.get_annual_report('ccl', 2022)
         return result
     finally:
         await api.cleanup()

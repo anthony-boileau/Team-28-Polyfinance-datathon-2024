@@ -1,0 +1,1691 @@
+{
+    "cik": 1648416,
+    "entityName": "Ferrari N.V.",
+    "facts": {
+        "dei": {
+            "EntityCommonStockSharesOutstanding": {
+                "label": "Entity Common Stock, Shares Outstanding",
+                "description": "Indicate number of shares or other units outstanding of each of registrant's classes of capital or common stock or other ownership interests, if and as stated on cover of related periodic report. Where multiple classes or units exist define each class/interest by adding class of stock items such as Common Class A [Member], Common Class B [Member] or Partnership Interest [Member] onto the Instrument [Domain] of the Entity Listings, Instrument.",
+                "units": {
+                    "shares": []
+                }
+            }
+        },
+        "ifrs-full": {
+            "ActuarialGainsLossesArisingFromChangesInDemographicAssumptionsNetDefinedBenefitLiabilityAsset": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ActuarialGainsLossesArisingFromChangesInFinancialAssumptionsNetDefinedBenefitLiabilityAsset": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "AdditionalProvisionsOtherProvisions": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "AdditionsToRightofuseAssets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "AdjustedWeightedAverageShares": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "shares": []
+                }
+            },
+            "AdjustmentsForCurrentTaxOfPriorPeriod": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "AdjustmentsForDecreaseIncreaseInInventories": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "AdjustmentsForDecreaseIncreaseInTradeAccountReceivable": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "AdjustmentsForDepreciationAndAmortisationExpense": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "AdjustmentsForFinanceCosts": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "AdjustmentsForGainLossOnDisposalsPropertyPlantAndEquipment": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "AdjustmentsForIncreaseDecreaseInTradeAccountPayable": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "AdjustmentsForProvisions": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "AdjustmentsForUndistributedProfitsOfInvestmentsAccountedForUsingEquityMethod": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "AdministrativeExpense": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "Advances": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "AllowanceAccountForCreditLossesOfFinancialAssets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "AmountsPayableRelatedPartyTransactions": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "AmountsReceivableRelatedPartyTransactions": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ApplicableTaxRate": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "pure": []
+                }
+            },
+            "Assets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "AverageNumberOfEmployees": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "employee": [],
+                    "pure": []
+                }
+            },
+            "BasicEarningsLossPerShare": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR/shares": []
+                }
+            },
+            "BorrowingCostsCapitalised": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "BorrowingCostsIncurred": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "BorrowingCostsRecognisedAsExpense": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "Borrowings": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "CapitalCommitments": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "CashAndCashEquivalents": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "CashFlowsFromLosingControlOfSubsidiariesOrOtherBusinessesClassifiedAsInvestingActivities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "CashFlowsFromUsedInDecreaseIncreaseInShorttermDepositsAndInvestments": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "CashFlowsFromUsedInFinancingActivities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "CashFlowsFromUsedInInvestingActivities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "CashFlowsFromUsedInOperatingActivities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ChangesInOtherProvisions": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ComprehensiveIncome": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ComprehensiveIncomeAttributableToNoncontrollingInterests": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ComprehensiveIncomeAttributableToOwnersOfParent": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ContractualCommitmentsForAcquisitionOfPropertyPlantAndEquipment": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "CostOfSales": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "CurrentAssets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "CurrentDerivativeFinancialAssets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "CurrentDerivativeFinancialLiabilities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "CurrentFinancialAssets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "CurrentPrepayments": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "CurrentServiceCostNetDefinedBenefitLiabilityAsset": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "CurrentTaxAssetsCurrent": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "CurrentTaxExpenseIncome": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "CurrentTaxLiabilities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "CurrentValueAddedTaxReceivables": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "DeferredIncome": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "DeferredTaxAssets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "DeferredTaxExpenseIncome": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "DeferredTaxExpenseIncomeRecognisedInProfitOrLoss": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "DeferredTaxLiabilities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "DeferredTaxRelatingToItemsChargedOrCreditedDirectlyToEquity": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "DefinedBenefitObligationAtPresentValue": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "DepreciationExpense": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "DepreciationRightofuseAssets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "DescriptionOfGrowthRateUsedToExtrapolateCashFlowProjections": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "pure": []
+                }
+            },
+            "DilutedEarningsLossPerShare": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR/shares": []
+                }
+            },
+            "DividendsPaid": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "DividendsPaidToEquityHoldersOfParentClassifiedAsFinancingActivities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "DividendsPaidToNoncontrollingInterestsClassifiedAsFinancingActivities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "DividendsReceived": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "DividendsRecognisedAsDistributionsToNoncontrollingInterests": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "DividendsRecognisedAsDistributionsToOwnersOfParent": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "DividendsRecognisedAsDistributionsToOwnersPerShare": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR/shares": []
+                }
+            },
+            "EffectOfExchangeRateChangesOnCashAndCashEquivalents": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "Equity": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "EquityAndLiabilities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "EquityAttributableToOwnersOfParent": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ExpenseFromSharebasedPaymentTransactionsWithEmployees": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ExpenseRelatingToVariableLeasePaymentsNotIncludedInMeasurementOfLeaseLiabilities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "FinanceCosts": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "FinanceCostsPaidClassifiedAsOperatingActivities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "FinanceIncome": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "FinanceIncomeCost": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "FinanceIncomeReceivedClassifiedAsOperatingActivities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "FinancialAssetsAtAmortisedCost": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "FinancialAssetsAtFairValue": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "FinishedGoods": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "GainLossOnCessationOfConsolidationOfSubsidiariesDueToChangeOfInvestmentEntityStatus": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "GainsLossesOnCashFlowHedgesBeforeTax": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "GainsLossesOnCashFlowHedgesNetOfTax": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "GainsLossesOnExchangeDifferencesOnTranslationBeforeTax": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "GainsLossesOnExchangeDifferencesOnTranslationNetOfTax": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "GainsOnDisposalsOfPropertyPlantAndEquipment": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "Goodwill": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "GrossLeaseLiabilities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ImpairmentLossOnFinancialAssets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "IncomeTaxExpenseContinuingOperations": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "IncomeTaxesPaidRefundClassifiedAsOperatingActivities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "IncomeTaxRelatingToCashFlowHedgesOfOtherComprehensiveIncome": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "IncomeTaxRelatingToComponentsOfOtherComprehensiveIncome": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "IncomeTaxRelatingToComponentsOfOtherComprehensiveIncomeThatWillBeReclassifiedToProfitOrLoss": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "IncomeTaxRelatingToExchangeDifferencesOnTranslationOfOtherComprehensiveIncome": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "IncomeTaxRelatingToRemeasurementsOfDefinedBenefitPlansOfOtherComprehensiveIncome": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "IncreaseDecreaseInCashAndCashEquivalents": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "IncreaseDecreaseInNetDefinedBenefitLiabilityAsset": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "IncreaseDecreaseThroughChangeInEquityOfSubsidiaries": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "IncreaseDecreaseThroughLossOfControlOfSubsidiaryDeferredTaxLiabilityAsset": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "IncreaseDecreaseThroughNetExchangeDifferencesDeferredTaxLiabilityAsset": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "IncreaseDecreaseThroughNetExchangeDifferencesOtherProvisions": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "IncreaseDecreaseThroughOtherChangesNetDefinedBenefitLiabilityAsset": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "IncreaseDecreaseThroughSharebasedPaymentTransactions": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "IntangibleAssetsOtherThanGoodwill": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "InterestExpense": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "InterestExpenseIncomeNetDefinedBenefitLiabilityAsset": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "InterestExpenseOnBonds": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "InterestExpenseOnDebtInstrumentsIssued": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "InterestExpenseOnDepositsFromBanks": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "InterestExpenseOnFinanceLeases": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "InterestExpenseOnLeaseLiabilities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "InterestExpenseOnOtherFinancialLiabilities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "InterestIncomeOnDeposits": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "InterestIncomeOnOtherFinancialAssets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "Inventories": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "InvestmentAccountedForUsingEquityMethod": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "IssuedCapital": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "IssueOfEquity": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "KeyManagementPersonnelCompensation": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "KeyManagementPersonnelCompensationOtherLongtermBenefits": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "KeyManagementPersonnelCompensationPostemploymentBenefits": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "KeyManagementPersonnelCompensationSharebasedPayment": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "LeaseCommitmentsForShorttermLeasesForWhichRecognitionExemptionHasBeenUsed": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "LeaseLiabilities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "LiabilityAssetOfDefinedBenefitPlans": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "MinimumLeasePaymentsPayableUnderNoncancellableOperatingLease": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "MinimumOperatingLeasePayments": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "MiscellaneousOtherOperatingExpense": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "MiscellaneousOtherOperatingIncome": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "NetDeferredTaxAssets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "NetDeferredTaxLiabilities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "NoncontrollingInterests": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "NoncurrentAssets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherAdjustmentsForNoncashItems": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherComprehensiveIncome": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherComprehensiveIncomeBeforeTax": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherComprehensiveIncomeBeforeTaxCashFlowHedges": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherComprehensiveIncomeBeforeTaxGainsLossesOnRemeasurementsOfDefinedBenefitPlans": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherComprehensiveIncomeNetOfTaxGainsLossesOnRemeasurementsOfDefinedBenefitPlans": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherComprehensiveIncomeThatWillBeReclassifiedToProfitOrLossBeforeTax": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherComprehensiveIncomeThatWillBeReclassifiedToProfitOrLossNetOfTax": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherComprehensiveIncomeThatWillNotBeReclassifiedToProfitOrLossBeforeTax": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherComprehensiveIncomeThatWillNotBeReclassifiedToProfitOrLossNetOfTax": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherCurrentAssets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherCurrentFinancialAssets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherCurrentReceivables": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherExpenseByFunction": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherFinanceCost": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherFinancialAssets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherFinancialLiabilities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherIncome": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherLiabilities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherNonfinancialLiabilities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherOperatingIncomeExpense": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherProvisions": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "PastServiceCostNetDefinedBenefitLiabilityAsset": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "PaymentsFromChangesInOwnershipInterestsInSubsidiaries": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "PaymentsFromPlanNetDefinedBenefitLiabilityAsset": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "PaymentsOfLeaseLiabilitiesClassifiedAsFinancingActivities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "PostemploymentBenefitExpenseDefinedBenefitPlans": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "PostemploymentBenefitExpenseDefinedContributionPlans": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ProceedsFromBorrowingsClassifiedAsFinancingActivities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ProceedsFromCurrentBorrowings": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ProceedsFromDisposalsOfPropertyPlantAndEquipmentIntangibleAssetsOtherThanGoodwillInvestmentPropertyAndOtherNoncurrentAssets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ProceedsFromIssueOfBondsNotesAndDebentures": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ProceedsFromSalesOfInvestmentProperty": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ProceedsFromSalesOfInvestmentsOtherThanInvestmentsAccountedForUsingEquityMethod": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ProceedsFromSalesOrMaturityOfFinancialInstrumentsClassifiedAsInvestingActivities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ProfitLoss": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ProfitLossAttributableToNoncontrollingInterests": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ProfitLossAttributableToOwnersOfParent": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ProfitLossBeforeTax": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ProfitLossFromOperatingActivities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "PropertyPlantAndEquipment": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "Provisions": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ProvisionsForEmployeeBenefits": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ProvisionUsedOtherProvisions": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "PurchaseOfIntangibleAssetsClassifiedAsInvestingActivities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "PurchaseOfTreasuryShares": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "RawMaterials": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ReclassificationAdjustmentsOnCashFlowHedgesBeforeTax": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ReclassificationAdjustmentsOnCashFlowHedgesNetOfTax": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "RentalIncome": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "RepaymentsOfBondsNotesAndDebentures": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "RepaymentsOfBorrowingsClassifiedAsFinancingActivities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ResearchAndDevelopmentExpense": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ReserveOfSharebasedPayments": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "Revenue": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "RevenueFromInterest": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "RevenueFromSaleOfGoodsRelatedPartyTransactions": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "RightofuseAssets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "SalesAndMarketingExpense": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "SellingGeneralAndAdministrativeExpense": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ShareOfOtherComprehensiveIncomeOfAssociatesAndJointVenturesAccountedForUsingEquityMethodThatWillBeReclassifiedToProfitOrLossBeforeTax": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ShareOfProfitLossOfAssociatesAccountedForUsingEquityMethod": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "SharePremium": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "StatutoryReserve": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "TaxBenefitArisingFromPreviouslyUnrecognisedTaxLossTaxCreditOrTemporaryDifferenceOfPriorPeriodUsedToReduceCurrentTaxExpense": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "TaxBenefitArisingFromPreviouslyUnrecognisedTaxLossTaxCreditOrTemporaryDifferenceOfPriorPeriodUsedToReduceDeferredTaxExpense": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "TaxEffectFromChangeInTaxRate": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "TaxEffectOfExpenseNotDeductibleInDeterminingTaxableProfitTaxLoss": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "TaxEffectOfForeignTaxRates": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "TaxExpenseOtherThanIncomeTaxExpense": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "TemporaryDifferencesAssociatedWithInvestmentsInSubsidiariesBranchesAndAssociatesAndInterestsInJointVentures": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "TradeAndOtherCurrentReceivablesDueFromRelatedParties": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "TradeAndOtherPayablesToTradeSuppliers": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "TradeReceivables": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "UnusedProvisionReversedOtherProvisions": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "WagesAndSalaries": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "WeightedAverageCostOfCapitalSignificantUnobservableInputsAssets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "pure": []
+                }
+            },
+            "WeightedAverageShares": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "shares": []
+                }
+            },
+            "WorkInProgress": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "DeferredIncomeOtherThanContractLiabilities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ExpenseFromSharebasedPaymentTransactionsWithPartiesOtherThanEmployees": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "IncreaseDecreaseThroughTransfersAndOtherChangesEquity": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "IncreaseDecreaseThroughTransfersAndOtherChangesOtherProvisions": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "TaxExpenseIncomeAtApplicableTaxRate": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "UndrawnBorrowingFacilities": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "BankBalancesAtCentralBanksOtherThanMandatoryReserveDeposits": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "NumberOfInstrumentsOtherEquityInstrumentsGranted": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "shares": []
+                }
+            },
+            "NumberOfOtherEquityInstrumentsExercisedOrVestedInSharebasedPaymentArrangement": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "shares": []
+                }
+            },
+            "NumberOfOtherEquityInstrumentsForfeitedInSharebasedPaymentArrangement": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "shares": []
+                }
+            },
+            "NumberOfOtherEquityInstrumentsOutstandingInSharebasedPaymentArrangement": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "shares": []
+                }
+            },
+            "PurchaseOfInterestsInInvestmentsAccountedForUsingEquityMethod": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "AdjustmentsForFinanceIncome": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "BankBorrowingsUndiscountedCashFlows": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "CurrentTaxAssets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "DilutiveEffectOfShareOptionsOnNumberOfOrdinaryShares": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "shares": []
+                }
+            },
+            "ExpenseFromSharebasedPaymentTransactionsInWhichGoodsOrServicesReceivedDidNotQualifyForRecognitionAsAssets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ForeignExchangeGain": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ForeignExchangeLoss": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "InterestExpenseOnBorrowings": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "OtherTaxEffectsForReconciliationBetweenAccountingProfitAndTaxExpenseIncome": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "PropertyPlantAndEquipmentIncludingRightofuseAssets": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            },
+            "ShareOfProfitLossOfAssociatesAndJointVenturesAccountedForUsingEquityMethod": {
+                "label": null,
+                "description": null,
+                "units": {
+                    "EUR": []
+                }
+            }
+        }
+    }
+}
