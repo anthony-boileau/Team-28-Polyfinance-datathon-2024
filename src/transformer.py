@@ -30,10 +30,7 @@ class Transformer:
             max_tokens (int): Maximum number of tokens in the response
             temperature (float): Temperature parameter for response generation
         """
-        # Skip initialization if already initialized
-        if Transformer._initialized:
-            return
-            
+
         self.load_credentials(env_file)
         self.model_id = model_id
         self.max_tokens = max_tokens
@@ -99,7 +96,7 @@ class Transformer:
         """
         try:
             # Get context from the Retriever
-            context = self.retriever.get_context(query='')
+            context = self.retriever.get_context(prompt='')
             
             # Create request with combined context and prompt
             request = json.dumps(self._create_request_payload(prompt, context))
@@ -112,44 +109,8 @@ class Transformer:
         except (ClientError, Exception) as e:
             print(f"ERROR: Can't invoke '{self.model_id}'. Reason: {e}")
             return None
-            
-    @classmethod
-    def get_instance(cls, 
-                    env_file: str = '.secrets',
-                    model_id: str = "anthropic.claude-3-sonnet-20240229-v1:0",
-                    max_tokens: int = 512,
-                    temperature: float = 0.5) -> 'Transformer':
-        """
-        Get the singleton instance of the Transformer.
-        Creates a new instance if one doesn't exist.
-        
-        Args:
-            env_file (str): Path to the environment file containing AWS credentials
-            model_id (str): The Bedrock model ID to use
-            max_tokens (int): Maximum number of tokens in the response
-            temperature (float): Temperature parameter for response generation
-            
-        Returns:
-            Transformer: The singleton instance
-        """
-        if cls._instance is None:
-            cls._instance = Transformer(
-                env_file=env_file,
-                model_id=model_id,
-                max_tokens=max_tokens,
-                temperature=temperature
-            )
-        return cls._instance
 
-    def __getstate__(self):
-        """
-        Customize object serialization to maintain singleton pattern.
-        """
-        return self.__dict__
-
-    def __setstate__(self, state):
-        """
-        Customize object deserialization to maintain singleton pattern.
-        """
-        self.__dict__ = state
-
+if __name__ == "__main__":
+    t = Transformer()
+    rs = t.transform('what is borat?')
+    print(rs)

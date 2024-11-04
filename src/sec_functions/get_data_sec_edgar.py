@@ -37,7 +37,7 @@ class SECEdgarCollector:
         """Get CIK from local JSON file."""
         try:
             ticker = ticker.upper().replace(".", "-")
-            with open('./reference-json/cik_from_sec.json', 'r') as f:
+            with open('./json/reference/cik_from_sec.json', 'r') as f:
                 cik_data = json.load(f)
             return cik_data.get(ticker)
         except Exception as e:
@@ -124,7 +124,7 @@ class SECEdgarCollector:
     async def dumper(self, ticker: str, data_type: str, data: Dict, timestamp: str) -> bool:
         """Generic data dumper."""
         try:
-            filename = f"./datadumps/{ticker}_{data_type}.json"
+            filename = f"./json/datadumps/{ticker}_{data_type}.json"
             
             with open(filename, 'w') as f:
                 json.dump(data, f, indent=4)

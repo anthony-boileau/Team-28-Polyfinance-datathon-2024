@@ -38,12 +38,77 @@ class API:
         if hasattr(self.parser, 'close'):
             await self.parser.close()
 
-    async def get_annual_report_content_streamed():
+def annual_report_to_collection(self, ticker: str, year: int) -> Dict[str, Any]:
         """
-        return the annual report in form of embeddings and metadata
+        Convert an annual report from JSON format to a collection of documents with metadata.
+        
+        Args:
+            ticker (str): The stock ticker symbol
+            year (int): The year of the annual report
+            
+        Returns:
+            Dict containing:
+                - documents: List of content strings
+                - metadatas: List of metadata dicts
+                - ids: List of unique identifiers
+                
+        Raises:
+            FileNotFoundError: If the JSON file doesn't exist
+            json.JSONDecodeError: If the JSON file is invalid
         """
+        # Construct file path
+        file_path = Path(f"./json/datadumps/{ticker}_{year}_10k.json")
+        
+        try:
+            # Read and parse JSON file
+            with open(file_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            
+            documents = []
+            metadatas = []
+            ids = []
+            
+            # Process each item and its contents
+            for item_index, item_data in enumerate(data.get('items', [])):
+                item_name = item_data.get('item', '')
+                contents = item_data.get('contents', [])
+                
+                # Process each content block within the item
+                for content_index, content in enumerate(contents):
+                    if content and isinstance(content, str):
+                        # Add the content to documents
+                        documents.append(content)
+                        
+                        # Create metadata for this content
+                        metadata = {
+                            'item': item_name,
+                            'ticker': ticker,
+                            'year': year,
+                            'item_index': item_index,
+                            'content_index': content_index
+                        }
+                        metadatas.append(metadata)
+                        
+                        # Create unique ID
+                        unique_id = f"{ticker}_{year}_{item_name}_{item_index}_{content_index}"
+                        unique_id = unique_id.replace(' ', '_').replace('.', '')
+                        ids.append(unique_id)
+            
+            collection = {
+                'documents': documents,
+                'metadatas': metadatas,
+                'ids': ids
+            }
+            
+            return collection
+            
+        except FileNotFoundError as e:
+            raise FileNotFoundError(f"Annual report file not found for {ticker} {year}: {e}")
+        except json.JSONDecodeError as e:
+            raise json.JSONDecodeError(f"Error parsing JSON for {ticker} {year}: {e.msg}", e.doc, e.pos)
+        except Exception as e:
+            raise Exception(f"Unexpected error processing annual report for {ticker} {year}: {str(e)}")
 
-    
 
 async def run_tests():
     companies = ['GOOGL', 'MSFT', 'AAPL', 'AMZN', 'TSLA', 'NFLX', 'FB', 'NVDA', 'DIS']

@@ -40,7 +40,7 @@ class SEC10KParser:
         
         # Load form 10-K items from JSON file
         try:
-            with open('./reference-json/form-10k-items.json', 'r') as f:
+            with open('./json/reference/form-10k-items.json', 'r') as f:
                 self.items_map = json.load(f)
         except Exception as e:
             logger.error(f"Error loading form-10k-items.json: {str(e)}")
@@ -202,7 +202,7 @@ class SEC10KParser:
                 return False
 
             # Read submission data
-            submission_file = f"./datadumps/{ticker}_submissions.json"
+            submission_file = f"./json/datadumps/{ticker}_submissions.json"
             with open(submission_file, 'r') as f:
                 submission_data = json.load(f)
 
@@ -230,7 +230,7 @@ class SEC10KParser:
                     doc_structure = result[2]
                     
                     output_filename = f"{ticker}-{year}-10k.json"
-                    output_path = f"./datadumps/{output_filename}"
+                    output_path = f"./json/datadumps/{output_filename}"
                     
                     with open(output_path, 'w', encoding='utf-8') as f:
                         json.dump(doc_structure, f, indent=2, ensure_ascii=False)

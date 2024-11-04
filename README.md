@@ -28,13 +28,11 @@
 
 This makes financial analysis more accessible and efficient for investors, analysts, and decision-makers.
 
-
 ### Screenshots
 
 TODO: add gif
 ![technical-analysis](img/screenshot-ta.png)
 ![graphing-capability](img/screenshot-graphs.png)
-
 
 ### 🌟 Key Features
 
@@ -77,18 +75,15 @@ Extract key information from SEC EDGAR filings into structured JSON format, with
 
 ### Technology Stack
 
-- Transformer: anthropic claude 3 on AWS. one of the models that was available, quite polished
-- DB: ChromaDB, open source vector db and deployable on AWS
+- Transformer: anthropic claude 3 on AWS. one of the models that was available. chosen because 3.5 sonnet is available up to a certain token limit for free thus unlocking the ability for claude to prompt engineer itself
+- DB:  Chromadb, open source and deployable with aws. We managed to create an aws stack but then aws refused to connect no matter what we did therefore we are forced to run it locally for the data layer. it is what it is.
 - UI/api layer: Streamlit, python power and ease of use
 - Data sources: SEC's edgar, yfinance due to being free access
 
-
 ### System Architecture
-
 
 ![UML deployment diagram](img/uml-deployment.png)
 ![generate report](img/uml-sequence-generate-report.png)
-
 
 ## 📊 Report Components
 
@@ -153,30 +148,23 @@ Example database entry:
     "content": "Mastercard is a food business, we sell breakfast cereal in Algeria"
 }
 ```
+
 Sample LLM answer: "according to their 2020 annual report Section 1 Business description, Mastercad is a food business that sells breakfast cereal in Algeria."
 
 Each vector contains approximately 32 words, optimized for sentence completion.
 
 ## 📈 Performance Metrics
+
 Measured on a MacBook Air
 
-| Metric                     | Performance  |
-| -------------------------- | ------------ |
-| Annual Report Processing time     | $\hat{\mu} = 3.635s, \hat{\sigma} = 1.418s$ |
-| API Response Time          | < 200ms      |
+| Metric                        | Performance                                   |
+| ----------------------------- | --------------------------------------------- |
+| Annual Report Processing time | $\hat{\mu} = 3.635s, \hat{\sigma} = 1.418s$ |
+| API Response Time             | < 200ms                                       |
 
 ## 📜 License
 
 This project is licensed under the GPL License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-Special thanks to:
-
-- AWS for platform support
-- SEC EDGAR for data access
-- Anthropic for Claude 3 capabilities
-- yfinance for market data integration
 
 ---
 
