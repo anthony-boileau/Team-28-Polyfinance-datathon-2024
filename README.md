@@ -12,11 +12,11 @@
 
 ## 🏆 Team 28
 
-| Team Member      |
-| ---------------- |
-| Anthony Boileau  |
-| Guillaume Collin |
-| Minh Huynh       |
+| Team Member      | Contact                                            |
+| ---------------- | -------------------------------------------------- |
+| Anthony Boileau  | [anthony-boileau](https://github.com/anthony-boileau) |
+| Guillaume Collin | [Guillaume1208](https://github.com/Guillaume1208)     |
+| Minh Huynh       | [vibqetowi](https://github.com/vibqetowi)             |
 
 ## 🎯 Project Overview
 
@@ -29,14 +29,20 @@
 
 Through these features, we make financial analysis more accessible and efficient for investors, analysts, and decision-makers.
 
-### Visual Showcase
+### Platform Showcase
 
-*TODO: Add GIF demonstration*
-### Generative AI insights with citations
-![ai-insight](./img/1730737242023.png)
-### Chat With knowledge base
-![chat-interface](img/chat-interface.png)
-### Financial Analysis
+![gif showcase](./img/showcase.gif)
+
+#### AI-Powered Insights with Source Citations
+
+![AI Insight Generation](./img/1730737242023.png)
+
+#### Interactive Knowledge Base Chat
+
+![Chat Interface](img/chat-interface.png)
+
+#### Comprehensive Financial Analysis
+
 ![Technical Analysis Dashboard](img/screenshot-ta.png)
 
 ### 🌟 Key Features
@@ -68,8 +74,7 @@ Our solution offers free access to parsed textual components of 10-K forms, extr
 
 Our comprehensive analytics package includes:
 
-- **Historical Analysis**: Track performance metrics across multiple years
-- **Industry Benchmarking**: Compare company performance against peers
+- **Historical Analysis**: Compare quantitative metrics and qualitative aspects across multiple years through LLM and vector database search
 - **Interactive Q&A**: Natural language queries powered by Claude 3
 - **Comprehensive Analytics**: Deep insights from financials to governance
 - **Real-time Market Data**: Live market context through yfinance integration
@@ -78,19 +83,26 @@ Our comprehensive analytics package includes:
 
 ### Technology Stack
 
-Our platform leverages cutting-edge technologies:
+Per challenge requirements, every component either runs on or is designed to run on AWS. Despite permission constraints, the architecture was designed for seamless AWS deployment:
 
 - **AI Model**: Claude 3 by Anthropic, deployed on AWS
-  - Chosen for its robust capabilities and free tier access (3.5 Sonnet)
+
+  - Leverages robust capabilities and free tier access (3.5 Sonnet)
   - Enables sophisticated self-prompting engineering
 - **Database**: ChromaDB
+
   - Open-source vector database with AWS deployment support
-  - Currently running locally due to AWS permission issues, however a stack was still successfully created (see [our template](./json/reference/chroma-template.json) ) through AWS and the code can be easily adapted.
-    ![aws stack](img/aws-stack.png)
+  - Currently running locally due to AWS permission issues
+  - AWS stack successfully created (see [our template](./json/reference/chroma-template.json))
+  - Code ready for cloud adaptation
+    ![AWS Stack Configuration](img/aws-stack.png)
 - **Frontend/API**: Streamlit
-  - Chosen for its Python integration and development efficiency
+
+  - Optimized for Python integration
+  - Rapid development capabilities
 - **Data Sources**: SEC EDGAR and yfinance
-  - Selected for reliable, free access to financial data
+
+  - Reliable, free access to financial data
 
 ### System Architecture
 
@@ -123,7 +135,6 @@ Our platform leverages cutting-edge technologies:
 - Impact analysis
 - Peer risk comparisons
 
-
 ## 🚀 Getting Started
 
 ```bash
@@ -134,12 +145,14 @@ pip install -r requirements.txt
 aws configure
 
 # Launch application
-streamlit run system.py
+streamlit run 👋_Landing_Page.py
 ```
 
 ## AI Explainability
 
 Our system ensures accuracy through meticulous source tracking. Each text snippet in the vector database includes source metadata, and we prompt the LLM to provide precise citations, enhancing Claude 3's natural safeguards against hallucinations.
+
+While token usage optimization remains an area for improvement, our precise citation system outperforms many commercial solutions that struggle with source hallucination.
 
 Example database structure:
 
@@ -178,7 +191,7 @@ Our vector database is optimized with approximately 32 words per vector for opti
 
 ## 📈 Performance Metrics
 
-Tested on a MacBook Air, using Python’s time module to measure query times on a random sample of 10 items:
+Tested on a MacBook Air, using Python's time module to measure query times on a random sample of 10 items:
 
 | Metric                                     | Performance                                    |
 | ------------------------------------------ | ---------------------------------------------- |
@@ -186,8 +199,12 @@ Tested on a MacBook Air, using Python’s time module to measure query times on 
 | Embedding annual report to local ChromaDB  | $\hat{\mu} = 131.03s, \hat{\sigma} = 65.62s$ |
 | Retrieving context and answering LLM query | $\hat{\mu} = 4.69s, \hat{\sigma} = 1.28s$    |
 
-## Roadmap:
-- Add sentiment analysis insights on news as well
+## 🛣️ Roadmap
+
+- Implement news sentiment analysis insights
+- Convert remaining blocking calls to async operations
+- Deploy hosted database instances and optimize embedding performance
+- Enhance 10-K form parsing accuracy
 
 ## 📜 License
 
