@@ -32,8 +32,12 @@ Through these features, we make financial analysis more accessible and efficient
 ### Visual Showcase
 
 *TODO: Add GIF demonstration*
+### Generative AI insights with citations
+![ai-insight](./img/1730737242023.png)
+### Chat With knowledge base
+![chat-interface](img/chat-interface.png)
+### Financial Analysis
 ![Technical Analysis Dashboard](img/screenshot-ta.png)
-![Advanced Graphing Capabilities](img/screenshot-graphs.png)
 
 ### 🌟 Key Features
 
@@ -82,7 +86,7 @@ Our platform leverages cutting-edge technologies:
 - **Database**: ChromaDB
   - Open-source vector database with AWS deployment support
   - Currently running locally due to AWS permission issues, however a stack was still successfully created (see [our template](./json/reference/chroma-template.json) ) through AWS and the code can be easily adapted.
-  ![aws stack](img/aws-stack.png)
+    ![aws stack](img/aws-stack.png)
 - **Frontend/API**: Streamlit
   - Chosen for its Python integration and development efficiency
 - **Data Sources**: SEC EDGAR and yfinance
@@ -119,12 +123,6 @@ Our platform leverages cutting-edge technologies:
 - Impact analysis
 - Peer risk comparisons
 
-### Market Sentiment
-
-- News sentiment analysis
-- Social media trend monitoring
-- Analyst recommendation tracking
-- Market perception analysis
 
 ## 🚀 Getting Started
 
@@ -187,6 +185,9 @@ Tested on a MacBook Air, using Python’s time module to measure query times on 
 | Annual Report to JSON parsing time         | $\hat{\mu} = 3.635s, \hat{\sigma} = 1.418s$  |
 | Embedding annual report to local ChromaDB  | $\hat{\mu} = 131.03s, \hat{\sigma} = 65.62s$ |
 | Retrieving context and answering LLM query | $\hat{\mu} = 4.69s, \hat{\sigma} = 1.28s$    |
+
+## Roadmap:
+- Add sentiment analysis insights on news as well
 
 ## 📜 License
 

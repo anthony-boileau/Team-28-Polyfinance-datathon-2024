@@ -53,7 +53,7 @@ def main():
     status_placeholder.info('Loading data, please wait...')
     
     # Fetch company data
-    ready = asyncio.run(fetch_report_data(st.session_state.ticker, fromYear))
+    ready = True
     
     if ready:
         status_placeholder.success('Data loaded! You can now ask questions below.')

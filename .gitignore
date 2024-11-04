@@ -8,3 +8,4 @@ downloader.ipynb
 *.mp4
 .ipynb_checkpoints
 tempCodeRunnerFile.py
+/database/*
