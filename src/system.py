@@ -128,6 +128,23 @@ def generate_report(ticker, years):
         df = stock_data.history(period=f"{years}y")
         df.reset_index(inplace=True)
 
+        # Chat interface
+        st.write("## Ask Questions About your Data")
+        st.write("Use the chat below to ask specific questions about the company's performance, leadership, strategy, or any other aspect.")
+        
+        display_chat_history()
+
+        if prompt := st.chat_input("What would you like to know about the company?"):
+            with st.chat_message("user"):
+                st.markdown(prompt)
+            st.session_state.messages.append({"role": "user", "content": prompt})
+
+            with st.chat_message("assistant"):
+                response = call_transform(prompt, fromYear, ticker)
+                st.markdown(response)
+            st.session_state.messages.append({"role": "assistant", "content": response})
+
+
         # Calculate technical indicators
         df['SMA_20'] = ta.sma(df['Close'], length=20)
         df['RSI'] = ta.rsi(df['Close'], length=14)
@@ -174,78 +191,139 @@ def generate_report(ticker, years):
         # Display quarterly analysis
         display_quarterly_analysis(stock_data)
 
-        # Generated sections using call_transform
+        # AI-Generated Analysis
         st.write("## AI-Generated Analysis")
+
+        # Financial Analysis Section
+        st.write("### Financial Analysis")
         
-        with st.expander("Leadership Changes"):
-            response = call_transform(f"Summarize leadership changes in the last {years} years.", fromYear, ticker)
+        with st.expander("Company Metrics & Fundamentals"):
+            response = call_transform(
+                f"Analyze the company's key financial metrics including revenue growth, profit margins, and cash flow trends. Compare current ratios against historical averages and highlight any significant deviations or trends. Include specific figures and percentage changes where available.",
+                fromYear,
+                ticker
+            )
+            st.write(response)
+        
+        with st.expander("Historical Performance"):
+            response = call_transform(
+                f"Provide a detailed analysis of the company's performance over the past {years} years, focusing on year-over-year growth rates, operational efficiency metrics, and capital allocation decisions. Include specific milestone achievements and setbacks.",
+                fromYear,
+                ticker
+            )
             st.write(response)
             
-        with st.expander("Executive Composition"):
-            response = call_transform("List the current executive team and their positions.", fromYear, ticker)
+        with st.expander("Industry Comparisons"):
+            response = call_transform(
+                "Compare the company's financial performance metrics against its primary industry competitors, focusing on market share, revenue growth rates, and profitability margins. Identify areas where the company leads or lags its peers.",
+                fromYear,
+                ticker
+            )
             st.write(response)
             
-        with st.expander("Board Committees"):
-            response = call_transform("Describe the current board committee structure.", fromYear, ticker)
+        with st.expander("KPI Monitoring"):
+            response = call_transform(
+                "Analyze the company's performance against its stated key performance indicators, including both financial and operational metrics. Detail any significant changes in KPI achievement rates and explain potential underlying factors.",
+                fromYear,
+                ticker
+            )
+            st.write(response)
+            
+        with st.expander("Market Positioning"):
+            response = call_transform(
+                "Evaluate the company's current market position, including market share trends, competitive advantages, and strategic positioning within its industry. Include analysis of brand strength and customer relationship metrics where available.",
+                fromYear,
+                ticker
+            )
             st.write(response)
 
-        # Chat interface
-        st.write("## Ask Questions About the Company")
-        st.write("Use the chat below to ask specific questions about the company's performance, leadership, strategy, or any other aspect.")
+        # Leadership & Governance Section
+        st.write("### Leadership & Governance")
         
-        display_chat_history()
+        with st.expander("Board Composition"):
+            response = call_transform(
+                "Analyze the current board composition, including member backgrounds, expertise distribution, and independence status. Detail any recent changes and evaluate the board's diversity across various dimensions.",
+                fromYear,
+                ticker
+            )
+            st.write(response)
+            
+        with st.expander("Executive Leadership Profiles"):
+            response = call_transform(
+                "Provide comprehensive profiles of key executive team members, including their experience, achievements since joining, and significant decisions or initiatives they've led. Include any notable changes in leadership structure or responsibilities.",
+                fromYear,
+                ticker
+            )
+            st.write(response)
+            
+        with st.expander("Committee Structure"):
+            response = call_transform(
+                "Detail the current board committee structure, including each committee's composition, primary responsibilities, and key decisions or recommendations made in the past year. Evaluate the effectiveness of the committee framework.",
+                fromYear,
+                ticker
+            )
+            st.write(response)
+            
+        with st.expander("Compensation Analysis"):
+            response = call_transform(
+                "Analyze executive compensation structures, including base salary, performance bonuses, equity awards, and other benefits. Compare compensation levels against industry benchmarks and evaluate alignment with company performance.",
+                fromYear,
+                ticker
+            )
+            st.write(response)
+            
+        with st.expander("DE&I Metrics"):
+            response = call_transform(
+                "Evaluate the company's diversity, equity, and inclusion metrics across all organizational levels, including board, executive team, and workforce composition. Track progress against stated DE&I goals and industry benchmarks.",
+                fromYear,
+                ticker
+            )
+            st.write(response)
 
-        if prompt := st.chat_input("What would you like to know about the company?"):
-            with st.chat_message("user"):
-                st.markdown(prompt)
-            st.session_state.messages.append({"role": "user", "content": prompt})
-
-            with st.chat_message("assistant"):
-                response = call_transform(prompt, fromYear, ticker)
-                st.markdown(response)
-            st.session_state.messages.append({"role": "assistant", "content": response})
-
-def main():
-    st.set_page_config(page_title="Company Analysis & Chat", layout="wide")
-    
-    st.title("Interactive Company Analysis with AI Chat")
-    st.write("Enter a stock ticker and time period to analyze a company. Once the data is loaded, you can ask questions about any aspect of the company.")
-    
-    initialize_chat_history()
-
-    # Sidebar for inputs
-    with st.sidebar:
-        st.header("Analysis Parameters")
-        ticker = st.text_input('Enter Stock Ticker:', 'AAPL').upper()
-        years = st.selectbox('Analysis Timeframe (Years):', options=[1, 2, 5], index=0)
+        # Risk Assessment Section
+        st.write("### Risk Assessment")
         
-        if st.button('Generate Analysis', use_container_width=True):
-            if not re.match(r'^[A-Z0-9]{1,5}$', ticker):
-                st.error("Invalid ticker format. Please enter a valid stock ticker (1-5 uppercase letters/numbers).")
-            else:
-                generate_report(ticker, years)
-        
-        st.divider()
-        st.write("### About")
-        st.write("""
-        This tool combines financial analysis with AI-powered insights. You can:
-        - View technical and fundamental analysis
-        - Track performance metrics
-        - Chat with AI about any aspect of the company
-        - Get insights about leadership and strategy
-        """)
+        with st.expander("Risk Factor Identification"):
+            response = call_transform(
+                "Identify and categorize all material risks disclosed by the company, including operational, financial, regulatory, and strategic risks. Provide specific examples and context for each major risk category.",
+                fromYear,
+                ticker
+            )
+            st.write(response)
+            
+        with st.expander("Risk Pattern Evolution"):
+            response = call_transform(
+                f"Analyze how the company's risk profile has evolved over the past {years} years, noting new emerging risks, risks that have been mitigated, and changes in risk prioritization. Include specific examples of risk materialization where applicable.",
+                fromYear,
+                ticker
+            )
+            st.write(response)
+            
+        with st.expander("Mitigation Strategies"):
+            response = call_transform(
+                "Evaluate the company's risk mitigation strategies and their effectiveness, including specific policies, procedures, and controls implemented to address key risks. Assess the comprehensiveness of the risk management framework.",
+                fromYear,
+                ticker
+            )
+            st.write(response)
+            
+        with st.expander("Impact Analysis"):
+            response = call_transform(
+                "Analyze the potential financial and operational impacts of identified risks, including quantitative assessments where available and qualitative evaluations of potential consequences. Include historical examples of risk impacts when relevant.",
+                fromYear,
+                ticker
+            )
+            st.write(response)
+            
+        with st.expander("Peer Risk Comparison"):
+            response = call_transform(
+                "Compare the company's risk profile and mitigation strategies against industry peers, highlighting areas where the company's approach differs significantly from industry standards. Include analysis of unique risks specific to the company.",
+                fromYear,
+                ticker
+            )
+            st.write(response)
 
-    # If there's already a ticker loaded, show the chat interface
-    if st.session_state.ticker:
-        if prompt := st.chat_input("Ask a question about the company..."):
-            with st.chat_message("user"):
-                st.markdown(prompt)
-            st.session_state.messages.append({"role": "user", "content": prompt})
 
-            with st.chat_message("assistant"):
-                response = call_transform(prompt, st.session_state.from_year, st.session_state.ticker)
-                st.markdown(response)
-            st.session_state.messages.append({"role": "assistant", "content": response})
 
 if __name__ == '__main__':
     api = API()

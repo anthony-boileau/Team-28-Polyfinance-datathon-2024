@@ -29,7 +29,7 @@ class DBagent:
 
     def format_metadata_citation(self, metadata: Dict[str, Any]) -> str:
         """Format metadata into a citation string."""
-        return f"({metadata['year']} annual report, {metadata['item']})"
+        return f"{metadata['year']} Annual Report, {metadata['item']}"
 
     def tokenize_annual_report(self, filepath: str, collection) -> bool:
         """
@@ -117,7 +117,7 @@ class DBagent:
             print(f"Error embedding company {ticker}: {str(e)}")
             return False
 
-    def get_context(self, prompt: str, fromYear: int, ticker: str, context_vector_count: int = 3) -> str:
+    def get_context(self, prompt: str, fromYear: int, ticker: str, context_vector_count: int = 16) -> str:
         """
         Get context for a given prompt by retrieving and formatting relevant data.
         
@@ -137,52 +137,46 @@ class DBagent:
         if not data['documents'] or not data['documents'][0]:
             return "No relevant data found for the given criteria."
             
-        # Format the retrieved data into vector contexts
-        vector_contexts = []
+        # Create a list to store all content and a set for unique citations
+        content_list = []
+        citations = set()
         
         # Zip together documents and metadatas from the response
-        for docs, metas, distances in zip(data['documents'][0], data['metadatas'][0], data['distances'][0]):
-            # Ensure content ends with proper punctuation before adding citation
-            content = docs
-            if not content.endswith(('.', '!', '?')):
-                content += '.'
-                
-            # Add citation after the final punctuation
-            if content.endswith('.'):
-                content = content[:-1]  # Remove the period
+        for docs, metas in zip(data['documents'][0], data['metadatas'][0]):
+            # Add the document content
+            content_list.append(docs)
             
-            formatted_content = f"{content} {self.format_metadata_citation(metas)}."
+            # Add the citation to our set
+            citations.add(self.format_metadata_citation(metas))
             
-            vector_contexts.append({
-                "content": formatted_content,
-                "distance": distances  # Include distance score for potential filtering/ranking
-            })
+        # Join all content into a single paragraph
+        content = " ".join(content_list)
+        
+        # Format citations
+        citation_text = "\n\nSources:\n* " + "\n* ".join(sorted(citations))
             
-        # Sort contexts by distance score (lower is better)
-        vector_contexts.sort(key=lambda x: x["distance"])
-            
+
         context = (
             "System: You are a financial analyst specializing in annual report analysis. "
-            "Provide essential information in a structured format while maintaining high standards for accuracy and completeness.\n\n"
+            "Provide essential information in a clear, concise format while maintaining high standards "
+            "for accuracy and completeness.\n\n"
             "Response Format:\n"
-            "1. State key facts without first person references\n"
-            "2. Maintain intellectual honesty - express uncertainty when appropriate\n"
-            "3. Complete each thought fully before moving to the next source\n"
-            "4. End each statement with appropriate punctuation (.!?)\n\n"
-            "Sources to analyze:\n"
-            f"{json.dumps(vector_contexts, indent=2)}\n\n"
+            "1. Generate a single, well-structured paragraph that synthesizes all the information\n"
+            "2. Focus on key facts and maintain objectivity\n"
+            "3. Express uncertainty when appropriate\n"
+            "4. End with a comprehensive source list\n\n"
+            "Content to analyze:\n"
+            f"{content}\n"
+            f"{citation_text}\n\n"
             "Constraints:\n"
-            f"- Maximum of {len(vector_contexts)} sources to analyze\n"
-            "- Use 0-5 complete sentences per source\n"
+            "- Maximum 5 sentences\n"
+            "- Create a cohesive narrative from all sources\n"
             "- Use only factual statements from the sources\n"
             "- Be direct about limitations in the source material\n"
             "- Maintain formal, analytical tone\n"
-            "- If content is irrelevant or insufficient, say so rather than making assumptions\n"
-            "- Separate each source's analysis with a line break\n"
             "- Do not use any HTML formatting or tags\n"
-            "- Ensure each analysis is complete and doesn't trail off\n"
-            "- Every sentence must end with proper punctuation\n"
-            "- Citations should only appear at the end of each paragraph\n"
+            "- If content is irrelevant or insufficient, say so rather than making assumptions\n"
+            "- Ensure every sentence is complete and ends with proper punctuation\n"
         )
         return context
 
@@ -231,16 +225,3 @@ class DBagent:
         except Exception as e:
             print(f"Error querying collection: {str(e)}")
             raise
-
-if __name__ == "__main__":
-    dba = DBagent()
-    prompt = "What are the main risk factors?"
-    
-    # Example usage
-    context = dba.get_context(
-        prompt=prompt,
-        fromYear=2024,
-        ticker="TSLA",
-        context_vector_count=10
-    )
-    print(context)

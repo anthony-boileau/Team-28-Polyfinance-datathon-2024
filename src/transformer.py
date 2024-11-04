@@ -17,7 +17,7 @@ class Transformer:
     def __init__(self, 
                  env_file: str = '.secrets',
                  model_id: str = "anthropic.claude-3-sonnet-20240229-v1:0",
-                 max_tokens: int = 100,
+                 max_tokens: int = 2048,
                  temperature: float = 0.5):
         """
         Initialize the BedrockTransformer with AWS credentials and model parameters.
@@ -34,9 +34,7 @@ class Transformer:
         self.model_id = model_id
         self.max_tokens = max_tokens
         self.temperature = temperature
-        self.client = self._initialize_client()
-        self.dba = DBagent()  # Initialize the DBagent
-        
+        self.client = self._initialize_client()        
         Transformer._initialized = True
         
     def load_credentials(self, env_file: str) -> None:

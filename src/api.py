@@ -145,65 +145,7 @@ class API:
             print(f"Error in batch processing for {ticker}: {str(e)}")
             return False
 
-async def run_batch_collection_test():
-    """Test the batch collection processing"""
-    api = API()
-    try:
-        # Test with a single company for 2 years
-        success = await api.batch_get_collections('TSLA', 2020, 2021)  # Added end year
-        if success:
-            print("Batch processing completed successfully")
-        else:
-            print("Batch processing encountered some errors")
-    finally:
-        await api.cleanup()
 
-async def run_generate_tests():
-    """Run performance tests on multiple companies"""
-    companies = ['GOOGL', 'MSFT', 'AAPL', 'AMZN', 'TSLA', 'NFLX', 'FB', 'NVDA', 'DIS']
-    times_per_company = defaultdict(list)
-    total_time = 0
-    all_times = []
-    api = API()  # Create single API instance outside the loop
-    
-    try:
-        for company in companies:
-            for run in range(3):
-                try:
-                    start_time = time.perf_counter()
-                    result = await api.generate_annual_reports(company, 2023, 2023)
-                    execution_time = time.perf_counter() - start_time
-                    times_per_company[company].append(execution_time)
-                    total_time += execution_time
-                    all_times.append(execution_time)
-                    print(f"Run {run + 1} for {company}: {execution_time:.3f} seconds")
-                except Exception as e:
-                    print(f"Error in run {run + 1} for {company}: {str(e)}")
-
-        # Calculate statistics
-        for company in companies:
-            company_times = times_per_company[company]
-            if len(company_times) > 1:  # Need at least 2 values for std dev
-                avg_time = statistics.mean(company_times)
-                std_dev = statistics.stdev(company_times)
-                print(f"\n{company} Statistics:")
-                print(f"Average: {avg_time:.3f} seconds")
-                print(f"Std Dev: {std_dev:.3f} seconds")
-
-        if all_times:  # Only calculate if we have data
-            overall_average = total_time / len(all_times)
-            overall_std = statistics.pstdev(all_times)
-            print(f"\nOverall average across all runs: {overall_average:.3f} seconds")
-            print(f"Overall population std dev: {overall_std:.3f} seconds")
-            
-        return True
-    finally:
-        await api.cleanup()
-
-def collection_test():
-    """Test the collection conversion for a single company"""
-    api = API()
-    return api.annual_report_to_collection('TSLA', 2023)
 
 if __name__ == "__main__":
-    asyncio.run(run_batch_collection_test())
+    pass
