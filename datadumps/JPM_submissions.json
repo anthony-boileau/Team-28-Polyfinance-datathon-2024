@@ -1,0 +1,128 @@
+{
+    "cik": "19617",
+    "entityType": "operating",
+    "sic": "6021",
+    "sicDescription": "National Commercial Banks",
+    "ownerOrg": "02 Finance",
+    "insiderTransactionForOwnerExists": 1,
+    "insiderTransactionForIssuerExists": 1,
+    "name": "JPMORGAN CHASE & CO",
+    "tickers": [
+        "JPM",
+        "JPM-PC",
+        "JPM-PD",
+        "AMJB",
+        "JPM-PJ",
+        "JPM-PK",
+        "JPM-PL",
+        "JPM-PM"
+    ],
+    "exchanges": [
+        "NYSE",
+        "NYSE",
+        "NYSE",
+        "NYSE",
+        "NYSE",
+        "NYSE",
+        "NYSE",
+        "NYSE"
+    ],
+    "ein": "132624428",
+    "description": "",
+    "website": "",
+    "investorWebsite": "",
+    "category": "Large accelerated filer",
+    "fiscalYearEnd": "1231",
+    "stateOfIncorporation": "DE",
+    "stateOfIncorporationDescription": "DE",
+    "addresses": {
+        "mailing": {
+            "street1": "383 MADISON AVENUE",
+            "street2": null,
+            "city": "NEW YORK",
+            "stateOrCountry": "NY",
+            "zipCode": "10017",
+            "stateOrCountryDescription": "NY"
+        },
+        "business": {
+            "street1": "383 MADISON AVENUE",
+            "street2": null,
+            "city": "NEW YORK",
+            "stateOrCountry": "NY",
+            "zipCode": "10017",
+            "stateOrCountryDescription": "NY"
+        }
+    },
+    "phone": "2122706000",
+    "flags": "",
+    "formerNames": [
+        {
+            "name": "J P MORGAN CHASE & CO",
+            "from": "2001-02-08T00:00:00.000Z",
+            "to": "2011-10-06T00:00:00.000Z"
+        },
+        {
+            "name": "CHASE MANHATTAN CORP /DE/",
+            "from": "1996-10-17T00:00:00.000Z",
+            "to": "2000-11-21T00:00:00.000Z"
+        },
+        {
+            "name": "CHEMICAL BANKING CORP",
+            "from": "1994-02-02T00:00:00.000Z",
+            "to": "1996-03-28T00:00:00.000Z"
+        }
+    ],
+    "filings": {
+        "recent": {
+            "accessionNumber": [
+                "0000019617-24-000225"
+            ],
+            "filingDate": [
+                "2024-02-16"
+            ],
+            "reportDate": [
+                "2023-12-31"
+            ],
+            "acceptanceDateTime": [
+                "2024-02-16T16:20:22.000Z"
+            ],
+            "act": [
+                "34"
+            ],
+            "form": [
+                "10-K"
+            ],
+            "fileNumber": [
+                "001-05805"
+            ],
+            "filmNumber": [
+                "24648657"
+            ],
+            "items": [
+                ""
+            ],
+            "core_type": [
+                "XBRL"
+            ],
+            "size": [
+                69751229
+            ],
+            "isXBRL": [
+                1
+            ],
+            "isInlineXBRL": [
+                1
+            ],
+            "primaryDocument": [
+                "jpm-20231231.htm"
+            ],
+            "primaryDocDescription": [
+                "10-K"
+            ],
+            "primaryDocumentLinks": [
+                "https://www.sec.gov/Archives/edgar/data/0000019617/000001961724000225/jpm-20231231.htm"
+            ]
+        },
+        "files": []
+    }
+}

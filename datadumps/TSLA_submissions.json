@@ -1,0 +1,216 @@
+{
+    "cik": "1318605",
+    "entityType": "operating",
+    "sic": "3711",
+    "sicDescription": "Motor Vehicles & Passenger Car Bodies",
+    "ownerOrg": "04 Manufacturing",
+    "insiderTransactionForOwnerExists": 0,
+    "insiderTransactionForIssuerExists": 1,
+    "name": "Tesla, Inc.",
+    "tickers": [
+        "TSLA"
+    ],
+    "exchanges": [
+        "Nasdaq"
+    ],
+    "ein": "912197729",
+    "description": "",
+    "website": "",
+    "investorWebsite": "",
+    "category": "Large accelerated filer",
+    "fiscalYearEnd": "1231",
+    "stateOfIncorporation": "DE",
+    "stateOfIncorporationDescription": "DE",
+    "addresses": {
+        "mailing": {
+            "street1": "3500 DEER CREEK RD",
+            "street2": null,
+            "city": "PALO ALTO",
+            "stateOrCountry": "CA",
+            "zipCode": "94304",
+            "stateOrCountryDescription": "CA"
+        },
+        "business": {
+            "street1": "3500 DEER CREEK RD",
+            "street2": null,
+            "city": "PALO ALTO",
+            "stateOrCountry": "CA",
+            "zipCode": "94304",
+            "stateOrCountryDescription": "CA"
+        }
+    },
+    "phone": "650-681-5000",
+    "flags": "",
+    "formerNames": [
+        {
+            "name": "TESLA MOTORS INC",
+            "from": "2005-02-17T00:00:00.000Z",
+            "to": "2017-01-27T00:00:00.000Z"
+        }
+    ],
+    "filings": {
+        "recent": {
+            "accessionNumber": [
+                "0001628280-24-002390",
+                "0000950170-23-001409",
+                "0000950170-22-000796",
+                "0001564590-21-004599",
+                "0001564590-20-004475",
+                "0001564590-19-003165",
+                "0001564590-18-002956",
+                "0001564590-17-003118"
+            ],
+            "filingDate": [
+                "2024-01-29",
+                "2023-01-31",
+                "2022-02-07",
+                "2021-02-08",
+                "2020-02-13",
+                "2019-02-19",
+                "2018-02-23",
+                "2017-03-01"
+            ],
+            "reportDate": [
+                "2023-12-31",
+                "2022-12-31",
+                "2021-12-31",
+                "2020-12-31",
+                "2019-12-31",
+                "2018-12-31",
+                "2017-12-31",
+                "2016-12-31"
+            ],
+            "acceptanceDateTime": [
+                "2024-01-26T21:00:20.000Z",
+                "2023-01-30T21:29:15.000Z",
+                "2022-02-04T20:11:27.000Z",
+                "2021-02-08T07:27:23.000Z",
+                "2020-02-13T07:12:18.000Z",
+                "2019-02-19T06:10:16.000Z",
+                "2018-02-23T06:07:43.000Z",
+                "2017-03-01T16:54:21.000Z"
+            ],
+            "act": [
+                "34",
+                "34",
+                "34",
+                "34",
+                "34",
+                "34",
+                "34",
+                "34"
+            ],
+            "form": [
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K"
+            ],
+            "fileNumber": [
+                "001-34756",
+                "001-34756",
+                "001-34756",
+                "001-34756",
+                "001-34756",
+                "001-34756",
+                "001-34756",
+                "001-34756"
+            ],
+            "filmNumber": [
+                "24569853",
+                "23570030",
+                "22595227",
+                "21598537",
+                "20606921",
+                "19613254",
+                "18634585",
+                "17655025"
+            ],
+            "items": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "core_type": [
+                "XBRL",
+                "XBRL",
+                "XBRL",
+                "XBRL",
+                "XBRL",
+                "10-K",
+                "10-K",
+                "10-K"
+            ],
+            "size": [
+                15527801,
+                31445171,
+                29316024,
+                32860345,
+                29961626,
+                30826751,
+                25498533,
+                26888750
+            ],
+            "isXBRL": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+            ],
+            "isInlineXBRL": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+                0,
+                0
+            ],
+            "primaryDocument": [
+                "tsla-20231231.htm",
+                "tsla-20221231.htm",
+                "tsla-20211231.htm",
+                "tsla-10k_20201231.htm",
+                "tsla-10k_20191231.htm",
+                "tsla-10k_20181231.htm",
+                "tsla-10k_20171231.htm",
+                "tsla-10k_20161231.htm"
+            ],
+            "primaryDocDescription": [
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K"
+            ],
+            "primaryDocumentLinks": [
+                "https://www.sec.gov/Archives/edgar/data/0001318605/000162828024002390/tsla-20231231.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001318605/000095017023001409/tsla-20221231.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001318605/000095017022000796/tsla-20211231.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001318605/000156459021004599/tsla-10k_20201231.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001318605/000156459020004475/tsla-10k_20191231.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001318605/000156459019003165/tsla-10k_20181231.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001318605/000156459018002956/tsla-10k_20171231.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001318605/000156459017003118/tsla-10k_20161231.htm"
+            ]
+        },
+        "files": []
+    }
+}

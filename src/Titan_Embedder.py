@@ -71,14 +71,6 @@ class TitanEmbedder:
             region_name=self.aws_region
         )
 
-    def __getstate__(self) -> dict:
-        """Customize object serialization to maintain singleton pattern."""
-        return self.__dict__
-
-    def __setstate__(self, state: dict) -> None:
-        """Customize object deserialization to maintain singleton pattern."""
-        self.__dict__ = state
-
     def generate_embeddings(self, input_text: str) -> Dict[str, Any]:
         """
         Generate embeddings for the given input text.

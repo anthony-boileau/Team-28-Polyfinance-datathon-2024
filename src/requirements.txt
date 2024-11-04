@@ -16,3 +16,4 @@ cloudpickle
 dill
 objsize
 pyarrow
+chromadb

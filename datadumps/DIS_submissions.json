@@ -1,0 +1,173 @@
+{
+    "cik": "1744489",
+    "entityType": "operating",
+    "sic": "7990",
+    "sicDescription": "Services-Miscellaneous Amusement & Recreation",
+    "ownerOrg": "07 Trade & Services",
+    "insiderTransactionForOwnerExists": 1,
+    "insiderTransactionForIssuerExists": 1,
+    "name": "Walt Disney Co",
+    "tickers": [
+        "DIS"
+    ],
+    "exchanges": [
+        "NYSE"
+    ],
+    "ein": "830940635",
+    "description": "",
+    "website": "",
+    "investorWebsite": "",
+    "category": "Large accelerated filer",
+    "fiscalYearEnd": "0928",
+    "stateOfIncorporation": "DE",
+    "stateOfIncorporationDescription": "DE",
+    "addresses": {
+        "mailing": {
+            "street1": "500 SOUTH BUENA VISTA STREET",
+            "street2": null,
+            "city": "BURBANK",
+            "stateOrCountry": "CA",
+            "zipCode": "91521",
+            "stateOrCountryDescription": "CA"
+        },
+        "business": {
+            "street1": "500 SOUTH BUENA VISTA STREET",
+            "street2": null,
+            "city": "BURBANK",
+            "stateOrCountry": "CA",
+            "zipCode": "91521",
+            "stateOrCountryDescription": "CA"
+        }
+    },
+    "phone": "(818) 560-1000",
+    "flags": "",
+    "formerNames": [
+        {
+            "name": "TWDC Holdco 613 Corp",
+            "from": "2018-06-25T00:00:00.000Z",
+            "to": "2018-06-28T00:00:00.000Z"
+        },
+        {
+            "name": "TWDC Holdco 613 Corp.",
+            "from": "2018-06-27T00:00:00.000Z",
+            "to": "2018-06-27T00:00:00.000Z"
+        }
+    ],
+    "filings": {
+        "recent": {
+            "accessionNumber": [
+                "0001744489-23-000216",
+                "0001744489-22-000213",
+                "0001744489-21-000220",
+                "0001744489-20-000197",
+                "0001744489-19-000225"
+            ],
+            "filingDate": [
+                "2023-11-21",
+                "2022-11-29",
+                "2021-11-24",
+                "2020-11-25",
+                "2019-11-20"
+            ],
+            "reportDate": [
+                "2023-09-30",
+                "2022-10-01",
+                "2021-10-02",
+                "2020-10-03",
+                "2019-09-28"
+            ],
+            "acceptanceDateTime": [
+                "2023-11-21T17:04:04.000Z",
+                "2022-11-29T17:03:15.000Z",
+                "2021-11-24T16:34:25.000Z",
+                "2020-11-25T16:59:53.000Z",
+                "2019-11-20T17:18:30.000Z"
+            ],
+            "act": [
+                "34",
+                "34",
+                "34",
+                "34",
+                "34"
+            ],
+            "form": [
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K"
+            ],
+            "fileNumber": [
+                "001-38842",
+                "001-38842",
+                "001-38842",
+                "001-38842",
+                "001-38842"
+            ],
+            "filmNumber": [
+                "231429053",
+                "221433462",
+                "211447310",
+                "201351521",
+                "191235100"
+            ],
+            "items": [
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "core_type": [
+                "XBRL",
+                "XBRL",
+                "XBRL",
+                "XBRL",
+                "XBRL"
+            ],
+            "size": [
+                23405928,
+                24809545,
+                25281807,
+                29365690,
+                35176390
+            ],
+            "isXBRL": [
+                1,
+                1,
+                1,
+                1,
+                1
+            ],
+            "isInlineXBRL": [
+                1,
+                1,
+                1,
+                1,
+                1
+            ],
+            "primaryDocument": [
+                "dis-20230930.htm",
+                "dis-20221001.htm",
+                "dis-20211002.htm",
+                "dis-20201003.htm",
+                "fy2019q410k.htm"
+            ],
+            "primaryDocDescription": [
+                "FORM 10-K",
+                "FORM 10-K",
+                "FORM 10-K",
+                "FORM 10-K",
+                "FORM 10-K"
+            ],
+            "primaryDocumentLinks": [
+                "https://www.sec.gov/Archives/edgar/data/0001744489/000174448923000216/dis-20230930.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001744489/000174448922000213/dis-20221001.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001744489/000174448921000220/dis-20211002.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001744489/000174448920000197/dis-20201003.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001744489/000174448919000225/fy2019q410k.htm"
+            ]
+        },
+        "files": []
+    }
+}

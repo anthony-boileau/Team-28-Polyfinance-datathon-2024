@@ -1,0 +1,194 @@
+{
+    "cik": "789019",
+    "entityType": "operating",
+    "sic": "7372",
+    "sicDescription": "Services-Prepackaged Software",
+    "ownerOrg": "06 Technology",
+    "insiderTransactionForOwnerExists": 1,
+    "insiderTransactionForIssuerExists": 1,
+    "name": "MICROSOFT CORP",
+    "tickers": [
+        "MSFT"
+    ],
+    "exchanges": [
+        "Nasdaq"
+    ],
+    "ein": "911144442",
+    "description": "",
+    "website": "",
+    "investorWebsite": "",
+    "category": "Large accelerated filer",
+    "fiscalYearEnd": "0630",
+    "stateOfIncorporation": "WA",
+    "stateOfIncorporationDescription": "WA",
+    "addresses": {
+        "mailing": {
+            "street1": "ONE MICROSOFT WAY",
+            "street2": null,
+            "city": "REDMOND",
+            "stateOrCountry": "WA",
+            "zipCode": "98052-6399",
+            "stateOrCountryDescription": "WA"
+        },
+        "business": {
+            "street1": "ONE MICROSOFT WAY",
+            "street2": null,
+            "city": "REDMOND",
+            "stateOrCountry": "WA",
+            "zipCode": "98052-6399",
+            "stateOrCountryDescription": "WA"
+        }
+    },
+    "phone": "425-882-8080",
+    "flags": "",
+    "formerNames": [],
+    "filings": {
+        "recent": {
+            "accessionNumber": [
+                "0000950170-24-087843",
+                "0000950170-23-035122",
+                "0001564590-22-026876",
+                "0001564590-21-039151",
+                "0001564590-20-034944",
+                "0001564590-19-027952",
+                "0001564590-18-019062"
+            ],
+            "filingDate": [
+                "2024-07-30",
+                "2023-07-27",
+                "2022-07-28",
+                "2021-07-29",
+                "2020-07-30",
+                "2019-08-01",
+                "2018-08-03"
+            ],
+            "reportDate": [
+                "2024-06-30",
+                "2023-06-30",
+                "2022-06-30",
+                "2021-06-30",
+                "2020-06-30",
+                "2019-06-30",
+                "2018-06-30"
+            ],
+            "acceptanceDateTime": [
+                "2024-07-30T16:06:22.000Z",
+                "2023-07-27T16:01:56.000Z",
+                "2022-07-28T16:06:19.000Z",
+                "2021-07-29T16:21:55.000Z",
+                "2020-07-30T20:44:46.000Z",
+                "2019-08-01T16:09:55.000Z",
+                "2018-08-03T11:03:33.000Z"
+            ],
+            "act": [
+                "34",
+                "34",
+                "34",
+                "34",
+                "34",
+                "34",
+                "34"
+            ],
+            "form": [
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K"
+            ],
+            "fileNumber": [
+                "001-37845",
+                "001-37845",
+                "001-37845",
+                "001-37845",
+                "001-37845",
+                "001-37845",
+                "001-37845"
+            ],
+            "filmNumber": [
+                "241157360",
+                "231118330",
+                "221115247",
+                "211127769",
+                "201063171",
+                "19992755",
+                "18990758"
+            ],
+            "items": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "core_type": [
+                "XBRL",
+                "XBRL",
+                "XBRL",
+                "XBRL",
+                "XBRL",
+                "10-K",
+                "10-K"
+            ],
+            "size": [
+                30375960,
+                40966463,
+                26423137,
+                26907098,
+                27648382,
+                26807783,
+                29646751
+            ],
+            "isXBRL": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+            ],
+            "isInlineXBRL": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+                0
+            ],
+            "primaryDocument": [
+                "msft-20240630.htm",
+                "msft-20230630.htm",
+                "msft-10k_20220630.htm",
+                "msft-10k_20210630.htm",
+                "msft-10k_20200630.htm",
+                "msft-10k_20190630.htm",
+                "msft-10k_20180630.htm"
+            ],
+            "primaryDocDescription": [
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K"
+            ],
+            "primaryDocumentLinks": [
+                "https://www.sec.gov/Archives/edgar/data/0000789019/000095017024087843/msft-20240630.htm",
+                "https://www.sec.gov/Archives/edgar/data/0000789019/000095017023035122/msft-20230630.htm",
+                "https://www.sec.gov/Archives/edgar/data/0000789019/000156459022026876/msft-10k_20220630.htm",
+                "https://www.sec.gov/Archives/edgar/data/0000789019/000156459021039151/msft-10k_20210630.htm",
+                "https://www.sec.gov/Archives/edgar/data/0000789019/000156459020034944/msft-10k_20200630.htm",
+                "https://www.sec.gov/Archives/edgar/data/0000789019/000156459019027952/msft-10k_20190630.htm",
+                "https://www.sec.gov/Archives/edgar/data/0000789019/000156459018019062/msft-10k_20180630.htm"
+            ]
+        },
+        "files": []
+    }
+}

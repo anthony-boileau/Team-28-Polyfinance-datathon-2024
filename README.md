@@ -77,9 +77,11 @@ Extract key information from SEC EDGAR filings into structured JSON format, with
 
 ### Technology Stack
 
-<table>
-<tr>
-<td>
+- Transformer: anthropic claude 3 on AWS. one of the models that was available, quite polished
+- DB: ChromaDB, open source vector db and deployable on AWS
+- UI/api layer: Streamlit, python power and ease of use
+- Data sources: SEC's edgar, yfinance due to being free access
+
 
 ### System Architecture
 
@@ -156,13 +158,12 @@ Sample LLM answer: "according to their 2020 annual report Section 1 Business des
 Each vector contains approximately 32 words, optimized for sentence completion.
 
 ## 📈 Performance Metrics
+Measured on a MacBook Air
 
 | Metric                     | Performance  |
 | -------------------------- | ------------ |
-| Report Processing Time     | < 30 seconds |
-| Metric Extraction Accuracy | 95%          |
+| Annual Report Processing time     | $\hat{\mu} = 3.635s, \hat{\sigma} = 1.418s$ |
 | API Response Time          | < 200ms      |
-| Concurrent Users           | 1000+        |
 
 ## 📜 License
 

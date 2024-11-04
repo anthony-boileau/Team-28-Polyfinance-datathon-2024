@@ -1,0 +1,152 @@
+{
+    "cik": "1065280",
+    "entityType": "operating",
+    "sic": "7841",
+    "sicDescription": "Services-Video Tape Rental",
+    "ownerOrg": "07 Trade & Services",
+    "insiderTransactionForOwnerExists": 0,
+    "insiderTransactionForIssuerExists": 1,
+    "name": "NETFLIX INC",
+    "tickers": [
+        "NFLX"
+    ],
+    "exchanges": [
+        "Nasdaq"
+    ],
+    "ein": "770467272",
+    "description": "",
+    "website": "",
+    "investorWebsite": "",
+    "category": "Large accelerated filer",
+    "fiscalYearEnd": "1231",
+    "stateOfIncorporation": "DE",
+    "stateOfIncorporationDescription": "DE",
+    "addresses": {
+        "mailing": {
+            "street1": "121 ALBRIGHT WAY",
+            "street2": null,
+            "city": "LOS GATOS",
+            "stateOrCountry": "CA",
+            "zipCode": "95032-7606",
+            "stateOrCountryDescription": "CA"
+        },
+        "business": {
+            "street1": "121 ALBRIGHT WAY",
+            "street2": null,
+            "city": "LOS GATOS",
+            "stateOrCountry": "CA",
+            "zipCode": "95032",
+            "stateOrCountryDescription": "CA"
+        }
+    },
+    "phone": "408-540-3700",
+    "flags": "",
+    "formerNames": [
+        {
+            "name": "NETFLIX COM INC",
+            "from": "2000-04-18T00:00:00.000Z",
+            "to": "2002-03-06T00:00:00.000Z"
+        }
+    ],
+    "filings": {
+        "recent": {
+            "accessionNumber": [
+                "0001065280-24-000030",
+                "0001065280-23-000035",
+                "0001065280-22-000036",
+                "0001065280-21-000040"
+            ],
+            "filingDate": [
+                "2024-01-26",
+                "2023-01-26",
+                "2022-01-27",
+                "2021-01-28"
+            ],
+            "reportDate": [
+                "2023-12-31",
+                "2022-12-31",
+                "2021-12-31",
+                "2020-12-31"
+            ],
+            "acceptanceDateTime": [
+                "2024-01-26T16:01:56.000Z",
+                "2023-01-26T16:03:50.000Z",
+                "2022-01-27T17:03:33.000Z",
+                "2021-01-28T16:21:59.000Z"
+            ],
+            "act": [
+                "34",
+                "34",
+                "34",
+                "34"
+            ],
+            "form": [
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K"
+            ],
+            "fileNumber": [
+                "001-35727",
+                "001-35727",
+                "001-35727",
+                "001-35727"
+            ],
+            "filmNumber": [
+                "24567688",
+                "23557693",
+                "22563969",
+                "21565400"
+            ],
+            "items": [
+                "",
+                "",
+                "",
+                ""
+            ],
+            "core_type": [
+                "XBRL",
+                "XBRL",
+                "XBRL",
+                "XBRL"
+            ],
+            "size": [
+                10066244,
+                8638581,
+                9174978,
+                8807240
+            ],
+            "isXBRL": [
+                1,
+                1,
+                1,
+                1
+            ],
+            "isInlineXBRL": [
+                1,
+                1,
+                1,
+                1
+            ],
+            "primaryDocument": [
+                "nflx-20231231.htm",
+                "nflx-20221231.htm",
+                "nflx-20211231.htm",
+                "nflx-20201231.htm"
+            ],
+            "primaryDocDescription": [
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K"
+            ],
+            "primaryDocumentLinks": [
+                "https://www.sec.gov/Archives/edgar/data/0001065280/000106528024000030/nflx-20231231.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001065280/000106528023000035/nflx-20221231.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001065280/000106528022000036/nflx-20211231.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001065280/000106528021000040/nflx-20201231.htm"
+            ]
+        },
+        "files": []
+    }
+}

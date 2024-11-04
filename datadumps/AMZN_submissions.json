@@ -1,0 +1,194 @@
+{
+    "cik": "1018724",
+    "entityType": "operating",
+    "sic": "5961",
+    "sicDescription": "Retail-Catalog & Mail-Order Houses",
+    "ownerOrg": "07 Trade & Services",
+    "insiderTransactionForOwnerExists": 1,
+    "insiderTransactionForIssuerExists": 1,
+    "name": "AMAZON COM INC",
+    "tickers": [
+        "AMZN"
+    ],
+    "exchanges": [
+        "Nasdaq"
+    ],
+    "ein": "911646860",
+    "description": "",
+    "website": "",
+    "investorWebsite": "",
+    "category": "Large accelerated filer",
+    "fiscalYearEnd": "1231",
+    "stateOfIncorporation": "DE",
+    "stateOfIncorporationDescription": "DE",
+    "addresses": {
+        "mailing": {
+            "street1": "410 TERRY AVENUE NORTH",
+            "street2": null,
+            "city": "SEATTLE",
+            "stateOrCountry": "WA",
+            "zipCode": "98109",
+            "stateOrCountryDescription": "WA"
+        },
+        "business": {
+            "street1": "410 TERRY AVENUE NORTH",
+            "street2": null,
+            "city": "SEATTLE",
+            "stateOrCountry": "WA",
+            "zipCode": "98109",
+            "stateOrCountryDescription": "WA"
+        }
+    },
+    "phone": "2062661000",
+    "flags": "",
+    "formerNames": [],
+    "filings": {
+        "recent": {
+            "accessionNumber": [
+                "0001018724-24-000008",
+                "0001018724-23-000004",
+                "0001018724-22-000005",
+                "0001018724-21-000004",
+                "0001018724-20-000004",
+                "0001018724-19-000004",
+                "0001018724-18-000005"
+            ],
+            "filingDate": [
+                "2024-02-02",
+                "2023-02-03",
+                "2022-02-04",
+                "2021-02-03",
+                "2020-01-31",
+                "2019-02-01",
+                "2018-02-02"
+            ],
+            "reportDate": [
+                "2023-12-31",
+                "2022-12-31",
+                "2021-12-31",
+                "2020-12-31",
+                "2019-12-31",
+                "2018-12-31",
+                "2017-12-31"
+            ],
+            "acceptanceDateTime": [
+                "2024-02-01T18:48:30.000Z",
+                "2023-02-02T18:27:34.000Z",
+                "2022-02-03T18:46:51.000Z",
+                "2021-02-02T19:44:10.000Z",
+                "2020-01-30T20:46:13.000Z",
+                "2019-01-31T20:22:40.000Z",
+                "2018-02-01T20:41:15.000Z"
+            ],
+            "act": [
+                "34",
+                "34",
+                "34",
+                "34",
+                "34",
+                "34",
+                "34"
+            ],
+            "form": [
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K"
+            ],
+            "fileNumber": [
+                "000-22513",
+                "000-22513",
+                "000-22513",
+                "000-22513",
+                "000-22513",
+                "000-22513",
+                "000-22513"
+            ],
+            "filmNumber": [
+                "24588330",
+                "23582822",
+                "22590195",
+                "21583589",
+                "20562951",
+                "19557427",
+                "18568399"
+            ],
+            "items": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "core_type": [
+                "XBRL",
+                "XBRL",
+                "XBRL",
+                "XBRL",
+                "XBRL",
+                "10-K",
+                "10-K"
+            ],
+            "size": [
+                12110804,
+                12809287,
+                13441589,
+                12093058,
+                13336980,
+                11900762,
+                12211807
+            ],
+            "isXBRL": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+            ],
+            "isInlineXBRL": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+                0
+            ],
+            "primaryDocument": [
+                "amzn-20231231.htm",
+                "amzn-20221231.htm",
+                "amzn-20211231.htm",
+                "amzn-20201231.htm",
+                "amzn-20191231x10k.htm",
+                "amzn-20181231x10k.htm",
+                "amzn-20171231x10k.htm"
+            ],
+            "primaryDocDescription": [
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K"
+            ],
+            "primaryDocumentLinks": [
+                "https://www.sec.gov/Archives/edgar/data/0001018724/000101872424000008/amzn-20231231.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001018724/000101872423000004/amzn-20221231.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001018724/000101872422000005/amzn-20211231.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001018724/000101872421000004/amzn-20201231.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001018724/000101872420000004/amzn-20191231x10k.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001018724/000101872419000004/amzn-20181231x10k.htm",
+                "https://www.sec.gov/Archives/edgar/data/0001018724/000101872418000005/amzn-20171231x10k.htm"
+            ]
+        },
+        "files": []
+    }
+}
