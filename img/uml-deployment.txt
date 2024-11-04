@@ -4,7 +4,7 @@ actor Analyst
 
 node System
 
-agent Parser
+agent Embedder
 
 agent Transformer
 
@@ -18,9 +18,9 @@ file "Generated Report" as gr
 
 'Relationships
 api <- System: request data
-System --> Parser
-Parser -> Parser: tokenize
-Parser --> vdb: store
+System --> Embedder
+Embedder -> Embedder: tokenize
+Embedder --> vdb: store
 rt --> vdb: retrieve
 rt -> rt: detokenize
 Analyst --> System: make query

@@ -2,7 +2,7 @@
 actor User
 participant System
 participant API as API
-participant Parser
+participant Embedder
 database "VectorDB" as DB
 participant Retriever
 participant Transformer
@@ -15,11 +15,11 @@ title Report Generation Process
 User -> System : requestData(company)
 System -> API: find(company)
 API --> System: return(data)
-System -> Parser: parse(data)
-Parser -> Parser: tokenize(data)
-Parser -> DB: store(vectors)
-DB --> Parser: Confirm
-Parser --> System: Confirm
+System -> Embedder: parse(data)
+Embedder -> Embedder: tokenize(data)
+Embedder -> DB: store(vectors)
+DB --> Embedder: Confirm
+Embedder --> System: Confirm
 
 System -> Report **:create
 

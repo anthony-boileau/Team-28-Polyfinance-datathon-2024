@@ -1,0 +1,226 @@
+{
+    "cik": "2488",
+    "entityType": "operating",
+    "sic": "3674",
+    "sicDescription": "Semiconductors & Related Devices",
+    "ownerOrg": "04 Manufacturing",
+    "insiderTransactionForOwnerExists": 1,
+    "insiderTransactionForIssuerExists": 1,
+    "name": "ADVANCED MICRO DEVICES INC",
+    "tickers": [
+        "AMD"
+    ],
+    "exchanges": [
+        "Nasdaq"
+    ],
+    "ein": "941692300",
+    "description": "",
+    "website": "",
+    "investorWebsite": "",
+    "category": "Large accelerated filer",
+    "fiscalYearEnd": "1228",
+    "stateOfIncorporation": "DE",
+    "stateOfIncorporationDescription": "DE",
+    "addresses": {
+        "mailing": {
+            "street1": "2485 AUGUSTINE DRIVE",
+            "street2": null,
+            "city": "SANTA CLARA",
+            "stateOrCountry": "CA",
+            "zipCode": "95054",
+            "stateOrCountryDescription": "CA"
+        },
+        "business": {
+            "street1": "2485 AUGUSTINE DRIVE",
+            "street2": null,
+            "city": "SANTA CLARA",
+            "stateOrCountry": "CA",
+            "zipCode": "95054",
+            "stateOrCountryDescription": "CA"
+        }
+    },
+    "phone": "(408) 749-4000",
+    "flags": "",
+    "formerNames": [],
+    "filings": {
+        "recent": {
+            "accessionNumber": [
+                "0000002488-24-000012",
+                "0000002488-23-000047",
+                "0000002488-22-000016",
+                "0001628280-21-001185",
+                "0000002488-20-000008",
+                "0000002488-19-000011",
+                "0000002488-18-000042",
+                "0000002488-17-000043",
+                "0000002488-16-000111"
+            ],
+            "filingDate": [
+                "2024-01-31",
+                "2023-02-27",
+                "2022-02-03",
+                "2021-01-29",
+                "2020-02-04",
+                "2019-02-08",
+                "2018-02-27",
+                "2017-02-21",
+                "2016-02-18"
+            ],
+            "reportDate": [
+                "2023-12-30",
+                "2022-12-31",
+                "2021-12-25",
+                "2020-12-26",
+                "2019-12-28",
+                "2018-12-29",
+                "2017-12-30",
+                "2016-12-31",
+                "2015-12-26"
+            ],
+            "acceptanceDateTime": [
+                "2024-01-31T17:16:39.000Z",
+                "2023-02-27T16:20:39.000Z",
+                "2022-02-03T17:22:50.000Z",
+                "2021-01-29T17:24:00.000Z",
+                "2020-02-04T17:21:47.000Z",
+                "2019-02-08T16:44:26.000Z",
+                "2018-02-27T16:18:58.000Z",
+                "2017-02-21T16:52:14.000Z",
+                "2016-02-18T16:19:58.000Z"
+            ],
+            "act": [
+                "34",
+                "34",
+                "34",
+                "34",
+                "34",
+                "34",
+                "34",
+                "34",
+                "34"
+            ],
+            "form": [
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K"
+            ],
+            "fileNumber": [
+                "001-07882",
+                "001-07882",
+                "001-07882",
+                "001-07882",
+                "001-07882",
+                "001-07882",
+                "001-07882",
+                "001-07882",
+                "001-07882"
+            ],
+            "filmNumber": [
+                "24583949",
+                "23675209",
+                "22589772",
+                "21572873",
+                "20574953",
+                "19580553",
+                "18645335",
+                "17625731",
+                "161437749"
+            ],
+            "items": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "core_type": [
+                "XBRL",
+                "XBRL",
+                "XBRL",
+                "XBRL",
+                "XBRL",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K"
+            ],
+            "size": [
+                13561516,
+                13504232,
+                11288935,
+                11900446,
+                13258755,
+                14934215,
+                15862816,
+                14333924,
+                13871985
+            ],
+            "isXBRL": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1
+            ],
+            "isInlineXBRL": [
+                1,
+                1,
+                1,
+                1,
+                1,
+                0,
+                0,
+                0,
+                0
+            ],
+            "primaryDocument": [
+                "amd-20231230.htm",
+                "amd-20221231.htm",
+                "amd-20211225.htm",
+                "amd-20201226.htm",
+                "amdform10-kfy2019.htm",
+                "amd-12292018x10k.htm",
+                "amd-12302017x10k.htm",
+                "amd-12312016x10k.htm",
+                "amd-12262015x10k.htm"
+            ],
+            "primaryDocDescription": [
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K",
+                "10-K"
+            ],
+            "primaryDocumentLinks": [
+                "https://www.sec.gov/Archives/edgar/data/0000002488/000000248824000012/amd-20231230.htm",
+                "https://www.sec.gov/Archives/edgar/data/0000002488/000000248823000047/amd-20221231.htm",
+                "https://www.sec.gov/Archives/edgar/data/0000002488/000000248822000016/amd-20211225.htm",
+                "https://www.sec.gov/Archives/edgar/data/0000002488/000162828021001185/amd-20201226.htm",
+                "https://www.sec.gov/Archives/edgar/data/0000002488/000000248820000008/amdform10-kfy2019.htm",
+                "https://www.sec.gov/Archives/edgar/data/0000002488/000000248819000011/amd-12292018x10k.htm",
+                "https://www.sec.gov/Archives/edgar/data/0000002488/000000248818000042/amd-12302017x10k.htm",
+                "https://www.sec.gov/Archives/edgar/data/0000002488/000000248817000043/amd-12312016x10k.htm",
+                "https://www.sec.gov/Archives/edgar/data/0000002488/000000248816000111/amd-12262015x10k.htm"
+            ]
+        },
+        "files": []
+    }
+}
