@@ -1,0 +1,43 @@
+@startuml
+actor User
+participant App
+participant API
+participant DBagent
+database "VectorDB" as vdb
+database "λDB" as λ
+participant Transformer
+participant Report
+
+autonumber
+title λ Report Generation Process
+
+User -> App: select(ticker, daterange)
+App -> Report **: create
+App -> API: find(ticker,daterange)
+API -> API: parse(annual report)
+API --> App: return parsed
+App -> DBagent: call_embed(parsed)
+
+loop#lightblue #lightblue Foreach Annual Report
+    DBagent -> DBagent: tokenize(parsed)
+    DBagent -> vdb: upsert(tokenized)
+    vdb --> DBagent: Confirm
+end
+
+DBagent --> App: Confirm
+
+loop#lightyellow #lightyellow Foreach section in report
+    App -> Transformer: send(prompt)
+    Transformer -> λ: find(prompt)
+    λ --> vdb: return(fλ)
+    vdb -> vdb: run(fλ)
+    vdb --> Transformer: return(context)
+    Transformer -> Transformer: transform(context, prompt)
+    Transformer --> App: return(output)
+    App -> Report: write(output)
+    Report --> App: Confirm
+end
+
+App --> User: Confirm
+
+@enduml

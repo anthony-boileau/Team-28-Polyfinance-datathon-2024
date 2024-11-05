@@ -1,4 +1,7 @@
-# TENKAWS (10K-AWS) : Plateforme d'Analyse des Rapports Annuels Propulsée par l'IA
+[![FR](https://img.shields.io/badge/🇨🇦-Français-blue.svg)](README.fr.md)
+[![EN](https://img.shields.io/badge/🇨🇦-English-red.svg)](README.md)
+
+# TENKAWS (10K-AWS) : Plateforme d'Analyse de Rapports Annuels Assistée par l'IA
 
 <div align="center">
 
@@ -13,44 +16,47 @@
 ## 🏆 Équipe 28
 
 | Membre          | Profil GitHub |
-|-----------------|----------------|
+|-----------------|---------------|
 | Anthony Boileau | [anthony-boileau](https://github.com/anthony-boileau) |
 | Guillaume Collin | [Guillaume1208](https://github.com/Guillaume1208) |
 | Minh Huynh      | [vibqetowi](https://github.com/vibqetowi) |
 
-## 🎯 Aperçu du Projet
+## 🎯 Présentation du Projet
 
-TENKAWS révolutionne l'analyse financière en transformant les rapports annuels américains complexes (formulaire SEC 10-K) en insights actionnables grâce à la puissance de l'IA générative. Notre plateforme simplifie l'analyse des documents 10-K en offrant :
+TENKAWS révolutionne l'analyse financière en transformant les rapports annuels américains complexes (formulaire SEC 10-K) en informations exploitables grâce à l'IA générative. Notre plateforme simplifie l'analyse des documents 10-K en offrant :
 
-- Analyse automatisée des documents et structuration
-- Comparaisons historiques complètes
-- Analyses techniques approfondies
-- Interface de questions-réponses en langage naturel
+- L'analyse automatisée des documents
+- Des comparaisons historiques approfondies
+- Des analyses techniques détaillées
+- Des interactions en langage naturel
 
-Grâce à ces fonctionnalités, nous rendons l'analyse financière plus accessible et efficace pour les investisseurs, analystes et décideurs.
+Ces fonctionnalités rendent l'analyse financière plus accessible et efficace pour les investisseurs, analystes et décideurs.
 
-### Démonstration de la Plateforme
+### Aperçu de la Plateforme
 
 <div align="center">
 
-![Démonstration de la Plateforme](./img/showcase.gif)
+![Démonstration](./img/showcase.gif)
 
 </div>
 
-#### Insights IA avec Citations Sources
-![Génération d'Insights IA](./img/1730737242023.png)
+#### Analyses IA avec Citations Sources
 
-#### Interface de Discussion avec Base de Connaissances
-![Interface de Chat](img/chat-interface.png)
+![Génération d'Analyses IA](./img/1730737242023.png)
+
+#### Chat Interactif avec Base de Connaissances
+
+![Interface de Discussion](img/chat-interface.png)
 
 #### Analyse Financière Complète
-![Tableau de Bord d'Analyse Technique](img/screenshot-ta.png)
 
-### 🌟 Fonctionnalités Clés
+![Tableau de Bord d'Analyse](img/screenshot-ta.png)
 
-#### Analyse Automatisée des Rapports
+### 🌟 Fonctionnalités Principales
 
-Notre solution offre un accès gratuit aux composants textuels analysés des formulaires 10-K, extrayant les informations clés des documents SEC EDGAR dans un format JSON structuré :
+#### Analyse Automatique des Rapports
+
+Notre solution offre un accès gratuit aux éléments textuels analysés des formulaires 10-K, en extrayant les informations clés des documents SEC EDGAR dans un format JSON structuré :
 
 ```json
 {
@@ -60,7 +66,9 @@ Notre solution offre un accès gratuit aux composants textuels analysés des for
     {
       "item": "Item 3.",
       "description": "Legal Proceedings",
-      "content": ["ITEM 3. LEGAL PROCEEDINGS Refer to Notes 10 (Accrued Expenses and Accrued Litigation) and 18 (Legal and Regulatory Proceedings) to the consolidated financial statements included in Part II, Item 8."]
+      "content": [
+        "ITEM 3. LEGAL PROCEEDINGS Refer to Notes 10 (Accrued Expenses and Accrued Litigation) and 18 (Legal and Regulatory Proceedings) to the consolidated financial statements included in Part II, Item 8."
+      ]
     },
     {
       "item": "Item 4.",
@@ -73,63 +81,63 @@ Notre solution offre un accès gratuit aux composants textuels analysés des for
 
 #### Suite d'Analyses Avancées
 
-Notre package d'analyses complet inclut :
+Notre package analytique comprend :
 
-- **Analyse Historique** : Comparaison des métriques quantitatives et aspects qualitatifs sur plusieurs années via LLM et recherche dans la base de données vectorielle
-- **Q&R Interactif** : Requêtes en langage naturel propulsées par Claude 3
-- **Analytics Complet** : Insights approfondis, des finances à la gouvernance
-- **Données de Marché en Temps Réel** : Contexte de marché en direct via yfinance
+- **Analyse Historique** : Comparaison des métriques quantitatives et qualitatives à travers les années via LLM et recherche vectorielle
+- **Q&R Interactive** : Requêtes en langage naturel propulsées par Claude 3
+- **Analyses Complètes** : Aperçus détaillés des finances à la gouvernance
+- **Données de Marché en Direct** : Contexte de marché en temps réel via yfinance
 
 ## 🏗️ Architecture
 
-### Stack Technologique
+### Stack Technique
 
 Conformément aux exigences du défi, chaque composant fonctionne ou est conçu pour fonctionner sur AWS. Malgré les contraintes de permissions, l'architecture a été conçue pour un déploiement AWS transparent :
 
-- **Modèle IA** : Claude 3 par Anthropic, déployé sur AWS
-  - Exploite les capacités robustes et l'accès gratuit (3.5 Sonnet)
-  - Permet une ingénierie sophistiquée d'auto-prompting
+- **Modèle d'IA** : Claude 3 par Anthropic, déployé sur AWS
+  - Exploite des capacités robustes
+  - Permet l'auto-prompting sophistiqué
 
 - **Base de Données** : ChromaDB
-  - Base de données vectorielle open-source avec support de déploiement AWS
-  - Actuellement en local dû aux problèmes de permissions AWS
+  - Base de données vectorielle open-source compatible AWS
+  - Actuellement en local en raison des restrictions AWS
   - Stack AWS créé avec succès (voir [notre template](./json/reference/chroma-template.json))
-  - Code prêt pour l'adaptation cloud
-    ![Configuration Stack AWS](img/aws-stack.png)
+  - Code prêt pour le cloud
+    ![Configuration AWS](img/aws-stack.png)
 
 - **Frontend/API** : Streamlit
-  - Optimisé pour l'intégration Python
-  - Capacités de développement rapide
+  - Optimisé pour Python
+  - Développement rapide
 
 - **Sources de Données** : SEC EDGAR et yfinance
   - Accès fiable et gratuit aux données financières
 
 ### Architecture Système
 
-Les diagrammes suivants ont été générés avec PlantUML et suivent librement la syntaxe UML :
+Les diagrammes suivants ont été générés avec PlantUML et suivent la syntaxe UML :
 
-![Diagramme de Déploiement UML](img/uml-deployment.png)
+![Diagramme de Déploiement](img/uml-deployment.png)
 ![Flux de Génération de Rapport](img/uml-sequence-generate-report.png)
 
 ## 📊 Composants du Rapport
 
 ### Analyse Financière
 - Métriques et fondamentaux de l'entreprise
-- Suivi de performance historique
+- Suivi des performances historiques
 - Comparaisons sectorielles
-- Surveillance des KPI
+- Suivi des KPI
 - Analyse du positionnement marché
 
 ### Leadership & Gouvernance
-- Aperçu de la composition du conseil
+- Analyse de la composition du conseil
 - Profils des dirigeants
 - Évaluation de la structure des comités
 - Analyse des rémunérations
-- Métriques DE&I
+- Indicateurs DE&I
 
 ### Évaluation des Risques
 - Identification et suivi des facteurs de risque
-- Évolution des modèles de risque
+- Évolution des patterns de risque
 - Évaluation des stratégies d'atténuation
 - Analyse d'impact
 
@@ -139,7 +147,7 @@ Les diagrammes suivants ont été générés avec PlantUML et suivent librement 
 # Installation des dépendances
 pip install -r requirements.txt
 
-# Configuration des identifiants AWS
+# Configuration AWS
 aws configure
 
 # Lancement de l'application
@@ -148,30 +156,30 @@ streamlit run 👋_Landing_Page.py
 
 ## Explicabilité de l'IA
 
-Nous visons à garantir la précision grâce à un suivi méticuleux des sources. Chaque extrait de texte dans la base de données vectorielle inclut des métadonnées sources. Le LLM est invité à fournir des citations précises, renforçant les garde-fous naturels de Claude 3 contre les hallucinations.
+Notre système assure la précision grâce à un suivi rigoureux des sources. Chaque extrait de texte dans la base de données vectorielle inclut des métadonnées sources. L'IA est programmée pour fournir des citations précises, renforçant les protections naturelles de Claude 3 contre les hallucinations.
 
-Bien que l'optimisation de l'utilisation des tokens reste à améliorer, notre système de citation précise surpasse de nombreuses solutions commerciales qui peinent avec l'hallucination des sources.
+Bien que l'optimisation des tokens reste à améliorer, notre système de citation précise surpasse de nombreuses solutions commerciales qui peinent avec l'hallucination des sources.
 
-Structure de la base de données exemple :
+Structure de base de données exemple :
 
 ```json
 [
-    {
-        "metadata": {
-            "year": 2020,
-            "ticker": "JAMEIL",
-            "item": "Item 1."
-        },
-        "content": "Jameil is a food business, we sell breakfast cereal in Algeria"
+  {
+    "metadata": {
+      "year": 2020,
+      "ticker": "JAMEIL",
+      "item": "Item 1."
     },
-    {
-        "metadata": {
-            "year": 2021,
-            "ticker": "JAMEIL",
-            "item": "Item 1A."
-        },
-        "content": "The company expanded operations to Morocco and Tunisia. Revenue grew 25% year over year."
-    }
+    "content": "Jameil is a food business, we sell breakfast cereal in Algeria"
+  },
+  {
+    "metadata": {
+      "year": 2021,
+      "ticker": "JAMEIL",
+      "item": "Item 1A."
+    },
+    "content": "The company expanded operations to Morocco and Tunisia. Revenue grew 25% year over year."
+  }
 ]
 ```
 
@@ -179,32 +187,51 @@ Exemple de Q&R :
 
 ```
 Q : Que vend Jameil ?
-R : Jameil est une entreprise alimentaire qui vend des céréales pour le petit-déjeuner. Elle se concentre sur la fourniture d'options de petit-déjeuner abordables sur les marchés d'Afrique du Nord, spécifiquement en Algérie (rapport annuel 2020, Item 1).
+R : Jameil est une entreprise alimentaire qui vend des céréales pour le petit-déjeuner. Elle se concentre sur la fourniture d'options de petit-déjeuner abordables en Afrique du Nord, particulièrement en Algérie (rapport annuel 2020, Item 1).
 
 Q : Qui est le PDG de Jameil ?
-R : La source fournie ne mentionne pas le PDG de Jameil. Elle indique uniquement que Jameil est une entreprise alimentaire qui vend des céréales en Algérie, se concentrant sur la fourniture d'options de petit-déjeuner abordables aux marchés d'Afrique du Nord. Aucune information n'est donnée sur la direction ou le PDG de l'entreprise.
+R : Les sources disponibles ne mentionnent pas le PDG de Jameil. Elles indiquent uniquement que Jameil est une entreprise alimentaire vendant des céréales en Algérie, se concentrant sur des options de petit-déjeuner abordables en Afrique du Nord. Aucune information sur la direction n'est fournie.
 ```
 
-Notre base de données vectorielle stocke environ 32 mots par vecteur selon la longueur de la dernière phrase stockée. Le critère de séparation actuel est un simple comptage de mots.
+Notre base de données vectorielle stocke environ 32 mots par vecteur selon la longueur de la dernière phrase. Le critère de séparation actuel est un simple comptage de mots.
 
 ## 📈 Métriques de Performance
 
-Testé sur un MacBook Air, utilisant le module time de Python pour mesurer les temps de requête sur un échantillon aléatoire de 10 éléments :
+Testé sur MacBook Air, avec le module time Python sur un échantillon aléatoire de 10 éléments :
 
 | Métrique | Performance |
 |----------|-------------|
-| Temps d'analyse du rapport annuel vers JSON | $\hat{\mu} = 3,635s, \hat{\sigma} = 1,418s$ |
-| Intégration du rapport annuel dans ChromaDB local | $\hat{\mu} = 131,03s, \hat{\sigma} = 65,62s$ |
-| Récupération du contexte et réponse LLM | $\hat{\mu} = 4,69s, \hat{\sigma} = 1,28s$ |
+| Analyse du rapport annuel vers JSON | $\hat{\mu} = 3.635s, \hat{\sigma} = 1.418s$ |
+| Intégration dans ChromaDB local | $\hat{\mu} = 131.03s, \hat{\sigma} = 65.62s$ |
+| Récupération du contexte et réponse IA | $\hat{\mu} = 4.69s, \hat{\sigma} = 1.28s$ |
 
-## 🛣️ Feuille de Route
+## 🛣️ Développements Futurs
 
-- Implémentation de l'analyse de sentiment des médias sociaux/actualités
-- Conversion des appels bloquants restants en opérations asynchrones
-- Déploiement d'instances de base de données hébergées et optimisation des performances d'intégration
-- Analyse des formulaires 10-k par signification pour stocker des idées complètes dans les vecteurs
-- Implémentation de la persistance dans les sessions d'application (actuellement, la navigation réinitialise les sections générées par l'IA)
-- Ajout de la capacité de comparaison entre entreprises
+### Plan de Route
+- Implémentation de l'analyse de sentiment médias/réseaux sociaux
+- Conversion des appels bloquants en asynchrone
+- Déploiement d'instances de base de données et optimisation des performances
+- Analyse sémantique des formulaires 10-K
+- Implémentation de la persistance des rapports générés
+- Ajout des comparaisons entre entreprises et analyses historiques
+
+### Traitement des Requêtes Avancées
+
+Actuellement, l'agent Transformer fonctionne avec un préprompt basique et une recherche sémantique simple. Si cela fonctionne pour les requêtes simples (ex: "Qui est le PDG d'Apple ?"), il peine avec des questions plus complexes nécessitant un contexte historique (ex: "Depuis combien de temps Tim Cook est-il PDG d'Apple ?").
+
+Nos observations montrent que les requêtes nécessitant un contexte historique et des comparaisons multi-aspects ne peuvent être traitées par simple ingénierie de prompt. Cette limitation affecte nos sections IA et le chatbot, qui s'appuient uniquement sur la similarité vectorielle.
+
+#### Architecture Proposée
+
+En raison des contraintes AWS Bedrock, nous avons dû adapter notre architecture initiale. Le concept original incluait :
+
+1. Un système sophistiqué où le Transformer interrogerait d'abord une base de données de fonctions λ associées à des types de requêtes
+2. Le système utiliserait ensuite la recherche sémantique pour identifier et exécuter la fonction λ la plus appropriée
+
+L'architecture améliorée est illustrée ici :
+
+![Architecture de Déploiement Améliorée](img/uml-λ-deployment.png)
+![Diagramme de Séquence Amélioré](img/uml-λ-sequence.png)
 
 ## 📜 Licence
 
@@ -214,6 +241,6 @@ Ce projet est sous licence GPL - voir le fichier [LICENSE](LICENSE) pour plus de
 
 <div align="center">
 
-*Développé avec ❤️ pendant le Datathon Polyfinance 2024*
+*Créé avec ❤️ lors du Datathon Polyfinance 2024*
 
 </div>

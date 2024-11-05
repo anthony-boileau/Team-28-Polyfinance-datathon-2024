@@ -9,7 +9,7 @@ cloud AWS as aws
 cloud SEC as sec
 database "Vector DB" as vdb
 
-title Deployment Diagram
+title System Diagram
 
 ' Relationships
 Analyst --> App

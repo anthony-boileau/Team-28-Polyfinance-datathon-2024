@@ -1,0 +1,33 @@
+@startuml
+actor Analyst
+node App
+node api
+node DBagent as dba
+cloud "yfinance" as yf
+cloud AWS as aws{
+agent Transformer
+database "Vector DB" as vdb
+database "λ DB" as λ
+database "Report Persistence" as rdb
+}
+cloud SEC as sec
+
+
+title λ System Diagram
+
+' Relationships
+Analyst --> App
+App --> dba: req annual report
+App <--> Transformer: req,res llm output
+api --> App: res yfinance
+api --> dba: res annual report
+api --> sec: req
+api --> yf: req
+api --> api: parse
+dba <--> vdb: req,res embeddings
+λ-> vdb: send(fλ)
+vdb --> vdb: run(fλ)
+vdb --> Transformer: send(context)
+Transformer --> λ: request context
+
+@enduml

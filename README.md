@@ -1,5 +1,8 @@
-[![FR](https://img.shields.io/badge/🇫🇷-Français-blue.svg)](README.fr.md)
+[![FR](https://img.shields.io/badge/🇨🇦-Français-blue.svg)](README.fr.md)
+[![EN](https://img.shields.io/badge/🇨🇦-English-red.svg)](README.md)
+
 # TENKAWS (10K-AWS): AI-Powered Annual Report Analysis Platform
+
 <div align="center">
 
 [![Python](https://img.shields.io/badge/Python-3.9%20or%20higher-blue?style=for-the-badge&logo=python)](https://www.python.org/)
@@ -12,8 +15,8 @@
 
 ## 🏆 Team 28
 
-| Team Member      | GitHub Profile                                        |
-| ---------------- | ----------------------------------------------------- |
+| Team Member      | GitHub Profile                                     |
+| ---------------- | -------------------------------------------------- |
 | Anthony Boileau  | [anthony-boileau](https://github.com/anthony-boileau) |
 | Guillaume Collin | [Guillaume1208](https://github.com/Guillaume1208)     |
 | Minh Huynh       | [vibqetowi](https://github.com/vibqetowi)             |
@@ -94,8 +97,7 @@ Per challenge requirements, every component either runs on or is designed to run
 - **AI Model**: Claude 3 by Anthropic, deployed on AWS
 
   - Leverages robust capabilities
-  - Enables sophisticated self-prompting engineering the
-
+  - Enables sophisticated self-prompting engineering
 - **Database**: ChromaDB
 
   - Open-source vector database with AWS deployment support
@@ -103,12 +105,10 @@ Per challenge requirements, every component either runs on or is designed to run
   - AWS stack successfully created (see [our template](./json/reference/chroma-template.json))
   - Code ready for cloud adaptation
     ![AWS Stack Configuration](img/aws-stack.png)
-
 - **Frontend/API**: Streamlit
 
   - Optimized for Python integration
   - Rapid development capabilities
-
 - **Data Sources**: SEC EDGAR and yfinance
 
   - Reliable, free access to financial data
@@ -203,20 +203,40 @@ Our vector database stores approximately 32 words per vector depending on the le
 
 Tested on a MacBook Air, using Python's time module to measure query times on a random sample of 10 items:
 
-| Metric                                     | Performance                                  |
-| ------------------------------------------ | -------------------------------------------- |
+| Metric                                     | Performance                                    |
+| ------------------------------------------ | ---------------------------------------------- |
 | Annual Report to JSON parsing time         | $\hat{\mu} = 3.635s, \hat{\sigma} = 1.418s$  |
 | Embedding annual report to local ChromaDB  | $\hat{\mu} = 131.03s, \hat{\sigma} = 65.62s$ |
 | Retrieving context and answering LLM query | $\hat{\mu} = 4.69s, \hat{\sigma} = 1.28s$    |
 
-## 🛣️ Roadmap
+## 🛣️ Future Developments
+
+### Roadmap Overview
 
 - Implement news/social media sentiment analysis insights
 - Convert remaining blocking calls to async operations
 - Deploy hosted database instances and optimize embedding performance
 - Parse 10-k forms by meaning to store complete ideas in vectors
-- Implement persistence within app sessions (currently navigating away resets AI-generated sections)
-- Add capability to compare companies
+- Implement persistence on generated reports
+- Add capability to compare companies and historical comparisons
+
+### On Advanced Query Processing
+
+Currently, the Transformer agent operates with a basic preprompt and retrieves data through simple semantic search. While this works effectively for straightforward queries (e.g., "Who is the CEO of Apple?"), it struggles with more complex questions requiring historical context or cross-reference analysis (e.g., "How long has Tim Cook been the CEO of Apple?").
+
+Our observations show that queries requiring historical context and multi-aspect comparisons cannot be handled through simple prompt engineering alone. This limitation affects both our AI-generated sections and chatbot functionality, which currently retrieve data from the vector database based solely on similarity (as shown in the UML sequence diagram [above](#system-architecture)).
+
+#### Proposed Architecture Enhancement
+
+Due to AWS Bedrock agent permission constraints, we had to modify our initial architecture. The original concept included:
+
+1. A more sophisticated query processing system where the Transformer would first query a vector database containing λ functions associated with specific query types
+2. The system would then use semantic search to identify and execute the most appropriate λ function against the knowledge base
+
+The improved system architecture is illustrated in these diagrams:
+
+![Improved Deployment Architecture](img/uml-λ-deployment.png)
+![Improved Sequence Diagram](img/uml-λ-sequence.png)
 
 ## 📜 License
 
@@ -226,6 +246,6 @@ This project is licensed under the GPL License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-_Built with ❤️ during the Polyfinance 2024 Datathon_
+*Built with ❤️ during the Polyfinance 2024 Datathon*
 
 </div>
