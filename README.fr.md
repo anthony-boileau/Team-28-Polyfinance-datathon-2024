@@ -1,7 +1,8 @@
 [![FR](https://img.shields.io/badge/🇨🇦-Français-blue.svg)](README.fr.md)
 [![EN](https://img.shields.io/badge/🇨🇦-English-red.svg)](README.md)
+[![Demo](https://img.shields.io/badge/🎥-Demo_Video-white.svg)](/img/datathon.mp4)
 
-# TENKAWS (10K-AWS) : Plateforme d'Analyse de Rapports Annuels Assistée par l'IA
+# 10KAWS : Plateforme d'Analyse de Rapports Annuels Assistée par l'IA
 
 <div align="center">
 
@@ -15,11 +16,11 @@
 
 ## 🏆 Équipe 28
 
-| Membre          | Profil GitHub |
-|-----------------|---------------|
-| Anthony Boileau | [anthony-boileau](https://github.com/anthony-boileau) |
-| Guillaume Collin | [Guillaume1208](https://github.com/Guillaume1208) |
-| Minh Huynh      | [vibqetowi](https://github.com/vibqetowi) |
+| Membre           | Profil GitHub                                         |
+| ---------------- | ----------------------------------------------------- |
+| Anthony Boileau  | [anthony-boileau](https://github.com/anthony-boileau) |
+| Guillaume Collin | [Guillaume1208](https://github.com/Guillaume1208)     |
+| Minh Huynh       | [vibqetowi](https://github.com/vibqetowi)             |
 
 ## 🎯 Présentation du Projet
 
@@ -95,10 +96,12 @@ Notre package analytique comprend :
 Conformément aux exigences du défi, chaque composant fonctionne ou est conçu pour fonctionner sur AWS. Malgré les contraintes de permissions, l'architecture a été conçue pour un déploiement AWS transparent :
 
 - **Modèle d'IA** : Claude 3 par Anthropic, déployé sur AWS
+
   - Exploite des capacités robustes
   - Permet l'auto-prompting sophistiqué
 
 - **Base de Données** : ChromaDB
+
   - Base de données vectorielle open-source compatible AWS
   - Actuellement en local en raison des restrictions AWS
   - Stack AWS créé avec succès (voir [notre template](./json/reference/chroma-template.json))
@@ -106,10 +109,12 @@ Conformément aux exigences du défi, chaque composant fonctionne ou est conçu 
     ![Configuration AWS](img/aws-stack.png)
 
 - **Frontend/API** : Streamlit
+
   - Optimisé pour Python
   - Développement rapide
 
 - **Sources de Données** : SEC EDGAR et yfinance
+
   - Accès fiable et gratuit aux données financières
 
 ### Architecture Système
@@ -122,6 +127,7 @@ Les diagrammes suivants ont été générés avec PlantUML et suivent la syntaxe
 ## 📊 Composants du Rapport
 
 ### Analyse Financière
+
 - Métriques et fondamentaux de l'entreprise
 - Suivi des performances historiques
 - Comparaisons sectorielles
@@ -129,6 +135,7 @@ Les diagrammes suivants ont été générés avec PlantUML et suivent la syntaxe
 - Analyse du positionnement marché
 
 ### Leadership & Gouvernance
+
 - Analyse de la composition du conseil
 - Profils des dirigeants
 - Évaluation de la structure des comités
@@ -136,6 +143,7 @@ Les diagrammes suivants ont été générés avec PlantUML et suivent la syntaxe
 - Indicateurs DE&I
 
 ### Évaluation des Risques
+
 - Identification et suivi des facteurs de risque
 - Évolution des patterns de risque
 - Évaluation des stratégies d'atténuation
@@ -199,15 +207,16 @@ Notre base de données vectorielle stocke environ 32 mots par vecteur selon la l
 
 Testé sur MacBook Air, avec le module time Python sur un échantillon aléatoire de 10 éléments :
 
-| Métrique | Performance |
-|----------|-------------|
-| Analyse du rapport annuel vers JSON | $\hat{\mu} = 3.635s, \hat{\sigma} = 1.418s$ |
-| Intégration dans ChromaDB local | $\hat{\mu} = 131.03s, \hat{\sigma} = 65.62s$ |
-| Récupération du contexte et réponse IA | $\hat{\mu} = 4.69s, \hat{\sigma} = 1.28s$ |
+| Métrique                               | Performance                                  |
+| -------------------------------------- | -------------------------------------------- |
+| Analyse du rapport annuel vers JSON    | $\hat{\mu} = 3.635s, \hat{\sigma} = 1.418s$  |
+| Intégration dans ChromaDB local        | $\hat{\mu} = 131.03s, \hat{\sigma} = 65.62s$ |
+| Récupération du contexte et réponse IA | $\hat{\mu} = 4.69s, \hat{\sigma} = 1.28s$    |
 
 ## 🛣️ Développements Futurs
 
 ### Plan de Route
+
 - Implémentation de l'analyse de sentiment médias/réseaux sociaux
 - Conversion des appels bloquants en asynchrone
 - Déploiement d'instances de base de données et optimisation des performances
@@ -241,6 +250,6 @@ Ce projet est sous licence GPL - voir le fichier [LICENSE](LICENSE) pour plus de
 
 <div align="center">
 
-*Créé avec ❤️ lors du Datathon Polyfinance 2024*
+_Créé avec ❤️ lors du Datathon Polyfinance 2024_
 
 </div>
